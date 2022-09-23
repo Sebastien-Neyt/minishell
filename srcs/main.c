@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 12:03:28 by sneyt             #+#    #+#             */
-/*   Updated: 2022/09/19 12:07:25 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/09/23 11:11:30 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,13 @@ int	main(int argc, char *argv[], char *envp[])
 				execve("bin/env/env", NULL, NULL);
 			wait(NULL);
 			*/
+		}
+		if (ft_strcmp(cmd_list[0], "echo") == 0)
+		{
+			pid = fork();
+			if (pid == 0)
+				execve("bin/echo/echo", cmd_list, NULL);
+			wait(NULL);
 		}
 		add_history(line);
 	}
