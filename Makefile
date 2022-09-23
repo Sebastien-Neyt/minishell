@@ -1,6 +1,7 @@
 NAME = minishell
 
 $(NAME):
+		@cd libft && make
 		@gcc srcs/*.c -lreadline -o minishell
 		@cd bin/pwd && gcc pwd_cmd.c -o pwd
 		@cd bin/echo && gcc echo_cmd.c ../../srcs/utils.c -o echo
