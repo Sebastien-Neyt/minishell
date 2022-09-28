@@ -28,7 +28,7 @@ int	is_in_path(char *envp, char *cmd)
 		return (ret);
 	while (*prefix)
 	{
-		if (test_path(*prefix, cmd) == 0)
+		if (ret != 1 && test_path(*prefix, cmd) == 0)
 			ret = 1;
 		free(*prefix);
 		prefix++;
