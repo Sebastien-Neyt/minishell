@@ -6,11 +6,12 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 12:02:38 by sneyt             #+#    #+#             */
-/*   Updated: 2022/09/23 10:45:42 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/10/03 11:07:16 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strcmp(char const *s1, char const *s2)
+# include "../includes/minishell.h"
+int	ft_strcmpv2(char const *s1, char const *s2)
 {
 	int	c;
 

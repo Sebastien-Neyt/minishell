@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 12:03:28 by sneyt             #+#    #+#             */
-/*   Updated: 2022/09/23 11:11:30 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/10/03 15:34:35 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	init_envs(t_shell *minishell, char **envp)
 		return (1);
 	while (i < count)
 	{
-		minishell->envparams[i] = ft_strdup(envp[i]);
+		minishell->envparams[i] = ft_strdupv2(envp[i]);
 		if (!minishell->envparams[i])
 			return (1);
 		//printf("%d -->%s\n", i, minishell->envparams[i]);
@@ -49,7 +49,8 @@ int	main(int argc, char *argv[], char *envp[])
 	char **cmd_list;
 	int pid;
 	t_shell *minishell;
-	int	i = 0;
+	int	i;
+	char *user;
 	
 	minishell = malloc(sizeof(t_shell *));
 	if (init_envs(minishell, envp))
@@ -59,18 +60,39 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 	while(1)
 	{
-		line = readline(BOLDGREEN "root@minishell >$ " RESET);
+		i = 0;
+		user = ft_strjoin(getenv("USER"), "@minishell >$ ");
+		line = readline(user);
+		if (line == 0)
+			exit(1);
+		if (line[0] == 0)
+			continue ;
 		cmd_list = ft_split(line, ' ');
-		if (ft_strcmp(cmd_list[0], "exit") == 0)
+		if (ft_strcmpv2(cmd_list[0], "exit") == 0)
 			break ;
-		if (ft_strcmp(cmd_list[0], "pwd") == 0)
+		if (ft_strcmpv2(cmd_list[0], "pwd") == 0)
 		{	
 			pid = fork();
 			if (pid == 0)
 				execve("bin/pwd/pwd", NULL, NULL);
 			wait(NULL);
 		}
-		if (ft_strcmp(cmd_list[0], "env") == 0)
+	/*
+		if (ft_strcmpv2(cmd_list[0], "cd") == 0)
+		{
+			//printf("%s\n", cmd_list[1]);
+			chdir("/Users/sneyt");
+			init_envs(minishell, envp);
+		}
+	*/
+		if (ft_strcmpv2(cmd_list[0], "su") == 0)
+		{
+			pid = fork();
+			if (pid == 0)
+				execve("/usr/bin/su", cmd_list, NULL);
+			wait(NULL);
+		}
+		if (ft_strcmpv2(cmd_list[0], "env") == 0)
 		{
 			while (minishell->envparams[i])
 			{
@@ -84,7 +106,7 @@ int	main(int argc, char *argv[], char *envp[])
 			wait(NULL);
 			*/
 		}
-		if (ft_strcmp(cmd_list[0], "echo") == 0)
+		if (ft_strcmpv2(cmd_list[0], "echo") == 0)
 		{
 			pid = fork();
 			if (pid == 0)
@@ -92,5 +114,7 @@ int	main(int argc, char *argv[], char *envp[])
 			wait(NULL);
 		}
 		add_history(line);
+		if (line)
+			free(line);
 	}
 }
