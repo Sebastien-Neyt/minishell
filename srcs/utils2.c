@@ -1,5 +1,6 @@
 #include "../includes/minishell.h"
 
+/*
 static size_t	ft_wordcounter(char *s, char c)
 {
 	size_t			count;
@@ -105,8 +106,8 @@ char	**ft_split(char const *s, char c)
 	}	
 	return (ans);
 }
-
-char	*ft_strdup(char *s1)
+*/
+char	*ft_strdupv2(char *s1)
 {
 	size_t	len;
 	char	*dupe;

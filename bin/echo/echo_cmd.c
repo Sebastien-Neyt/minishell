@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 10:20:37 by sneyt             #+#    #+#             */
-/*   Updated: 2022/09/23 11:41:26 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/10/03 11:07:47 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(int argc, char *argv[])
 	
 	while (argv[i] && !check_for_var(argv[i]))
 	{
-		if (ft_strcmp(argv[i], "-n") == 0)
+		if (ft_strcmpv2(argv[i], "-n") == 0)
 		{
 			n_status = 1;
 			i++;
