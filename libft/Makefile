@@ -6,7 +6,7 @@
 #    By: ccollard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/18 11:47:57 by ccollard          #+#    #+#              #
-#    Updated: 2019/11/18 11:48:06 by ccollard         ###   ########.fr        #
+#    Updated: 2022/10/04 13:30:46 by sneyt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,9 +64,8 @@ SRC	= ft_atoi.c\
 	  ft_strtrim.c\
 	  ft_substr.c\
 	  ft_tolower.c\
-	  ft_toupper.c
-
-BONUS	= ft_lstadd_back.c\
+	  ft_toupper.c\
+	  ft_lstadd_back.c\
 	  ft_lstadd_front.c\
 	  ft_lstclear.c\
 	  ft_lstdelone.c\
@@ -78,7 +77,6 @@ BONUS	= ft_lstadd_back.c\
 
 OBJ 	= $(SRC:%.c=%.o)
 
-BOBJS	= $(BONUS:%.c=%.o)
 
 #end of variable definitions
 
@@ -91,9 +89,6 @@ $(NAME): $(OBJ) libft.h
 	@printf "$(GREEN)."
 	@$(CC) $(CCFLAGS) -c $< -o $@ 
 
-bonus: $(BOBJS) $(OBJ) libft.h
-	@ar rcs $(NAME) $(OBJ) $(BOBJS) libft.h
-
 clean: 
 	@rm -f $(OBJ) $(BOBJS)
 
@@ -102,9 +97,8 @@ fclean: clean
 
 re: fclean all
 
-reb: fclean bonus
 
 test:
 	echo "test $(RED)test"
 
-.PHONY: test clean fclean all re bonus reb
+.PHONY: test clean fclean all re reb

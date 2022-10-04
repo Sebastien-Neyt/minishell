@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 12:04:20 by sneyt             #+#    #+#             */
-/*   Updated: 2022/10/03 11:00:18 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/10/04 13:58:38 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,16 @@
 # define BOLDGREEN "\033[1m\033[32m"
 /*
 enum	token_type {
-	BUILTIN
-}
+	BUILTIN,
+	EXEC,
+	REDIRECT,
+	PIPE,
+	ENV,
+	WORD,
+	NEWLINE,
+	QUOTE_OPEN,
+	QUOTE_CLOSE,
+};
 */
 /*
 typedef struct s_token {
@@ -39,9 +47,17 @@ typedef struct s_job {
 	t_job *next;
 	t_token content;
 }	t_job;
-*/	
+*/
+/*
+typedef struct s_list {
+	char *content;
+	t_list *next;
+}	t_list;
+*/
 typedef struct s_shell {
 	char	**envparams;
+	char	**cmd_list;
+	t_list	*blocks;
 } 	t_shell;
 
 
