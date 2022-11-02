@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isascii.c                                       :+:      :+:    :+:   */
+/*   debug_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cycollar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/04 15:40:30 by cycollar          #+#    #+#             */
-/*   Updated: 2022/04/11 13:49:55 by cycollar         ###   ########.fr       */
+/*   Created: 2022/10/26 11:28:16 by sneyt             #+#    #+#             */
+/*   Updated: 2022/10/26 11:32:44 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/minishell.h"
 
-int	ft_isascii(int c)
+void	print_envs(t_shell *minishell)
 {
-	return ((c >= 0 && c <= 127));
+	int	i;
+
+	i = 0;
+	while (minishell->envparams[i])
+	{
+		printf("%s\n", minishell->envparams[i]);
+		i++;
+	}
 }

@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/19 12:02:38 by sneyt             #+#    #+#             */
-/*   Updated: 2022/09/23 10:45:42 by sneyt            ###   ########.fr       */
+/*   Created: 2022/10/26 11:02:07 by sneyt             #+#    #+#             */
+/*   Updated: 2022/11/02 11:48:33 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strcmp(char const *s1, char const *s2)
-{
-	int	c;
+#include "../includes/minishell.h"
 
-	c = 0;
-	while (s1[c] || s2[c])
-	{
-		if (s1[c] != s2[c])
-			return ((unsigned char)(s1[c]) - (unsigned char)(s2[c]));
-		c++;
-	}
-	return (0);
+int	error_msg(char *err, int ret)
+{
+	write(1, err, ft_strlen(err));
+	return (ret);
 }
+
+void	free_env(t_shell *minishell)
+{
+	int	i;
+	int	size;
+
+	//size = env_counter(minishell->envparams);
+	while (minishell->envparams[i])
+	{
+		free(minishell->envparams[i]);
+		i++;
+	}
+	free(minishell->envparams);
+}
+
