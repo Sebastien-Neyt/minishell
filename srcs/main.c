@@ -46,10 +46,16 @@ int	main(int argc, char **argv, char **envp)
  *	readline
  *	parse_line
  *	tokenize_line
+ *	check syntax of the tokenized line
  *	append_line while line not done (ex: pipe token at the end of line)
  *	add to history
  *	free line
  *	repeat
+ *
+void	append_line(t_shell *minishell)
+{
+	TODO
+}
  *
 void	read_exec_loop(t_shell *minishell)
 {
@@ -60,6 +66,7 @@ void	read_exec_loop(t_shell *minishell)
 			ft_exit(NULL, minishell);
 		parse_line(&minishell);
 		tokenize_line(&minishell);
+		check_syntax(&minishell);
 		while (!minishell->line_done)
 			append_line(minishell);
 		execute_line(&minishell);
@@ -75,7 +82,8 @@ void	read_exec_loop(t_shell *minishell)
 * check arg nbr
 * initialize signals
 * call the main read exec loop
-* the program should never exit from the main
+* the program will call exit() from within the loop
+* neither the terminate nor the return should ever be reached
 *
 int	main(int argc, char *argv[], char *envp[])
 {

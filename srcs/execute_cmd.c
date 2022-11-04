@@ -10,36 +10,30 @@
  * 	bash: syntax error near unexpected token `>'
  * 	bash: syntax error near unexpected token `<'
  *
+ * 	error code = 2
  * */
-int tokenize_line(t_lst *pipeline)
+void	tokenize_line(t_shell *minishell)
 {
-	int cmd_flag;
+	int 	cmd_flag;
+	t_lst	¨*pipeline;
 	e_token prev_token;
 	
 	cmd_flag = 0;
 	prev_token = 0;
+	pipeline = minishell->pipeline;
 	while(pipeline->token != NEWLINE)
 	{
-		if
+		if (pipeline->token == META)
 			determine_token_meta(pipeline, &prev_token, &cmd_flag);//TODO
-		else
+		else (pipeline->token == WORD)
 			determine_token_word(pipeline, &prev_token, &cmd_flag);//TODO
-		if (check_syntax_error(pipeline, &prev_token, &cmd_flag))//TODO
-			return (/**/);
 		pipeline = pipeline->next;
 	} 
-	if (check_syntax_error(pipeline, &prev_token, &cmd_flag))//TODO
-		//something
-	if ()
-	{
-		// giving back prompt
-	}
-	return ();
 }
 
 // heredoc handling replace word by 
 
-void	determine_token(t_/**/ *pipeline, e_token *prev_token, int *cmd_flag)
+void	determine_token_meta(t_lst *pipeline, e_token *prev_token, int *cmd_flag)
 {
 	if (!ft_strcmp("|", pipeline->word))
 	{
@@ -54,7 +48,11 @@ void	determine_token(t_/**/ *pipeline, e_token *prev_token, int *cmd_flag)
 		pipeline->token = DOUBLE_REDIRECT_TO;
 	else if(!ft_strcmp("<<", pipeline->word))
 		pipeline->token = HEREDOC;
-	else if (prev_token == HEREDOC)
+}
+	
+void	determine_token_word(t_lst *pipeline, e_token *prev_token, int *cmd_flag)
+{
+	if (prev_token == HEREDOC)
 		pipeline->token = HERE_DOC_DELIMITER;
 	else if(prev_token == DOUBLE_REDIRECT_TO || prev_token == SIMPLE_REDIRECT_TO
 	|| prev_token == SIMPLE_REDIRECT_FROM)
