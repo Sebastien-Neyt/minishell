@@ -42,6 +42,19 @@ int	main(int argc, char **argv, char **envp)
 	return (0);
 }
 /*
+ *
+void	append_line(t_shell *minishell)
+{
+	minishell->line_tmp = minishell->line;
+	minishell->line = readline(">");
+	if (minishell->line == NULL)
+		ft_exit(minishell, NULL, TODO);
+	parse_line(minishell);
+	tokenize_line(minishell);
+	check_syntax(minishell);
+	join_line(minishell); //TODO should join the 2 lines, replace the line
+}
+ *
  * launch an ifinite loop that will:
  *	readline
  *	parse_line
@@ -52,27 +65,21 @@ int	main(int argc, char **argv, char **envp)
  *	free line
  *	repeat
  *
-void	append_line(t_shell *minishell)
-{
-	TODO
-}
- *
 void	read_exec_loop(t_shell *minishell)
 {
 	while (1)
 	{
 		minishell->line = readline("minishell");
 		if (minishell.line == NULL)
-			ft_exit(NULL, minishell);
-		parse_line(&minishell);
-		tokenize_line(&minishell);
-		check_syntax(&minishell);
+			ft_exit(minishell, NULL, DEFAULT);
+		parse_line(minishell);
+		tokenize_line(minishell);
+		check_syntax(minishell);
 		while (!minishell->line_done)
 			append_line(minishell);
-		execute_line(&minishell);
+		execute_line(minishell);
 		rl_add_history(minishell->line);
-		free(minishell->line);
-		minishell->line = NULL;
+		clear_line(minishell);
 	}
 }
 *
@@ -91,11 +98,13 @@ int	main(int argc, char *argv[], char *envp[])
 
 	init_shell_struct(&minishell);
 	if (argc > 1)
-		terminate(NULL, ERR_ARGNBR);
+		ft_exit(NULL, NULL, ERR_ARGNBR);
 	sig_init();
 	init_envs(&minishell, envp);
 	read_exec_loop(&minishell);
-	terminate(&minishell, NULL);
+	ft_exit(&minishell, NULL, "unexpected error");
 	return (1);
 }
+*
+*  "bash: syntax error: unexpected end of file"
 */
