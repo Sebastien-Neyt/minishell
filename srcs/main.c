@@ -107,4 +107,5 @@ int	main(int argc, char *argv[], char *envp[])
 }
 *
 *  "bash: syntax error: unexpected end of file"
+*  shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
 */

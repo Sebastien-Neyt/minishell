@@ -10,10 +10,12 @@ additonal work to do on the tokenizing dependig on if the word is a path or not
 	might be doable in the exec part of the code
 
 
+should check the behavior of non EOF empty line
+
 
 the . [filename] [options] call the source builtin which is not required
 
 TODO LIST:
 	- error messages and other macros
 	- ft_exit and cleaning fonctions;
-	_
+	_ maybe remake the append line with rl_on_newline
