@@ -1,21 +1,34 @@
 env should be protected
 
+bash: export: `TEST test=dfv v fd vdf v df v': not a valid identifier
 
+bash: $test: ambiguous redirect
+preset the token of each word when doing the word spliiting
 
 what do siganals do exactly
+	should I do something something in particular in the forks ?
+	do i need to transmit signals from minishell to the forks ?
+	what happens if sigkill a command inside a pipeline ?
+	which command of the pipeline is at the forefront ?
 
-
+SHELVL		should be initialize to 1 by default if not already defined
+_		should be initialize by default
+PWD 		should be initialize to the currrent directory by default
 
 additonal work to do on the tokenizing dependig on if the word is a path or not
 	might be doable in the exec part of the code
 
-
-should check the behavior of non EOF empty line
-
+~ will be expanded to the value of $HOME
 
 the . [filename] [options] call the source builtin which is not required
+
+Word spliiting after epension should implemented
+$IFS not implemented
+
+all builtins All builtins return an exit status of 2 to indicate incorrect usage, generally invalid options or missing arguments.
 
 TODO LIST:
 	- error messages and other macros
 	- ft_exit and cleaning fonctions;
-	_ maybe remake the append line with rl_on_newline
+	- maybe remake the append line with rl_on_newline
+	- the fucking pipes !!! rewatch the coce vault video or something

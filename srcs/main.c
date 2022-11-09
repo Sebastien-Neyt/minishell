@@ -48,7 +48,7 @@ void	append_line(t_shell *minishell)
 	minishell->line_tmp = minishell->line;
 	minishell->line = readline(">");
 	if (minishell->line == NULL)
-		ft_exit(minishell, NULL, TODO);
+		ft_exit(minishell, UNXPCTD_EOF);
 	parse_line(minishell);
 	tokenize_line(minishell);
 	check_syntax(minishell);
