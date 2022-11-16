@@ -74,22 +74,22 @@ int	main(int argc, char **argv, char **envp)
 
 	//print_list(&minishell);
 
-	ft_env(&minishell);
+	//ft_env(&minishell);
 	//ft_echo(&minishell);		
-		
+/*		
 	ft_export(&minishell);
 	printf("\n\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Exporting USER to testing/hello/... @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n\n");
 	ft_env(&minishell);
 	ft_unset(&minishell);
 	printf("\n\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Unsetting USER@@@@@@@@@@@@@@@@@@@@@@@@@\n\n");
 	ft_env(&minishell);
+*/
 
-/*
 	parse_list(&minishell);
 	trim_pipeline(&minishell);
 	minishell.list = minishell.pipeline;
-	print_list(&minishell);
-	*/
+//	print_list(&minishell);
+
 	//ft_pwd(&minishell);
 	return (0);
 }
@@ -108,6 +108,8 @@ void	append_line(t_shell *minishell)
 	join_line(minishell); //TODO should join the 2 lines, replace the line
 }
  *
+ *
+ *
  * launch an ifinite loop that will:
  *	readline
  *	parse_line
@@ -117,6 +119,18 @@ void	append_line(t_shell *minishell)
  *	add to history
  *	free line
  *	repeat
+ *
+ *
+ void	parse_line(t_shell *minishell)
+{	
+	word_parse(minishell->line, minishell);
+	check_for_exp(minishell);
+	parse_list(&minishell);
+	trim_pipeline(&minishell);
+}
+ *
+ *
+ *
  *
 void	read_exec_loop(t_shell *minishell)
 {
