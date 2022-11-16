@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 void	determine_token_meta(t_lst *pipeline, int *cmd_flag)
 {

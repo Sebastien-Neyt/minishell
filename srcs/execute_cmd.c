@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 /* fork the process 
  * return the pid on the parent side

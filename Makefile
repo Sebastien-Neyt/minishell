@@ -1,6 +1,6 @@
 NAME = minishell
 
 $(NAME):
-		@gcc srcs/* -lreadline -o minishell
+		@gcc srcs/*.c builtins/*.c -lreadline -o minishell
 re:
 		@rm minishell && make
