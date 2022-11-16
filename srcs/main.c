@@ -6,41 +6,94 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:44:30 by sneyt             #+#    #+#             */
-/*   Updated: 2022/11/02 14:49:47 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/11/16 14:22:48 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+int	check_chars(char *word)
+{
+	int	i;
+	
+	i = 0;
+	while (word && word[i])
+	{
+		if (word[i] == '$' || word[i] == '~')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	check_for_exp(t_shell *minishell)
+{
+	t_list *tmp;
+
+	tmp = minishell->list;
+	while (tmp)
+	{
+		while (check_chars(tmp->word))
+		{
+			if (tmp->token == SINGLE)
+			{
+				tmp = tmp->next;
+				continue;
+			}
+			check_expansion(tmp->word, minishell, tmp);
+		}
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
+void trim_pipeline(t_shell *minishell)
+{
+	t_list *tmp;
+	tmp = minishell->pipeline;
+	while (tmp)
+	{
+		printf("TOKEN: %d || WORD: %s\n", tmp->token, tmp->word);
+		if (tmp->token == DOUBLE)
+			tmp->word = ft_strtrim(tmp->word, "\"");
+		else if (tmp->token == SINGLE)
+			tmp->word = ft_strtrim(tmp->word, "'");
+		tmp = tmp->next;
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell minishell;
-	
+	char *line = "<<Make>>file|  '$TEST'  cat| echo ~ \"$PWD $SHELL << 'hola'\" ~/src | 'tr' -d $SEEIFTHISONEWORKS / >out>file|";	
+
 	minishell = init_shell(argv, envp);
-
-	
-	char *line = "<Makefile cat| echo \"$PWD 'hola'\" ~/src | 'tr' -d / >outfile";
-	
+	minishell.pipeline = ft_lstnew(NULL);	
 	word_parse(line, &minishell);
+	check_for_exp(&minishell);
 
-	while (minishell.list->next)
-	{
-		printf("%s\n", minishell.list->word);
-		minishell.list = minishell.list->next;
-	}
-	printf("%s\n", minishell.list->word);
-	/*
-	print_envs(&minishell);
-	printf("\n\n");
-	set_env("USERNAME", "S0cr@tes", &minishell);
-	print_envs(&minishell);
-	set_env("USERNAME", "Cycollar", &minishell);
-	set_env("PWD", "THISISATEST", &minishell);
-	print_envs(&minishell);
+	//print_list(&minishell);
+
+	ft_env(&minishell);
+	//ft_echo(&minishell);		
+		
+	ft_export(&minishell);
+	printf("\n\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Exporting USER to testing/hello/... @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n\n");
+	ft_env(&minishell);
+	ft_unset(&minishell);
+	printf("\n\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Unsetting USER@@@@@@@@@@@@@@@@@@@@@@@@@\n\n");
+	ft_env(&minishell);
+
+/*
+	parse_list(&minishell);
+	trim_pipeline(&minishell);
+	minishell.list = minishell.pipeline;
+	print_list(&minishell);
 	*/
-	
+	//ft_pwd(&minishell);
 	return (0);
 }
+
 /*
  *
 void	append_line(t_shell *minishell)

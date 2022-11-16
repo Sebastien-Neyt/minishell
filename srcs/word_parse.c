@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 12:07:39 by sneyt             #+#    #+#             */
-/*   Updated: 2022/11/02 15:15:55 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/11/16 13:48:03 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ char	*build_word(int	i, int	offset, char *line)
 	word = malloc(sizeof(char) * (i - offset + 1));
 	//if (!word)
 	//	error
+	//printf("%s\n", line);
 	while (y < i - offset)
 	{
 		word[y] = line[x];
@@ -41,44 +42,55 @@ char	*build_word(int	i, int	offset, char *line)
 	return (word);	
 }
 
-void	add_word(t_shell *minishell, char *word)
+void	add_word(t_shell *minishell, char *word, int flag)
 {
 	t_list *new_word;
 	if (!minishell->list->word)
+	{
 		minishell->list->word = word;
+		if (flag == 1)
+			minishell->list->token = SINGLE;
+		else if (flag == 2)
+			minishell->list->token = DOUBLE;
+		else if (flag == 0)
+			minishell->list->token = DEFAULT;
+	}
 	else
 	{
-		new_word = ft_lstlast(minishell->list);
 		ft_lstadd_back(&minishell->list, ft_lstnew(word));
+		new_word = ft_lstlast(minishell->list);
+		if (flag == 1)
+			new_word->token = SINGLE;
+		else if (flag == 2)
+			new_word->token = DOUBLE;
+		else if (flag == 0)
+			new_word->token = DEFAULT;
 	}
+
 }
 
 int	check_quote(int type, char *line, int i)
 {
-	int	flag;
-	
-	flag = 0;
 	i++;
-	while (type == 1 && (line[i] != 39)) // || line[i] != '\0'))i
+	if (type == 1)
 	{
-		i++;
-		flag = 1;
+		while (line[i] != 39 && line[i] != '\0')
+			i++;
 	}
-	while (type == 2 && (line[i] != 34)) //|| line[i] != '\0'))
-	{	
-		i++;
-		flag = 1;
+	if (type == 2)
+	{
+		while (line[i] != 34 && line[i] != '\0')
+			i++;
 	}
-	if (flag)
-		return (-1);
 	return (i + 1);
+	
 }
 
 void	word_parse(char *line, t_shell *minishell)
 {
 	int	i;
 	int	offset;
-	int	flag;
+	int flag;
 
 	offset = 0;
 	i = 0;
@@ -89,10 +101,9 @@ void	word_parse(char *line, t_shell *minishell)
 		{
 			while (is_whitespace(line[i]))
 				i++;
-			add_word(minishell, build_word(i - 1, offset, line));
+			add_word(minishell, build_word(i - 1, offset, line), flag);
 			offset = i;
-		}
-		/*
+		}	
 		if (line[i] == 39)
 			flag = 1;
 		if (line[i] == 34)
@@ -100,15 +111,16 @@ void	word_parse(char *line, t_shell *minishell)
 		if (flag)
 		{
 			i = check_quote(flag, line, i);
-			if (i < 0)
-				break ;
-			add_word(minishell, build_word(i, offset, line));
+			
+			//if (i < 0)
+			//	break ;
+			add_word(minishell, build_word(i, offset, line), flag);
 			offset = i;
 		}
-		*/
+		
 		if (i >= ft_strlen(line) - 1)
 		{
-				add_word(minishell, build_word(ft_strlen(line), offset, line));
+				add_word(minishell, build_word(ft_strlen(line), offset, line), flag);
 				break ;
 		}
 		

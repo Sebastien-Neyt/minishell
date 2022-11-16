@@ -15,6 +15,7 @@ SHELVL		should be initialize to 1 by default if not already defined
 _		should be initialize by default
 PWD 		should be initialize to the currrent directory by default
 
+
 additonal work to do on the tokenizing dependig on if the word is a path or not
 	might be doable in the exec part of the code
 
@@ -22,10 +23,12 @@ additonal work to do on the tokenizing dependig on if the word is a path or not
 
 the . [filename] [options] call the source builtin which is not required
 
-Word spliiting after epension should implemented
+Word spliting after expension should implemented
 $IFS not implemented
 
 all builtins All builtins return an exit status of 2 to indicate incorrect usage, generally invalid options or missing arguments.
+
+do not forget to treat >| as a redirect and not as to different META
 
 TODO LIST:
 	- error messages and other macros
