@@ -6,21 +6,15 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:16:34 by sneyt             #+#    #+#             */
-/*   Updated: 2022/11/16 14:18:03 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/11/21 11:57:41 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-/*
-char *build_subword(int i, int offset, char *word)
-{
-	char *word;
 
-	word = malloc(sizeof(char) * (
-}
-*/
-
-
+//we loop through our current linked list nodes.
+//We trim each node->word from whitespaces and tabs
+//and then we call our word_subparse function
 int	parse_list(t_shell *minishell)
 {
 	t_list *tmp;
@@ -40,7 +34,7 @@ int	parse_list(t_shell *minishell)
 	}
 	return (1);
 }
-
+// this one returns based on the operator we found. looks for pipes / redirects
 int	determine_operator(char *line, int i)
 {
 	if (line[i] == '|')
@@ -79,6 +73,8 @@ char *build_new_word(int i, int offset, char *line)
 }
 */
 
+
+//adds them to the pipeline.
 void	add_pipeline(t_shell *minishell, char *word, e_token token)
 {
 	t_list *new_word;
@@ -97,7 +93,7 @@ void	add_pipeline(t_shell *minishell, char *word, e_token token)
 		new_word->token = token;
 	}
 }
-
+//builds operator buildingblocks
 char *build_operator(int operator)
 {
 	char *ans;
@@ -115,6 +111,7 @@ char *build_operator(int operator)
 	return (ans);
 }
 
+//here we parse each node->word again but now we do it for all operators. based on the index and offset we build newe words again and add them to our NEW pipeline.
 
 int word_subparse(char *line, t_shell *minishell, e_token token)
 {

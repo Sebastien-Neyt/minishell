@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 13:01:40 by sneyt             #+#    #+#             */
-/*   Updated: 2022/11/16 14:24:04 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/11/21 11:51:45 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	env_compare(char *env, int len, char *envparam)
 	return (1);
 }
 
+//this one looks for a env in minishell->envparams.
+//if there is a match it returns the index, otherwise it returns -1
 int	find_env(char *env, t_shell *minishell)
 {
 	int	i;
@@ -41,7 +43,7 @@ int	find_env(char *env, t_shell *minishell)
 	}
 	return (-1);
 }
-
+//this one creates the env string. it basically appends the env with a '=' and the value.
 char *build_env(char *env, char *value)
 {
 	int	i;
@@ -77,7 +79,7 @@ char *build_env(char *env, char *value)
 	new_env[i] = '\0';
 	return (new_env);
 }
-
+//this one replaces the env in our envparam with the new value.
 int	change_env(t_shell *minishell, int index, char *value, char *env)
 {
 	char *new_env;
@@ -89,6 +91,7 @@ int	change_env(t_shell *minishell, int index, char *value, char *env)
 	return (1);
 }
 
+//here we create a copy of our current minishell->envparams
 void copy_envp(t_shell *minishell, char **old_env, char *new_env)
 {
 	int	i;
@@ -106,6 +109,7 @@ void copy_envp(t_shell *minishell, char **old_env, char *new_env)
 	old_env[i] = 0;
 }
 
+//if its a new env that does not yet exist. we add it to the minishell->envparams array.
 int	add_env(char *env, char *value, t_shell *minishell)
 {
 	char *new_env;
@@ -122,7 +126,7 @@ int	add_env(char *env, char *value, t_shell *minishell)
 	minishell->envparams = old_env;
 	return (1);
 }
-
+//this is the global env function that will check if the env already exists or not and then decide if we change if we have to change or add the env
 int	set_env(char *env, char *value, t_shell *minishell)
 {
 	int	index;

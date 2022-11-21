@@ -6,12 +6,15 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 10:14:49 by sneyt             #+#    #+#             */
-/*   Updated: 2022/11/16 12:22:39 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/11/21 11:45:27 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+// this one will return the name of the VAR in our codeline without the $.
+// So $PWD -> PWD
+// $SEEIFTHISONEWORKS -> SEEIFTHISONEWORKS
 char *get_var(char *str, int i)
 {
 	char *var;
@@ -33,6 +36,7 @@ char *get_var(char *str, int i)
 	var[y] = '\0';
 	return (var);
 }
+//We look if env_var ( Ex: PWD ) is equal to the mini_env we give it.
 
 int	compare_env(char *env_var, char *mini_env)
 {
@@ -49,7 +53,8 @@ int	compare_env(char *env_var, char *mini_env)
 	}
 	return (1);
 }
-
+// we loop through the envparams of our minishell to see if there is match with env_var we substracted from the line. if we find a match we return the index of the match.
+// else we return -1 to say there is no match and the env_var does not exist.
 int	check_in_env(char *env_var, t_shell *minishell)
 {
 	int	i;
@@ -63,7 +68,7 @@ int	check_in_env(char *env_var, t_shell *minishell)
 	}
 	return (-1);
 }
-
+//we look for ~ and $. We get the index of the env_var. we then call expand_varv2 that will decide what to do based on the index.
 int	check_expansion(char *str, t_shell *minishell, t_list *node)
 {
 	int	i;
@@ -100,7 +105,8 @@ int	check_expansion(char *str, t_shell *minishell, t_list *node)
 	return (0);
 }
 
-//
+//this one will malloc the right amount of space for the expansion. depending on the fact that the variable is indeed expandable and in our minishell envparams. 
+//if will then copy everyhting of our current node_word up till the expansion. and then either expand the variable or just skip. After that it will just copy the rest.
 int	expand_varv2(int index, t_shell *minishell, char *env_var, t_list *node, int macro)
 {
 	int	i;

@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 11:11:57 by sneyt             #+#    #+#             */
-/*   Updated: 2022/11/16 12:00:43 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/11/21 11:53:35 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_strlen(char *str)
 		i++;
 	return (i);
 }
-
+//legit the same as a strdupe.
 char	*env_dup(char *s1)
 {
 	size_t	len;
@@ -41,7 +41,7 @@ char	*env_dup(char *s1)
 	dupe[i] = '\0';
 	return (dupe);
 }
-
+//creates a new list node.
 t_list	*ft_lstnew(char	*content)
 {
 	t_list	*ans;
@@ -53,7 +53,7 @@ t_list	*ft_lstnew(char	*content)
 	ans->next = 0;
 	return (ans);
 }
-
+//gets the last node of our linked list.
 t_list	*ft_lstlast(t_list *lst)
 {
 	if (!lst)
@@ -62,7 +62,7 @@ t_list	*ft_lstlast(t_list *lst)
 		lst = lst->next;
 	return (lst);
 }
-
+//adds our new node as the last node in our list.
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
 	t_list	*temp;
@@ -103,7 +103,7 @@ char	*ft_strdup(char *s1)
 	dupe[i] = '\0';
 	return (dupe);
 }
-
+//checks if c is in set.
 static int	ft_ispartofset(char c, char *set)
 {
 	while (*set)
@@ -114,7 +114,7 @@ static int	ft_ispartofset(char c, char *set)
 	}
 	return (0);
 }
-
+//creates a substring from start till len is reached.
 char	*ft_substr(char *s,  int start, int len)
 {
 	char			*ans;
@@ -138,7 +138,7 @@ char	*ft_substr(char *s,  int start, int len)
 	ans[i] = '\0';
 	return (ans);
 }
-
+//trims all set chars in the front and back.
 char	*ft_strtrim(char *s1, char *set)
 {
 	char	*ans;

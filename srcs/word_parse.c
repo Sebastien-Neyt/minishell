@@ -6,12 +6,13 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 12:07:39 by sneyt             #+#    #+#             */
-/*   Updated: 2022/11/16 13:48:03 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/11/21 11:48:38 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+//we check for whitespaces
 int	is_whitespace(char c)
 {
 	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r')
@@ -19,7 +20,7 @@ int	is_whitespace(char c)
 	return (0);
 }
 
-
+// this one build the word based on the index and our offset. it will copy from offset till index.
 char	*build_word(int	i, int	offset, char *line)
 {
 	char *word;
@@ -41,7 +42,7 @@ char	*build_word(int	i, int	offset, char *line)
 	word[y] = '\0';
 	return (word);	
 }
-
+//
 void	add_word(t_shell *minishell, char *word, int flag)
 {
 	t_list *new_word;
@@ -68,7 +69,8 @@ void	add_word(t_shell *minishell, char *word, int flag)
 	}
 
 }
-
+//this one checks if the quote is in fact closed.
+//either single or double quote.
 int	check_quote(int type, char *line, int i)
 {
 	i++;
@@ -86,6 +88,8 @@ int	check_quote(int type, char *line, int i)
 	
 }
 
+//loop through line and split words based on whitespaces and quotes.
+//will create a linked list and add the words to it
 void	word_parse(char *line, t_shell *minishell)
 {
 	int	i;
