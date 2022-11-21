@@ -5,116 +5,176 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/19 12:03:28 by sneyt             #+#    #+#             */
-/*   Updated: 2022/10/03 15:34:35 by sneyt            ###   ########.fr       */
+/*   Created: 2022/10/26 10:44:30 by sneyt             #+#    #+#             */
+/*   Updated: 2022/11/16 14:22:48 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	env_counter(char **envp)
-{
-	int i = 0;
-
-	while (envp[i])
-		i++;
-	return (i);
-}	
-
-int	init_envs(t_shell *minishell, char **envp)
+int	check_chars(char *word)
 {
 	int	i;
-	int	count;
-
+	
 	i = 0;
-	count = env_counter(envp);
-	minishell->envparams = (char **)malloc(sizeof(char *) * (count + 1));
-	if (!minishell->envparams)
-		return (1);
-	while (i < count)
+	while (word && word[i])
 	{
-		minishell->envparams[i] = ft_strdupv2(envp[i]);
-		if (!minishell->envparams[i])
+		if (word[i] == '$' || word[i] == '~')
 			return (1);
-		//printf("%d -->%s\n", i, minishell->envparams[i]);
 		i++;
 	}
-	minishell->envparams[i] = NULL;
 	return (0);
 }
 
-int	main(int argc, char *argv[], char *envp[])
+int	check_for_exp(t_shell *minishell)
 {
-	char *line;
-	char **cmd_list;
-	int pid;
-	t_shell *minishell;
-	int	i;
-	char *user;
-	
-	minishell = malloc(sizeof(t_shell *));
-	if (init_envs(minishell, envp))
+	t_list *tmp;
+
+	tmp = minishell->list;
+	while (tmp)
 	{
-		printf("Error while initializing env\n");
-		exit(1);
-	}
-	while(1)
-	{
-		i = 0;
-		user = ft_strjoin(getenv("USER"), "@minishell >$ ");
-		line = readline(user);
-		if (line == 0)
-			exit(1);
-		if (line[0] == 0)
-			continue ;
-		cmd_list = ft_split(line, ' ');
-		if (ft_strcmpv2(cmd_list[0], "exit") == 0)
-			break ;
-		if (ft_strcmpv2(cmd_list[0], "pwd") == 0)
-		{	
-			pid = fork();
-			if (pid == 0)
-				execve("bin/pwd/pwd", NULL, NULL);
-			wait(NULL);
-		}
-	/*
-		if (ft_strcmpv2(cmd_list[0], "cd") == 0)
+		while (check_chars(tmp->word))
 		{
-			//printf("%s\n", cmd_list[1]);
-			chdir("/Users/sneyt");
-			init_envs(minishell, envp);
-		}
-	*/
-		if (ft_strcmpv2(cmd_list[0], "su") == 0)
-		{
-			pid = fork();
-			if (pid == 0)
-				execve("/usr/bin/su", cmd_list, NULL);
-			wait(NULL);
-		}
-		if (ft_strcmpv2(cmd_list[0], "env") == 0)
-		{
-			while (minishell->envparams[i])
+			if (tmp->token == SINGLE)
 			{
-				printf("%s\n", minishell->envparams[i]);
-				i++;
+				tmp = tmp->next;
+				continue;
 			}
-			/*
-			pid = fork();
-			if (pid == 0)
-				execve("bin/env/env", NULL, NULL);
-			wait(NULL);
-			*/
+			check_expansion(tmp->word, minishell, tmp);
 		}
-		if (ft_strcmpv2(cmd_list[0], "echo") == 0)
-		{
-			pid = fork();
-			if (pid == 0)
-				execve("bin/echo/echo", cmd_list, NULL);
-			wait(NULL);
-		}
-		add_history(line);
-		if (line)
-			free(line);
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
+void trim_pipeline(t_shell *minishell)
+{
+	t_list *tmp;
+	tmp = minishell->pipeline;
+	while (tmp)
+	{
+		//printf("TOKEN: %d || WORD: %s\n", tmp->token, tmp->word);
+		if (tmp->token == DOUBLE)
+			tmp->word = ft_strtrim(tmp->word, "\"");
+		else if (tmp->token == SINGLE)
+			tmp->word = ft_strtrim(tmp->word, "'");
+		tmp = tmp->next;
 	}
 }
+/*
+int	main(int argc, char **argv, char **envp)
+{
+	t_shell minishell;
+	char *line = "<<Make>>file|  '$TEST'  cat| echo ~ \"$PWD $SHELL << 'hola'\" ~/src | 'tr' -d $SEEIFTHISONEWORKS / >out>file|";	
+
+	minishell = init_shell(argv, envp);
+	minishell.pipeline = ft_lstnew(NULL);	
+	word_parse(line, &minishell);
+	check_for_exp(&minishell);
+
+	//print_list(&minishell);
+
+	//ft_env(&minishell);
+	//ft_echo(&minishell);		
+*//*		
+	ft_export(&minishell);
+	printf("\n\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Exporting USER to testing/hello/... @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n\n");
+	ft_env(&minishell);
+	ft_unset(&minishell);
+	printf("\n\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Unsetting USER@@@@@@@@@@@@@@@@@@@@@@@@@\n\n");
+	ft_env(&minishell);
+*/
+/*
+	parse_list(&minishell);
+	trim_pipeline(&minishell);
+	minishell.list = minishell.pipeline;
+//	print_list(&minishell);
+
+	//ft_pwd(&minishell);
+	return (0);
+}
+*/
+
+
+void	append_line(t_shell *minishell)
+{
+	char *tmp;
+
+	minishell->line_tmp = minishell->line;
+	minishell->line = readline(">");
+	if (minishell->line == NULL)
+		ft_exit(minishell, UNXPCTD_EOF);
+	parse_line(minishell);
+	tokenize_line(minishell);
+	check_syntax(minishell);
+	tmp = minishell->line;
+	minishell->line = ft_strjoin(minishell->line_tmp, minshell->line)
+	free(tmp);
+}
+
+/* launch an ifinite loop that will:
+ *	readline
+ *	parse_line
+ *	tokenize_line
+ *	check syntax of the tokenized line
+ *	append_line while line not done (ex: pipe token at the end of line)
+ *	add to history
+ *	free line
+ *	repeat
+ */
+ void	parse_line(t_shell *minishell)
+{	
+	word_parse(minishell->line, minishell);
+	check_for_exp(minishell);
+	parse_list(&minishell);
+	trim_pipeline(&minishell);
+}
+
+void	read_exec_loop(t_shell *minishell)
+{
+	while (1)
+	{
+		//minishell->line = readline("minishell");
+		if (minishell.line == NULL)
+			ft_exit(minishell, DEFAULT);
+		parse_line(minishell);
+		tokenize_line(minishell);
+		while (check_line_done(minishell))
+			append_line(minishell);
+		//execute_line(minishell);
+		rl_add_history(minishell->line);
+		//clear_line(minishell);TODO
+	}
+}
+
+/* declare struct
+* initialize struct
+* check arg nbr
+* initialize signals
+* call the main read exec loop
+* the program will call exit() from within the loop
+* neither the terminate nor the return should ever be reached
+*/
+int	main(int argc, char *argv[], char *envp[])
+{
+	t_shell minishell;
+	char *line = "<<Make>>file|  '$TEST'  cat| echo ~ \"$PWD $SHELL << 'hola'\" ~/src | 'tr' -d $SEEIFTHISONEWORKS / >out>file|";	
+
+	minishell->line = line;
+	minishell = init_shell(argv, envp);
+	minishell.pipeline = ft_lstnew(NULL);	
+
+
+	//init_shell_struct(&minishell);
+	if (argc > 1)
+		ft_exit(NULL, ERR_ARGNBR);
+	sig_init();
+	//init_envs(&minishell, envp);
+	read_exec_loop(&minishell);
+	ft_exit(&minishell, NULL, "unexpected error");
+	return (1);
+}
+
+/*  "bash: syntax error: unexpected end of file"
+*  shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
+*/
