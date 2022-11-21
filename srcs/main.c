@@ -53,7 +53,7 @@ void trim_pipeline(t_shell *minishell)
 	tmp = minishell->pipeline;
 	while (tmp)
 	{
-		printf("TOKEN: %d || WORD: %s\n", tmp->token, tmp->word);
+		//printf("TOKEN: %d || WORD: %s\n", tmp->token, tmp->word);
 		if (tmp->token == DOUBLE)
 			tmp->word = ft_strtrim(tmp->word, "\"");
 		else if (tmp->token == SINGLE)
@@ -61,7 +61,7 @@ void trim_pipeline(t_shell *minishell)
 		tmp = tmp->next;
 	}
 }
-
+/*
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell minishell;
@@ -76,7 +76,7 @@ int	main(int argc, char **argv, char **envp)
 
 	//ft_env(&minishell);
 	//ft_echo(&minishell);		
-/*		
+*//*		
 	ft_export(&minishell);
 	printf("\n\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Exporting USER to testing/hello/... @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n\n");
 	ft_env(&minishell);
@@ -84,7 +84,7 @@ int	main(int argc, char **argv, char **envp)
 	printf("\n\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Unsetting USER@@@@@@@@@@@@@@@@@@@@@@@@@\n\n");
 	ft_env(&minishell);
 */
-
+/*
 	parse_list(&minishell);
 	trim_pipeline(&minishell);
 	minishell.list = minishell.pipeline;
@@ -93,11 +93,13 @@ int	main(int argc, char **argv, char **envp)
 	//ft_pwd(&minishell);
 	return (0);
 }
+*/
 
-/*
- *
+
 void	append_line(t_shell *minishell)
 {
+	char *tmp;
+
 	minishell->line_tmp = minishell->line;
 	minishell->line = readline(">");
 	if (minishell->line == NULL)
@@ -105,12 +107,12 @@ void	append_line(t_shell *minishell)
 	parse_line(minishell);
 	tokenize_line(minishell);
 	check_syntax(minishell);
-	join_line(minishell); //TODO should join the 2 lines, replace the line
+	tmp = minishell->line;
+	minishell->line = ft_strjoin(minishell->line_tmp, minshell->line)
+	free(tmp);
 }
- *
- *
- *
- * launch an ifinite loop that will:
+
+/* launch an ifinite loop that will:
  *	readline
  *	parse_line
  *	tokenize_line
@@ -119,8 +121,7 @@ void	append_line(t_shell *minishell)
  *	add to history
  *	free line
  *	repeat
- *
- *
+ */
  void	parse_line(t_shell *minishell)
 {	
 	word_parse(minishell->line, minishell);
@@ -128,51 +129,52 @@ void	append_line(t_shell *minishell)
 	parse_list(&minishell);
 	trim_pipeline(&minishell);
 }
- *
- *
- *
- *
+
 void	read_exec_loop(t_shell *minishell)
 {
 	while (1)
 	{
-		minishell->line = readline("minishell");
+		//minishell->line = readline("minishell");
 		if (minishell.line == NULL)
-			ft_exit(minishell, NULL, DEFAULT);
+			ft_exit(minishell, DEFAULT);
 		parse_line(minishell);
 		tokenize_line(minishell);
-		check_syntax(minishell);
-		while (!minishell->line_done)
+		while (check_line_done(minishell))
 			append_line(minishell);
-		execute_line(minishell);
+		//execute_line(minishell);
 		rl_add_history(minishell->line);
-		clear_line(minishell);
+		//clear_line(minishell);TODO
 	}
 }
-*
-*
-* declare struct
+
+/* declare struct
 * initialize struct
 * check arg nbr
 * initialize signals
 * call the main read exec loop
 * the program will call exit() from within the loop
 * neither the terminate nor the return should ever be reached
-*
+*/
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_shell minishell;
+	char *line = "<<Make>>file|  '$TEST'  cat| echo ~ \"$PWD $SHELL << 'hola'\" ~/src | 'tr' -d $SEEIFTHISONEWORKS / >out>file|";	
 
-	init_shell_struct(&minishell);
+	minishell->line = line;
+	minishell = init_shell(argv, envp);
+	minishell.pipeline = ft_lstnew(NULL);	
+
+
+	//init_shell_struct(&minishell);
 	if (argc > 1)
-		ft_exit(NULL, NULL, ERR_ARGNBR);
+		ft_exit(NULL, ERR_ARGNBR);
 	sig_init();
-	init_envs(&minishell, envp);
+	//init_envs(&minishell, envp);
 	read_exec_loop(&minishell);
 	ft_exit(&minishell, NULL, "unexpected error");
 	return (1);
 }
-*
-*  "bash: syntax error: unexpected end of file"
+
+/*  "bash: syntax error: unexpected end of file"
 *  shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
 */

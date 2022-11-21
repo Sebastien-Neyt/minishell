@@ -11,4 +11,8 @@ int	check_syntax_error
 	return (0);
 }
 
-
+int	check_line_done(t_shell *minishell)
+{
+	
+	return (0);
+}

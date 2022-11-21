@@ -23,7 +23,7 @@ additonal work to do on the tokenizing dependig on if the word is a path or not
 
 the . [filename] [options] call the source builtin which is not required
 
-Word spliting after expension should implemented
+Word spliting should be implemented after expensions
 $IFS not implemented
 
 all builtins All builtins return an exit status of 2 to indicate incorrect usage, generally invalid options or missing arguments.

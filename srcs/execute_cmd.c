@@ -2,6 +2,38 @@
 
 // note should maybe close fd's in case too many simultanous cdmd's are executed
 
+// should throw error if token after redirection is ARG 
+void	ft_redirect(t_shell *minishell)//TODO
+{
+	t_list	*pipeline;
+	int	oflag;
+
+	pipeline = minishell->pipeline;
+	oflag = 0;
+	while (pipeline && pipeline->token != PIPE)// loop through the wordlist
+	{
+		oflag = is_token(pipeline->token)
+		if (oflag)
+		{
+			//open or create than replace
+			if(cmd.type == SIMPLE_REDIRECT_TO)
+				oflag = (O_WONLY | O_TRUNC | O_APPEND);
+			//open and read
+			if (redirect == SIMPLE_REDIRECT_FORM)
+				oflag = (O_RDONLY);
+			//open or create than append
+			if (redirect == DOUBLE_REDIRECT_TO)
+				oflag = (O_WONLY | O_CREAT | O_APPEND);
+			if (open() == -1)
+			{
+				perror();//TODO
+				break;
+			}
+		}
+		pipeline = pipeline->next;
+	}
+}
+
 /* if cmd is a builtin call the corresponding function
  */
 void	exec_builtin(t_shell *minishell)
@@ -41,7 +73,8 @@ pid_t	exec_cmd(t_shell *minishell)
 	else if (proc_pid < 0)
 		ft_exit(minishell, FORK_FAILED);
 	cmd = &minishell->cmd;
-	ft_redirect(minishell);
+	if (ft_redirect(minishell) == NULL)
+		ft_exit();
 	if (cmd->name == NULL)
 		ft_exit(minishell, NULL);
 	if (is_builtin(cmd->name))
@@ -81,8 +114,8 @@ void	exec_pipeline(t_shell *minishell)
 		}
 		(minishell->pid)[i] = exec_cmd(minishell);
 		if (i < minishell->nbr_pipe)
-			close(fd[1]);
-		ft_reset_cmd(minishell);//TODO
+			close(fd[0]);
+		ft_reset_cmd(minishell);
 		i++;
 	}
 }
@@ -106,7 +139,7 @@ void	execute_line(t_shell *minishell)
 		ft_build_cmd(minishell);
 		ft_redirect(minishell);
 		exec_builtin(minishell);
-		reset_cmd(minishell->cmd);//TODO
+		reset_cmd(minishell->cmd);
 	}
 	else
 	{

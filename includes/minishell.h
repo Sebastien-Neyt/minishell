@@ -30,12 +30,14 @@
 # define RED_APPEND 101
 # define RED_HEREDOC 102
 
-typedef struct s_block {
-	int	infile;
-	int	outfile;
-	char **cmd;
-	char *path;
-}	t_block;
+typedef struct s_cmd {
+	int	fd_out;
+	int	fd_in;
+	char	*name;
+	char 	*path;
+	char	**arg;
+	char	**envp;
+}	t_cmd;
 
 typedef enum token {
 	DEFAULT,
@@ -51,8 +53,11 @@ typedef struct s_list {
 
 typedef struct s_shell {
 	char	**envparams;
+	char 	*line;
+	char 	*line_tmp;
 	t_list	*list;
 	t_list	*pipeline;
+
 }	t_shell;
 
 // main.c
@@ -73,6 +78,7 @@ t_list	*ft_lstlast(t_list *lst);
 int	ft_strcmp(char *s1, char *s2);
 char *ft_strdup(char *s1);
 char *ft_strtrim(char *s1, char *set);
+char	*ft_strjoin(char const *s1, char const *s2);
 
 // initializing.c
 t_shell	init_shell(char **argv, char **envp);
