@@ -1,0 +1,7 @@
+#define DEFAULT_MSG	"exit\n"
+#define FAILED_MALLOC 	"failed malloc\n"
+#define FAILED_EXEC 	"failed exec\n"
+#define FAILED_PIPE 	"failed pipe\n"
+#define FAILED_FORK 	"failed fork\n"
+#define UNXPCTD_EOF	"enexpted EOF\n"
+#define ERR_ARGNBR 	"Minishell doesn't take arguments\n"
