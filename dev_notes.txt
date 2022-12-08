@@ -4,12 +4,6 @@ bash: export: `TEST test=dfv v fd vdf v df v': not a valid identifier
 
 bash: $test: ambiguous redirect
 
-what do siganals do exactly
-	should I do something something in particular in the forks ?
-	do i need to transmit signals from minishell to the forks ?
-	what happens if sigkill a command inside a pipeline ?
-	which command of the pipeline is at the forefront ?
-
 SHELVL		should be initialize to 1 by default if not already defined
 _		should be initialize by default
 PWD 		should be initialize to the currrent directory by default
@@ -33,5 +27,5 @@ do not forget to treat >| as a redirect and not as to different META
 
 TODO LIST:
 	- error messages and other macros
-	- ft_exit and cleaning fonctions;
-	- maybe remake the append line with rl_on_newline
+	- redirection
+	- heredocs 

@@ -20,7 +20,7 @@ void	parse_line(t_shell *minishell)
 	parse_list(minishell);
 	trim_pipeline(minishell);
 	tokenize_line(minishell);
-	//print_pipeline(minishell);//TEST	
+	print_pipeline(minishell);//TEST	
 }
 
 void	append_line(t_shell *minishell)

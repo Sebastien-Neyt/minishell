@@ -1,38 +1,48 @@
 #include "../includes/minishell.h"
 
-// note should maybe close fd's in case too many simultanous cdmd's are executed
-
-// should throw error if token after redirection is ARG 
-int	ft_redirect(t_shell *minishell)//TODO
+// should heredoc be written to stdin
+// should throw error if token after redirection is ARG
+// need to be splitted 
+// segfault protection on next ?
+// should have have perror inside already
+int	ft_redirect(t_shell *minishell)
 {
-	/*t_list	*pipeline;
-	int	oflag;
+	t_list	*pipeline;
+	int	fd_in;
+	int	fd_out;
 
+	fd_in = 0;
+	fd_out = 0;
 	pipeline = minishell->pipeline;
-	oflag = 0;
-	while (pipeline && pipeline->token != PIPE)// loop through the wordlist
+	while (pipeline && pipeline->next && pipeline->token != PIPE)
 	{
-		//open or create than replace
 		if(pipeline->token == SIMPLE_REDIRECT_TO)
-			oflag = (O_WRONLY | O_TRUNC | O_APPEND);
-		//open and read
+		{
+			if (fd_out)
+				close(fd_out);
+			fd_out = open(pipeline->next->word, (O_WRONLY | O_CREAT | O_TRUNC));
+		}
 		if (pipeline->token == SIMPLE_REDIRECT_FROM)
-			oflag = (O_RDONLY);
-		//open or create than append
+		{
+			if (fd_in)
+				close(fd_in);
+			fd_in = open(pipeline->next->word, (O_RDONLY));
+		}
 		if (pipeline->token == DOUBLE_REDIRECT_TO)
-			oflag = (O_WRONLY | O_CREAT | O_APPEND);
-		if (oflag)
-			pipeline = pipeline->next;
-		if (open(pipeline->word, oflag) == -1)
+		{
+			if (fd_out)
+				close(fd_out);
+			fd_out = open(pipeline->next->word, (O_WRONLY | O_CREAT | O_APPEND));
+		}
+		if (fd_in == -1 || fd_out == -1)
 			return (0);
-		oflag = 0;
 		pipeline = pipeline->next;
-	}*/
+	}
 	dup2(minishell->cmd.fd_in, STDIN_FILENO);
 	dup2(minishell->cmd.fd_out, STDOUT_FILENO);
 	return (1);
 }
-
+ 
 /* if cmd is a builtin call the corresponding function
  */
 int	exec_builtin_2(t_shell *minishell)
@@ -97,7 +107,7 @@ pid_t	exec_cmd(t_shell *minishell)
 		ft_exit(minishell, FAILED_FORK);
 	cmd = &minishell->cmd;
 	if (ft_redirect(minishell) == 0)
-		ft_exit(minishell, NULL);
+		ft_exit(minishell, NULL);//add error message
 	if (cmd->name == NULL)
 		ft_exit(minishell, NULL);
 	if (exec_builtin(minishell))
@@ -106,6 +116,14 @@ pid_t	exec_cmd(t_shell *minishell)
 		execve(cmd->path, cmd->arg, cmd->envp);
 	ft_exit(minishell, FAILED_EXEC);
 	return (-1);
+}
+
+void	move_pipeline(t_shell *minishell)
+{
+	while (minishell->pipeline && minishell->pipeline->token != PIPE)
+		minishell->pipeline = minishell->pipeline->next;
+	if (minishell->pipeline && minishell->pipeline->token == PIPE)
+		minishell->pipeline = minishell->pipeline->next;
 }
 
 /* set up the pipes and execute the command and perform the neccessary close()
@@ -130,12 +148,14 @@ void	exec_pipeline(t_shell *minishell)
 				ft_exit(minishell, FAILED_PIPE);
 			(minishell->cmd).fd_out = fd[1];
 		}
-		//print_cmd(minishell);//TEST
+		print_cmd(minishell);//DEBUG
+		//print_pipeline(minishell);//DEBUG
 		(minishell->pid)[i] = exec_cmd(minishell);
 		if (i < minishell->nbr_pipe)
 			close(fd[1]);
 		if (i > 0)
 			close((minishell->cmd).fd_in);
+		move_pipeline(minishell);
 		reset_cmd(minishell);
 		i++;
 	}
@@ -159,17 +179,18 @@ void	execute_line(t_shell *minishell)
 	if (minishell->nbr_pipe == 0 && is_builtin(minishell))
 	{
 		ft_build_cmd(minishell);
-		ft_redirect(minishell);
-		exec_builtin(minishell);
+		if(ft_redirect(minishell))
+			exec_builtin(minishell);
 		reset_cmd(minishell);
+		return ;
 	}
 	else
 		exec_pipeline(minishell);
 	while (i <= minishell->nbr_pipe)
 	{
 		waitpid((minishell->pid)[i], &g_exit_code, 0);
-		printf(YELLOW"[PID][%d]\t"WHITE, minishell->pid[i]);
-		printf(YELLOW"[RET][%d]\n"WHITE, g_exit_code);
+		printf(YELLOW"[PID][%d]\t"WHITE, minishell->pid[i]);//DEBUG
+		printf(YELLOW"[RET][%d]\n"WHITE, g_exit_code);//DEBUG
 		i++;
 	}
 }

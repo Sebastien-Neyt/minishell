@@ -29,18 +29,16 @@ char	**get_arg(t_shell *minishell)
 		ft_exit(minishell, FAILED_MALLOC);
 	arg[i] = minishell->cmd.name;
 	i++;
-	while(minishell->pipeline && minishell->pipeline->token != PIPE)
+	while(pipeline && pipeline->token != PIPE)
 	{
-		if (minishell->pipeline->token == ARG)
+		if (pipeline->token == ARG)
 		{
-			arg[i] = minishell->pipeline->word;
+			arg[i] = pipeline->word;
 			i++;
 		}
-		minishell->pipeline = minishell->pipeline->next;
+		pipeline = pipeline->next;
 	}
 	arg[i] = NULL;
-	if (minishell->pipeline && minishell->pipeline->next && minishell->pipeline->token == PIPE)
-		minishell->pipeline = minishell->pipeline->next;
 	return (arg);
 }
 
