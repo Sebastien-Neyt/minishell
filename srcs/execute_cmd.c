@@ -165,6 +165,20 @@ void	exec_pipeline(t_shell *minishell)
 	}
 }
 
+void	internal_execute(t_shell *minishell)
+{
+	int std_in;
+	int std_out;
+
+	std_in = dup(STDIN_FILENO);
+	std_out = dup(STDOUT_FILENO);
+	ft_build_cmd(minishell);
+	if(ft_redirect(minishell))
+		exec_builtin(minishell);
+	dup2(std_in, STDIN_FILENO);
+	dup2(std_out, STDOUT_FILENO);
+	reset_cmd(minishell);
+}
 /* count the number of pipe in the pipeline to determine the number of cmd blocks
  * malloc an array to store the pid's of each forks
  * call the function directly if only one block and if cmd is a builtin
@@ -181,13 +195,7 @@ void	execute_line(t_shell *minishell)
 	if (minishell->pid == NULL)
 		ft_exit(minishell, FAILED_MALLOC);
 	if (minishell->nbr_pipe == 0 && is_builtin(minishell))
-	{
-		ft_build_cmd(minishell);
-		if(ft_redirect(minishell))
-			exec_builtin(minishell);
-		reset_cmd(minishell);
-		return ;
-	}
+		internal_execute(minishell);
 	else
 		exec_pipeline(minishell);
 	while (i <= minishell->nbr_pipe)
