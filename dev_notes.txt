@@ -27,5 +27,5 @@ do not forget to treat >| as a redirect and not as to different META
 
 TODO LIST:
 	- error messages and other macros
-	- redirection
+	- redirection, using fcntl for chmod created files or is it possible directly with open ?
 	- heredocs 

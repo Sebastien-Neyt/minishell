@@ -38,6 +38,10 @@ int	ft_redirect(t_shell *minishell)
 			return (0);
 		pipeline = pipeline->next;
 	}
+	if (fd_in)
+		minishell->cmd.fd_in = fd_in;
+	if (fd_out)
+		minishell->cmd.fd_out = fd_out;
 	dup2(minishell->cmd.fd_in, STDIN_FILENO);
 	dup2(minishell->cmd.fd_out, STDOUT_FILENO);
 	return (1);
@@ -100,6 +104,7 @@ pid_t	exec_cmd(t_shell *minishell)
 	int proc_pid;
 	t_cmd	*cmd;
 
+	print_cmd(minishell);//DEBUG
 	proc_pid = fork();
 	if (proc_pid > 0)
 		return (proc_pid);
@@ -148,7 +153,6 @@ void	exec_pipeline(t_shell *minishell)
 				ft_exit(minishell, FAILED_PIPE);
 			(minishell->cmd).fd_out = fd[1];
 		}
-		print_cmd(minishell);//DEBUG
 		//print_pipeline(minishell);//DEBUG
 		(minishell->pid)[i] = exec_cmd(minishell);
 		if (i < minishell->nbr_pipe)
