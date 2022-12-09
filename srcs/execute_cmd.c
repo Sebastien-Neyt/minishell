@@ -20,7 +20,7 @@ int	ft_redirect(t_shell *minishell)
 		{
 			if (fd_out)
 				close(fd_out);
-			fd_out = open(pipeline->next->word, (O_WRONLY | O_CREAT | O_TRUNC));
+			fd_out = open(pipeline->next->word, (O_WRONLY | O_CREAT | O_TRUNC), 0666);
 		}
 		if (pipeline->token == SIMPLE_REDIRECT_FROM)
 		{
@@ -32,7 +32,7 @@ int	ft_redirect(t_shell *minishell)
 		{
 			if (fd_out)
 				close(fd_out);
-			fd_out = open(pipeline->next->word, (O_WRONLY | O_CREAT | O_APPEND));
+			fd_out = open(pipeline->next->word, (O_WRONLY | O_CREAT | O_APPEND), 0666);
 		}
 		if (fd_in == -1 || fd_out == -1)
 			return (0);
