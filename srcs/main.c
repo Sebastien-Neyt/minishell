@@ -34,6 +34,8 @@ int	append_str(char **str1, char *str2)
 void	parse_line(t_shell *minishell)
 {	
 	//printf("TEST//////////////////////%s\n", minishell->line);
+	if (minishell->list->word != NULL)
+		minishell->list = ft_lstnew(NULL);
 	word_parse(minishell->line, minishell);
 	check_for_exp(minishell);
 	parse_list(minishell);
@@ -54,6 +56,22 @@ void	append_line(t_shell *minishell)
 		ft_exit(minishell, FAILED_MALLOC);
 	free(minishell->line);
 	minishell->line = minishell->line_tmp;
+	minishell->line_tmp = NULL;
+}
+
+void	get_heredoc2(t_shell *minishell, t_list *pipeline, char *input, int control)
+{
+	free(pipeline->word);
+	pipeline->word = input;
+	pipeline->token = HEREDOC_CONTENT;
+	if (minishell->line == NULL)
+		perror("warning: here-document delimited by end-of-file\n");
+	else
+		free(minishell->line);
+	minishell->line = minishell->line_tmp;
+	minishell->line_tmp = NULL;
+	if (control == 0)
+		ft_exit(minishell, FAILED_MALLOC);
 }
 
 void	get_heredoc(t_shell *minishell, t_list *pipeline, char *input, int control)
@@ -74,17 +92,7 @@ void	get_heredoc(t_shell *minishell, t_list *pipeline, char *input, int control)
 		if (append_str(&(input), minishell->line) == 0)
 			control = 0;
 	}
-	free(pipeline->word);
-	pipeline->word = input;
-	pipeline->token = HEREDOC_CONTENT;
-	if (minishell->line == NULL)
-		perror("warning: here-document delimited by end-of-file\n");
-	else
-		free(minishell->line);
-	minishell->line = minishell->line_tmp;
-	minishell->line_tmp = NULL;
-	if (control == 0)
-		ft_exit(minishell, FAILED_MALLOC);
+	get_heredoc2(minishell, pipeline, input, control);
 }
 
 int	line_not_done(t_shell *minishell)
@@ -138,7 +146,6 @@ void	read_exec_loop(t_shell *minishell)
 		execute_line(minishell);
 		//rl_add_history(minishell->line);
 		reset_line(minishell);
-		printf(GREEN"HEEEERE\n");
 	}
 }
 
