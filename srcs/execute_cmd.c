@@ -104,7 +104,7 @@ pid_t	exec_cmd(t_shell *minishell)
 	int proc_pid;
 	t_cmd	*cmd;
 
-	print_cmd(minishell);//DEBUG
+	//print_cmd(minishell);//DEBUG
 	proc_pid = fork();
 	if (proc_pid > 0)
 		return (proc_pid);
@@ -201,8 +201,8 @@ void	execute_line(t_shell *minishell)
 	while (i <= minishell->nbr_pipe)
 	{
 		waitpid((minishell->pid)[i], &g_exit_code, 0);
-		printf(YELLOW"[PID][%d]\t"WHITE, minishell->pid[i]);//DEBUG
-		printf(YELLOW"[RET][%d]\n"WHITE, g_exit_code);//DEBUG
+	//	printf(YELLOW"[PID][%d]\t"WHITE, minishell->pid[i]);//DEBUG
+	//	printf(YELLOW"[RET][%d]\n"WHITE, g_exit_code);//DEBUG
 		i++;
 	}
 }

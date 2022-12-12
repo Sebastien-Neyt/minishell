@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:44:30 by sneyt             #+#    #+#             */
-/*   Updated: 2022/11/25 10:21:17 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/12 16:49:13 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 void	parse_line(t_shell *minishell)
 {	
 	//printf("TEST//////////////////////%s\n", minishell->line);
-	word_parse(minishell->line, minishell);
+	word_parse(minishell->line, minishell, 0, 0);
 	check_for_exp(minishell);
 	parse_list(minishell);
 	trim_pipeline(minishell);
 	tokenize_line(minishell);
-	print_pipeline(minishell);//TEST	
+//	print_pipeline(minishell);//TEST	
 }
 
 void	append_line(t_shell *minishell)

@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:45:38 by sneyt             #+#    #+#             */
-/*   Updated: 2022/11/25 11:18:24 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/12 16:20:24 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,19 +177,22 @@ void	copy_envp(t_shell *minishell, char **old_env, char *new_env);
 int	add_env(char *env, char *value, t_shell *minishell);
 
 // word_parse.c
-void	word_parse(char *line, t_shell *minishell);
+void	word_parse(char *line, t_shell *minishell, int i, int x);
 int		is_whitespace(char c);
 char 	*build_word(int i, int offset, char *line);
 void	add_word(t_shell *minishell, char *word, int flag);
 int		check_quote(int type, char *line, int i);
-
+int		determine_flag(char c);
 
 // expanding.c
 char *get_var(char *str, int i);
 int check_expansion(char *str, t_shell *minishell, t_list *node);
 int	check_in_env(char *env_var, t_shell *minishell);
 int	compare_env(char *env_var, char *mini_env);
-int expand_varv2(int index, t_shell *minishell, char *env_var, t_list *node, int macro);
+void expand_varv2(t_shell *minishell, char *env_var, t_list *node, int macro);
+char *malloc_expand(t_list *node, char *env_var, t_shell *minishell, int macro);
+int	index_jump(char *env_var, char c, int index);
+
 
 // word_parse2.c
 int	word_subparse(char *line, t_shell *minishell, e_token token);
