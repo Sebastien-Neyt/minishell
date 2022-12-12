@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 13:01:40 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/12 17:06:13 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/12 09:17:25 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ int	find_env(char *env, t_shell *minishell)
 
 	x = 0;
 	i = ft_strlen(env);
-	if (!minishell->envparams[0])
-		return (-1);
 	while (minishell->envparams[x])
 	{
 		if (env_compare(env, i, minishell->envparams[x]))

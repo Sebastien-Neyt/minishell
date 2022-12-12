@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:45:38 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/12 16:20:24 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/12 17:27:45 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ char *ft_strdup(char *s1);
 char *ft_strtrim(char *s1, char *set);
 char	*ft_strjoin(char *s1, char *s2);
 char	**ft_split(char *s, char c);
+char *ft_substr(char *s, int start, int len);
 
 //utils2.c
 int	check_chars(char *word);

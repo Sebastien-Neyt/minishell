@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 11:11:57 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/12 16:23:28 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/12 17:26:54 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	ft_strlen(char *str)
 		i++;
 	return (i);
 }
+
 //legit the same as a strdupe.
 char	*env_dup(char *s1)
 {
@@ -41,6 +42,7 @@ char	*env_dup(char *s1)
 	dupe[i] = '\0';
 	return (dupe);
 }
+
 //creates a new list node.
 t_list	*ft_lstnew(char	*content)
 {
@@ -53,6 +55,7 @@ t_list	*ft_lstnew(char	*content)
 	ans->next = 0;
 	return (ans);
 }
+
 //gets the last node of our linked list.
 t_list	*ft_lstlast(t_list *lst)
 {
@@ -62,6 +65,7 @@ t_list	*ft_lstlast(t_list *lst)
 		lst = lst->next;
 	return (lst);
 }
+
 //adds our new node as the last node in our list.
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
@@ -76,7 +80,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 
 int	ft_strcmp(char *s1, char *s2)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
@@ -103,6 +107,7 @@ char	*ft_strdup(char *s1)
 	dupe[i] = '\0';
 	return (dupe);
 }
+
 //checks if c is in set.
 static int	ft_ispartofset(char c, char *set)
 {
@@ -114,11 +119,12 @@ static int	ft_ispartofset(char c, char *set)
 	}
 	return (0);
 }
+
 //creates a substring from start till len is reached.
-char	*ft_substr(char *s,  int start, int len)
+char	*ft_substr(char *s, int start, int len)
 {
-	char			*ans;
-	 int	i;
+	char	*ans;
+	int		i;
 
 	if (!s)
 		return (0);
@@ -138,6 +144,7 @@ char	*ft_substr(char *s,  int start, int len)
 	ans[i] = '\0';
 	return (ans);
 }
+
 //trims all set chars in the front and back.
 char	*ft_strtrim(char *s1, char *set)
 {
@@ -215,7 +222,6 @@ char	*ft_strndup(char *src, int n)
 	ft_strlcpy(copy, (char *)src, n + 1);
 	return (copy);
 }
-
 
 static char	*ft_wordup(char *s, char c, int i)
 {

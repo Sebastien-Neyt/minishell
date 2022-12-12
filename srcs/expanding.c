@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 10:14:49 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/12 15:32:16 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/12 15:34:39 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,6 @@ void	expand_varv2(t_shell *minishell, char *env_var, t_list *node, int macro)
 					expanded_word[x++] = minishell->envparams[index][y++];
 			}
 			i += index_jump(env_var, node->word[i], index);
-		//	part_expandv2(expanded_word, x, i, node);
 			return (part_expandv2(expanded_word, x, i, node));
 		}
 		expanded_word[x++] = node->word[i++];
