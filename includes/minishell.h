@@ -48,20 +48,20 @@ typedef struct s_cmd {
 }	t_cmd;
 
 typedef enum token {
-	WORD,			/* 1 */
-	PIPE,			/* 2 */
-	SINGLE,			/* 3 */
-	DOUBLE, 		/* 4 */
-	SIMPLE_REDIRECT_TO,	/* 5 */
-	SIMPLE_REDIRECT_FROM,	/* 6 */
-	DOUBLE_REDIRECT_TO,	/* 7 */
-	HEREDOC,		/* 8 */
-	HEREDOC_DEL,		/* 9 */
-	HEREDOC_CONTENT,	/* 10 */
-	CMD,			/* 11 */
-	ARG,			/* 12 */
-	FILE_NAME,		/* 13 */
-	LINE_START,		/* 14 */
+	WORD,			/* 0 */
+	PIPE,			/* 1 */
+	SINGLE,			/* 2 */
+	DOUBLE, 		/* 3 */
+	SIMPLE_REDIRECT_TO,	/* 4 */
+	SIMPLE_REDIRECT_FROM,	/* 5 */
+	DOUBLE_REDIRECT_TO,	/* 6 */
+	HEREDOC,		/* 7 */
+	HEREDOC_DEL,		/* 8 */
+	HEREDOC_CONTENT,	/* 9 */
+	CMD,			/* 10 */
+	ARG,			/* 11 */
+	FILE_NAME,		/* 12 */
+	LINE_START,		/* 13 */
 }	e_token;
 
 typedef struct s_list {
