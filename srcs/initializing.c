@@ -28,8 +28,11 @@ static void	init_env_empty(t_shell *minishell)
 	minishell->envparams = malloc(sizeof(char *) * 3);
 	minishell->envparams[0] = NULL;
 	set_env("PWD", getcwd(NULL, 0), minishell);
-//	set_env("SHLVL", "1", minishell);
-//	set_env("_", "usr/bin/env", minishell);
+	printf("env = %s\n", minishell->envparams[0]);
+	set_env("SHLVL", "1", minishell);
+	printf("env = %s\n", minishell->envparams[1]);
+	set_env("_", "usr/bin/env", minishell);
+	printf("env = %s\n", minishell->envparams[2]);
 }
 
 int	init_envs(t_shell *minishell, char **envp)	
