@@ -6,7 +6,7 @@
 #    By: ccollard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/18 11:47:57 by ccollard          #+#    #+#              #
-#    Updated: 2019/11/18 11:48:06 by ccollard         ###   ########.fr        #
+#    Updated: 2022/12/13 09:49:34 by sneyt            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,8 @@ SRC_LIST	= check_syntax.c\
 		  tokenize_line.c\
 		  utils1.c\
 		  utils2.c\
+		  utils3.c\
+		  utils4.c\
 		  word_parse.c\
 		  word_parse2.c
 

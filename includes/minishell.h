@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:45:38 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/12 17:27:45 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/13 09:49:24 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,9 @@ char *ft_substr(char *s, int start, int len);
 int	check_chars(char *word);
 int	check_for_exp(t_shell *minishell);
 void trim_pipeline(t_shell *minishell);
+
+//utils3.c
+size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 
 // initializing.c
 t_shell	init_shell (char **envp);
