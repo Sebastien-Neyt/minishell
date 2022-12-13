@@ -29,6 +29,8 @@ char	*make_path(t_shell *minishell)
 	char	*tmp;
 
 	path = NULL;
+	if (find_env("PATH", minishell) == -1)
+		return (NULL);
 	prefix = ft_split(minishell->envparams[find_env("PATH", minishell)], ':');
 	save_p = prefix;
 	if (prefix == NULL)
