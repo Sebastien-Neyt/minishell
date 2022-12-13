@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:52:59 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/12 16:54:38 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/13 11:14:51 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 // Change the getenv to my custom env
 
-char *get_env(char *env, t_shell *minishell)
+char	*get_env(char *env, t_shell *minishell)
 {
-	char *ans;
-	int i;
-	int len;
+	char	*ans;
+	int		i;
+	int		len;
+
 	i = find_env(env, minishell);
 	len = ft_strlen(minishell->envparams[i]) - ft_strlen(env) + 1;
 	ans = ft_substr(minishell->envparams[i], (ft_strlen(env) + 1), len);
@@ -27,18 +28,16 @@ char *get_env(char *env, t_shell *minishell)
 
 void	ft_cd(t_shell *minishell)
 {
-	char *path;
-	char *oldpwd;
+	char	*path;
+	char	*oldpwd;
 
-	//checking for argument. if not than cd points to HOME
 	oldpwd = get_env("PWD", minishell);
 	if (minishell->cmd.arg[1])
 		path = minishell->cmd.arg[1];
-		//path = getenv("PWD");
 	else
 		path = get_env("HOME", minishell);
 	if (chdir(path) == -1)
-		return; 
+		return ;
 		//error because the path does not exist
 	else
 	{
@@ -49,4 +48,3 @@ void	ft_cd(t_shell *minishell)
 		free(path);
 	}
 }
-

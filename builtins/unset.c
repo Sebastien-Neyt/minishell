@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:53:12 by sneyt             #+#    #+#             */
-/*   Updated: 2022/11/25 11:24:09 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/13 11:20:33 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int	ft_unset(t_shell *minishell)
 {
-	char **new_envparams;
-	int size;
-	int loc;
-	int i;
-	int x;
+	char	**new_envparams;
+	int		size;
+	int		loc;
+	int		i;
+	int		x;
 
 	//unsetting multiple envs in 1 go?
 	if (!minishell->cmd.arg[1])
@@ -46,7 +46,6 @@ int	ft_unset(t_shell *minishell)
 		x++;
 	}
 	new_envparams[x] = 0;
-
 	//free envparams and link new array
 	i = 0;
 	while (minishell->envparams[i])

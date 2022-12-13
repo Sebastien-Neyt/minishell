@@ -6,16 +6,14 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:46:33 by sneyt             #+#    #+#             */
-/*   Updated: 2022/11/25 10:18:26 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/13 11:16:00 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-
 int	ft_echo(t_shell *minishell)
 {
-	//char *arg[4] = {"echo", "-n", "this is a test", NULL};
 	int	i;
 	int	new_line;
 
@@ -33,7 +31,5 @@ int	ft_echo(t_shell *minishell)
 	}
 	if (new_line)
 		printf("\n");
-		//write(1, "\n", 1);	
-	return (1);	
+	return (1);
 }
-
