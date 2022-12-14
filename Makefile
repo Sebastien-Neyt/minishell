@@ -1,22 +1,11 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ccollard <marvin@42.fr>                    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/11/18 11:47:57 by ccollard          #+#    #+#              #
-#    Updated: 2022/12/13 09:49:34 by sneyt            ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 CC	= gcc
 
 CCFLAGS	= -Wall -Wextra -Werror
 
-INCLUDES= -I readline
+INCLUDES= -I /usr/local/opt/readline/include
 
-LIB	= -l readline
+LIB	= -l readline -L /usr/local/opt/readline/lib
 
 NAME	= minishell
 
@@ -60,7 +49,8 @@ SRC_LIST	= check_syntax.c\
 		  utils3.c\
 		  utils4.c\
 		  word_parse.c\
-		  word_parse2.c
+		  word_parse2.c\
+		  redirect.c
 
 BUILTIN_LIST	=	cd.c\
 			echo.c\
@@ -82,12 +72,12 @@ BOBJS	= $(BONUS:%.c=%.o)
 all: $(NAME) 
 
 $(NAME): $(OBJ)
-	 @$(CC) $(CCFLAGS) $(OBJ) $(LIB) -o $@
+	 @$(CC) $(CCFLAGS) $(LIB) $(OBJ) $(INCLUDES) -o $@
 	 @printf "\n[COMPILED]\n" 
 
 %.o: %.c
 	@printf "$(GREEN).$(RESET)"
-	@$(CC) $(CCFLAGS) $(INCLUDE) -c $< -o $@ 
+	@$(CC) $(CCFLAGS) $(INCLUDES) -c $< -o $@ 
 
 clean: 
 	@rm -f $(OBJ)
