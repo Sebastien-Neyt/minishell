@@ -27,9 +27,15 @@ do not forget to treat >| as a redirect and not as to different META
 
 TODO LIST:
 	- error messages and other macros
-	- heredocs in redirects
 	- check malloc protection
 	- norminette
 	- signals
 	- all the functions to reset, free, etc
 	- env default values
+	- $? expension
+
+TESTING_TODO:
+	- checking all malloc, values protections and leaks
+	- just leaks in general: debugger ?
+	- syntax error list: make tester script
+	- argument handling of builtins
