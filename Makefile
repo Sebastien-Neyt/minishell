@@ -48,6 +48,7 @@ SRC_LIST	= check_syntax.c\
 		  utils2.c\
 		  utils3.c\
 		  utils4.c\
+		  utils5.c\
 		  word_parse.c\
 		  word_parse2.c\
 		  redirect.c

@@ -12,25 +12,6 @@
 
 #include "../includes/minishell.h"
 
-int	append_str(char **str1, char *str2)
-{
-	char	*tmp;
-
-	if (str2 == NULL)
-		return 1;
-	if (*str1 == NULL)
-	{
-		*str1 = str2;
-		return 1;
-	}
-	tmp = ft_strjoin(*str1, str2);
-	if (tmp == NULL)
-		return 0;
-	free(*str1);
-	*str1 = tmp;
-	return 1;
-}
-
 void	parse_line(t_shell *minishell)
 {	
 	if (minishell->list->word != NULL)
@@ -50,7 +31,7 @@ void	append_line(t_shell *minishell)
 	if (minishell->line == NULL)
 		ft_exit(minishell, UNXPCTD_EOF);
 	parse_line(minishell);
-	//check_syntax_error(minishell);
+	check_syntax_error(minishell);//in prod
 	if (append_str(&(minishell->line_tmp), minishell->line) == 0)
 		ft_exit(minishell, FAILED_MALLOC);
 	free(minishell->line);
@@ -94,22 +75,6 @@ void	get_heredoc(t_shell *minishell, t_list *pipeline, char *input, int control)
 	get_heredoc2(minishell, pipeline, input, control);
 }
 
-int	line_not_done(t_shell *minishell)
-{
-	t_list *pipeline;
-
-	pipeline = minishell->pipeline;
-	while (pipeline && pipeline->next)
-	{
-		if (pipeline->token == HEREDOC_DEL)
-			return (HEREDOC_DEL);
-		pipeline = pipeline->next;
-	}
-	if (pipeline->token == PIPE || pipeline->token == HEREDOC_DEL)
-		return (pipeline->token);
-	return (0);
-}
-
 /* launch an ifinite loop that will:
  *	readline
  *	parse_line
@@ -131,7 +96,7 @@ void	read_exec_loop(t_shell *minishell)
 		if (minishell->line == NULL)
 			ft_exit(minishell, DEFAULT_MSG);
 		parse_line(minishell);
-		//check_syntax_error();
+		check_syntax_error(minishell);//in prod
 		not_done = line_not_done(minishell);
 		while (not_done)
 		{
@@ -142,7 +107,7 @@ void	read_exec_loop(t_shell *minishell)
 			not_done = line_not_done(minishell);
 		}
 		execute_line(minishell);
-		//rl_add_history(minishell->line);
+		add_history(minishell->line);
 		reset_line(minishell);
 	}
 }

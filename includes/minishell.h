@@ -86,6 +86,9 @@ typedef struct s_shell {
 int	check_for_exp(t_shell *minishell);
 int	check_chars(char *word);
 
+//redirect.c
+int	ft_redirect(t_shell *minishell);
+
 // exec_utils.c
 int	is_builtin(t_shell *minishell);
 int	count_pipe(t_shell *minishell);
@@ -96,7 +99,9 @@ void	reset_line(t_shell *minishell);
 
 
 // check_syntax.c
-int	check_line_done(t_shell *minishell);
+void	check_syntax_error(t_shell *minishell);
+int	line_not_done(t_shell *minishell);
+void	move_pipeline(t_shell *minishell);
 
 // tokenize_line.c
 void	tokenize_line(t_shell *minishell);
@@ -137,6 +142,9 @@ void trim_pipeline(t_shell *minishell);
 
 //utils3.c
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
+
+//utils5.c
+int	append_str(char **str1, char *str2);
 
 // initializing.c
 t_shell	init_shell (char **envp);
