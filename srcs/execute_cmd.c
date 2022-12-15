@@ -134,6 +134,8 @@ void	execute_line(t_shell *minishell)
 	int	i;
 	
 	i = 0;
+	if (minishell->pipeline->word == NULL)
+		return;
 	minishell->nbr_pipe = count_pipe(minishell);
 	minishell->pipeline_start = minishell->pipeline;
 	minishell->pid = malloc((minishell->nbr_pipe) * sizeof(pid_t));
