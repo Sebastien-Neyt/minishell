@@ -1,4 +1,3 @@
-
 CC	= gcc
 
 CCFLAGS	= -Wall -Wextra -Werror
@@ -42,6 +41,7 @@ SRC_LIST	= check_syntax.c\
 		  get_path.c\
 		  initializing.c\
 		  main.c\
+		  read_exec.c\
 		  reset_line.c\
 		  tokenize_line.c\
 		  utils1.c\

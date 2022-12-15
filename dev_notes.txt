@@ -25,6 +25,8 @@ All builtins return an exit status of 2 to indicate incorrect usage, generally i
 
 do not forget to treat >| as a redirect and not as to different META
 
+command not found msg should be displayed outside of exit
+
 TODO LIST:
 	- error messages and other macros
 	- check malloc protection

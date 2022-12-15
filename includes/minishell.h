@@ -86,6 +86,9 @@ typedef struct s_shell {
 int	check_for_exp(t_shell *minishell);
 int	check_chars(char *word);
 
+//read_exec.c
+void	read_exec_loop(t_shell *minishell);
+
 //redirect.c
 int	ft_redirect(t_shell *minishell);
 

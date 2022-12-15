@@ -17,5 +17,6 @@ void	reset_line(t_shell *minishell)
 	minishell->list = ft_lstnew(NULL);
 	if (minishell->pipeline_start)
 		free(minishell->pipeline_start);
-	minishell->pipeline = ft_lstnew(NULL);	
+	minishell->pipeline = ft_lstnew(NULL);
+	minishell->pipeline_start = minishell->pipeline;
 }

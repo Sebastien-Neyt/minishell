@@ -113,7 +113,7 @@ int	add_env(char *env, char *value, t_shell *minishell)
 	if (!new_env)
 		return (0);
 	size = env_counter(minishell->envparams);
-	old_env = malloc(sizeof(char *) * size + 2);
+	old_env = malloc(sizeof(char *) * (size + 2));
 	copy_envp(minishell, old_env, new_env);
 	free_env(minishell);
 	minishell->envparams = old_env;

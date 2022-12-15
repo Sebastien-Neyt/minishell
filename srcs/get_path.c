@@ -31,7 +31,7 @@ char	*make_path(t_shell *minishell)
 	path = NULL;
 	if (find_env("PATH", minishell) == -1)
 		return (NULL);
-	prefix = ft_split(minishell->envparams[find_env("PATH", minishell)], ':');
+	prefix = ft_split(minishell->envparams[find_env("PATH", minishell)] + 5, ':');
 	save_p = prefix;
 	if (prefix == NULL)
 		ft_exit(minishell, FAILED_MALLOC);
@@ -49,8 +49,11 @@ char	*make_path(t_shell *minishell)
 	return (path);
 }
 
-/*
- *
+/* check if name of command exist
+ * check if executable exist in local directory
+ * call make_path
+ * dipslay error message if no command found and return null
+ * return command path if command found
  */
 char	*get_path(t_shell *minishell)
 {
@@ -64,6 +67,7 @@ char	*get_path(t_shell *minishell)
 	if (access(cmd, X_OK) == 0)
 		return (cmd);
 	cmd = make_path(minishell);
+	if (cmd == NULL)
+		perror("command not found\n");
 	return (cmd);
 }
-

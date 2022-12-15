@@ -2,19 +2,9 @@
 
 /* return 1 if name is a builtin 0 if not
  */
-int	is_builtin(t_shell *minishell)
-{
-	t_list *pipeline;
- 	char *name;
 
- 	pipeline = minishell->pipeline;
-	name = NULL;
- 	while (pipeline && pipeline->token != PIPE)
- 	{
- 		if (pipeline->token == CMD)
- 			name = pipeline->word;
- 		pipeline = pipeline->next;
- 	}
+int	is_builtin_internal(char *name)
+{
  	if (name == NULL)
  		return (1);
 	if (!ft_strcmp("cd", name))
@@ -32,6 +22,22 @@ int	is_builtin(t_shell *minishell)
 	if (!ft_strcmp("exit", name))
 		return (1);
 	return (0);
+}
+
+int	is_builtin(t_shell *minishell)
+{
+	t_list *pipeline;
+ 	char *name;
+
+ 	pipeline = minishell->pipeline;
+	name = NULL;
+ 	while (pipeline && pipeline->token != PIPE)
+ 	{
+ 		if (pipeline->token == CMD)
+ 			name = pipeline->word;
+ 		pipeline = pipeline->next;
+ 	}
+	return (is_builtin_internal(name));
 }
 
 int	count_pipe(t_shell *minishell)

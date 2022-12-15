@@ -24,6 +24,9 @@ int	exec_builtin_2(t_shell *minishell)
 
 int	exec_builtin(t_shell *minishell)
 {
+	
+	if ((minishell->cmd).name == NULL)
+		return (1);
 	if (!ft_strcmp("exit", (minishell->cmd).name))
 		ft_exit(minishell, DEFAULT_MSG);
 	if (!ft_strcmp("cd", (minishell->cmd).name))
@@ -57,7 +60,6 @@ pid_t	exec_cmd(t_shell *minishell)
 	int proc_pid;
 	t_cmd	*cmd;
 
-	//print_cmd(minishell);//DEBUG
 	proc_pid = fork();
 	if (proc_pid > 0)
 		return (proc_pid);
@@ -66,6 +68,7 @@ pid_t	exec_cmd(t_shell *minishell)
 	cmd = &minishell->cmd;
 	if (ft_redirect(minishell) == 0)
 		ft_exit(minishell, NULL);//add error message
+	//print_cmd(minishell);//DEBUG
 	if (cmd->name == NULL)
 		ft_exit(minishell, NULL);
 	if (exec_builtin(minishell))
@@ -117,6 +120,7 @@ void	internal_execute(t_shell *minishell)
 
 	std_in = dup(STDIN_FILENO);
 	std_out = dup(STDOUT_FILENO);
+	//print_cmd(minishell);//DEBUG
 	ft_build_cmd(minishell);
 	if(ft_redirect(minishell))
 		exec_builtin(minishell);

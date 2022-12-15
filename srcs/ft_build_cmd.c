@@ -51,6 +51,7 @@ char *get_name(t_shell *minishell)
 	{
 		if (pipeline->token == CMD)
 			return (pipeline->word);
+		pipeline = pipeline->next;
 	}
 	return (NULL);
 }
@@ -77,6 +78,8 @@ void	ft_build_cmd(t_shell *minishell)
 	cmd->name = get_name(minishell);
 	if (cmd->name)
 		cmd->path = get_path(minishell);
+	else 
+		return;
 	cmd->arg = get_arg(minishell);
 	cmd->envp = minishell->envparams;
 }
