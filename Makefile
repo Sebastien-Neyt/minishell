@@ -36,6 +36,7 @@ SRC_LIST	= check_syntax.c\
 		  error.c\
 		  exec_utils.c\
 		  execute_cmd.c\
+		  pipeline.c\
 		  expanding.c\
 		  ft_build_cmd.c\
 		  get_path.c\

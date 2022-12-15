@@ -21,7 +21,7 @@ void	check_syntax_error(t_shell *minishell)
  */
 int	line_not_done(t_shell *minishell)
 {
-	t_list *pipeline;
+	t_list	*pipeline;
 
 	pipeline = minishell->pipeline;
 	while (pipeline && pipeline->next)
@@ -42,4 +42,3 @@ void	move_pipeline(t_shell *minishell)
 	if (minishell->pipeline && minishell->pipeline->token == PIPE)
 		minishell->pipeline = minishell->pipeline->next;
 }
-

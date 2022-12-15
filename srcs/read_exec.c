@@ -1,7 +1,7 @@
 #include "../includes/minishell.h"
 
 /* parse the line into a pipeline and tokenize
- */
+*/
 void	parse_line(t_shell *minishell)
 {	
 	if (minishell->list->word != NULL)
@@ -34,8 +34,8 @@ void	append_line(t_shell *minishell)
 }
 
 /* 
- */
-void	get_heredoc2(t_shell *minishell, t_list *pipeline, char *input, int control)
+*/
+void	get_heredoc2(t_shell *minishell, t_list *pipeline, char *input, int ctl)
 {
 	free(pipeline->word);
 	pipeline->word = input;
@@ -46,29 +46,29 @@ void	get_heredoc2(t_shell *minishell, t_list *pipeline, char *input, int control
 		free(minishell->line);
 	minishell->line = minishell->line_tmp;
 	minishell->line_tmp = NULL;
-	if (control == 0)
+	if (ctl == 0)
 		ft_exit(minishell, FAILED_MALLOC);
 }
 
-void	get_heredoc(t_shell *minishell, t_list *pipeline, char *input, int control)
+void	get_heredoc(t_shell *minishell, t_list *pipeline, char *input, int ctl)
 {
 	pipeline = minishell->pipeline;
 	minishell->line_tmp = minishell->line;
 	while (pipeline && pipeline->token != HEREDOC_DEL)
 		pipeline = pipeline->next;
-	while (control)
+	while (ctl)
 	{
 		minishell->line = readline(">");
 		if (minishell->line == NULL)
-			break;
+			break ;
 		if (append_str(&(minishell->line_tmp), minishell->line) == 0)
-			control = 0;
+			ctl = 0;
 		if (ft_strcmp(minishell->line, pipeline->word) == 0)
-			break;
+			break ;
 		if (append_str(&(input), minishell->line) == 0)
-			control = 0;
+			ctl = 0;
 	}
-	get_heredoc2(minishell, pipeline, input, control);
+	get_heredoc2(minishell, pipeline, input, ctl);
 }
 
 /* launch an ifinite loop that will:
@@ -82,7 +82,7 @@ void	get_heredoc(t_shell *minishell, t_list *pipeline, char *input, int control)
  */
 void	read_exec_loop(t_shell *minishell)
 {
-	int not_done;
+	int	not_done;
 
 	not_done = 0;
 	while (1)

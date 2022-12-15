@@ -99,7 +99,13 @@ int	is_redirect(e_token);
 
 // reset_line.c
 void	reset_line(t_shell *minishell);
+void	cmd_init(t_shell *minishell);
 
+//pipeline.c
+void	exec_pipeline(t_shell *minishell);
+pid_t	exec_cmd(t_shell *minishell);
+int	exec_builtin(t_shell *minishell);
+int	exec_builtin_2(t_shell *minishell);
 
 // check_syntax.c
 void	check_syntax_error(t_shell *minishell);
@@ -115,7 +121,6 @@ char 	*get_path(t_shell *minishell);
 // ft_build_cmd.c
 void	ft_build_cmd(t_shell *minishell);
 void	reset_cmd(t_shell *minishell);
-void	cmd_init(t_shell *minishell);
 
 // execute_cmd.c
 void	execute_line(t_shell *minishell);

@@ -6,7 +6,7 @@
 int	test_path(char *prefix, char *cmd)
 {
 	char	*path;
-	int	ret;
+	int		ret;
 
 	ret = -1;
 	path = ft_strjoin(prefix, cmd);
@@ -31,7 +31,8 @@ char	*make_path(t_shell *minishell)
 	path = NULL;
 	if (find_env("PATH", minishell) == -1)
 		return (NULL);
-	prefix = ft_split(minishell->envparams[find_env("PATH", minishell)] + 5, ':');
+	prefix = ft_split(\
+minishell->envparams[find_env("PATH", minishell)] + 5, ':');
 	save_p = prefix;
 	if (prefix == NULL)
 		ft_exit(minishell, FAILED_MALLOC);

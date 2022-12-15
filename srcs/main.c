@@ -22,10 +22,9 @@
  */
 int	main(int argc, char *argv[], char *envp[])
 {
-	t_shell minishell;
-	
-	minishell = init_shell(envp);
+	t_shell	minishell;
 
+	minishell = init_shell(envp);
 	(void)argv;
 	if (argc > 1)
 		ft_exit(NULL, ERR_ARGNBR);
@@ -34,7 +33,7 @@ int	main(int argc, char *argv[], char *envp[])
 	ft_exit(&minishell, "minishell : unexpected error\n");
 	return (1);
 }
-
 /*  "bash: syntax error: unexpected end of file"
- *  shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
+ *  shell-init: error retrieving current directory:
+ *  getcwd: cannot access parent directories: No such file or directory
  */

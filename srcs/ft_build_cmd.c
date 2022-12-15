@@ -2,12 +2,12 @@
 
 int	count_arg(t_shell *minishell)
 {
-	t_list *pipeline;
-	int	i;
-	
+	t_list	*pipeline;
+	int		i;
+
 	i = 0;
 	pipeline = minishell->pipeline;
-	while(pipeline && pipeline->token != PIPE)
+	while (pipeline && pipeline->token != PIPE)
 	{
 		if (pipeline->token == ARG)
 			i++;
@@ -18,9 +18,9 @@ int	count_arg(t_shell *minishell)
 
 char	**get_arg(t_shell *minishell)
 {
-	t_list *pipeline;
+	t_list	*pipeline;
 	char	**arg;
-	int	i;
+	int		i;
 
 	i = 0;
 	pipeline = minishell->pipeline;
@@ -29,7 +29,7 @@ char	**get_arg(t_shell *minishell)
 		ft_exit(minishell, FAILED_MALLOC);
 	arg[i] = minishell->cmd.name;
 	i++;
-	while(pipeline && pipeline->token != PIPE)
+	while (pipeline && pipeline->token != PIPE)
 	{
 		if (pipeline->token == ARG)
 		{
@@ -42,9 +42,9 @@ char	**get_arg(t_shell *minishell)
 	return (arg);
 }
 
-char *get_name(t_shell *minishell)
+char	*get_name(t_shell *minishell)
 {
-	t_list *pipeline;
+	t_list	*pipeline;
 
 	pipeline = minishell->pipeline;
 	while (pipeline && pipeline->token != PIPE)
@@ -56,19 +56,6 @@ char *get_name(t_shell *minishell)
 	return (NULL);
 }
 
-void	cmd_init(t_shell *minishell)
-{
-	t_cmd	*cmd;
-
-	cmd = &(minishell->cmd);
-	cmd->arg = NULL;
-	cmd->name = NULL;
-	cmd->path = NULL;
-	cmd->envp = NULL;
-	cmd->fd_in = STDIN_FILENO;
-	cmd->fd_out = STDOUT_FILENO;
-}
-
 void	ft_build_cmd(t_shell *minishell)
 {
 	t_cmd	*cmd;
@@ -78,8 +65,8 @@ void	ft_build_cmd(t_shell *minishell)
 	cmd->name = get_name(minishell);
 	if (cmd->name)
 		cmd->path = get_path(minishell);
-	else 
-		return;
+	else
+		return ;
 	cmd->arg = get_arg(minishell);
 	cmd->envp = minishell->envparams;
 }
@@ -87,7 +74,7 @@ void	ft_build_cmd(t_shell *minishell)
 void	reset_cmd(t_shell *minishell)
 {
 	t_cmd	*cmd;
-	int	i;
+	int		i;
 
 	i = 0;
 	cmd = &(minishell->cmd);

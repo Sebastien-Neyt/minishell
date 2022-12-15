@@ -20,7 +20,7 @@ void	determine_token_meta(t_list *pipeline, int *cmd_flag)
 	}
 }
 
-void	determine_token_word(t_list *pipeline, e_token *prev_token, int *cmd_flag)
+void	det_token_word(t_list *pipeline, e_token *prev_token, int *cmd_flag)
 {
 	if (*prev_token == HEREDOC)
 		pipeline->token = HEREDOC_DEL;
@@ -52,7 +52,7 @@ void	determine_token_word(t_list *pipeline, e_token *prev_token, int *cmd_flag)
  */
 void	tokenize_line(t_shell *minishell)
 {
-	int	cmd_flag;
+	int		cmd_flag;
 	t_list	*pipeline;
 	e_token	prev_token;
 
@@ -63,10 +63,11 @@ void	tokenize_line(t_shell *minishell)
 	{
 		if (pipeline->word)
 			determine_token_meta(pipeline, &cmd_flag);
-		if (pipeline &&( pipeline->token == SINGLE || pipeline->token == DOUBLE))
+		if (pipeline && (pipeline->token == SINGLE
+				|| pipeline->token == DOUBLE))
 			pipeline->token = WORD;
 		if (pipeline && pipeline->token == WORD)
-			determine_token_word(pipeline, &prev_token, &cmd_flag);
+			det_token_word(pipeline, &prev_token, &cmd_flag);
 		prev_token = pipeline->token;
 		pipeline = pipeline->next;
 	}
