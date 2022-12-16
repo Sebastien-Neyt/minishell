@@ -1,31 +1,8 @@
-env should be protected
 
-bash: export: `TEST test=dfv v fd vdf v df v': not a valid identifier
-
-bash: $test: ambiguous redirect
-
-SHELVL		should be initialize to 1 by default if not already defined
-_		should be initialize by default
-PWD 		should be initialize to the currrent directory by default
-
-
-additonal work to do on the tokenizing dependig on if the word is a path or not
-	might be doable in the exec part of the code
-
-~ will be expanded to the value of $HOME
-
-$? should expend to the exit code
 
 the . [filename] [options] call the source builtin which is not required
 
-Word spliting should be implemented after expensions
 $IFS not implemented
-
-All builtins return an exit status of 2 to indicate incorrect usage, generally invalid options or missing arguments.
-
-do not forget to treat >| as a redirect and not as to different META
-
-command not found msg should be displayed outside of exit
 
 TODO LIST:
 	- error messages and other macros
@@ -35,9 +12,17 @@ TODO LIST:
 	- all the functions to reset, free, etc
 	- env default values
 	- $? expension
+	- >| redirect (should be SIMPLE_REDIRECT_TO)
+	- do not forget exit value when exec builtins(All builtins return an exit status of 2 to 		indicate incorrect usage, generally invalid options or missing arguments.)
+	- bash: export: `TEST test=dfv v fd vdf v df v': not a valid identifier
 
 TESTING_TODO:
 	- checking all malloc, values protections and leaks
 	- just leaks in general: debugger ?
 	- syntax error list: make tester script
 	- argument handling of builtins
+
+IMPROVEMENT:
+	- interactive prompt
+	- Word spliting should be implemented after expensions wich imply the error
+		bash: $test: ambiguous redirect

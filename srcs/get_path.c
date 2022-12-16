@@ -59,7 +59,6 @@ minishell->envparams[find_env("PATH", minishell)] + 5, ':');
 char	*get_path(t_shell *minishell)
 {
 	char	*cmd;
-
 	if ((minishell->cmd).name == NULL)
 		return (NULL);
 	cmd = ft_strdup(minishell->cmd.name);
@@ -69,6 +68,6 @@ char	*get_path(t_shell *minishell)
 		return (cmd);
 	cmd = make_path(minishell);
 	if (cmd == NULL)
-		perror("command not found\n");
+		write(STDERR_FILENO, CMD_NFOUND, ft_strlen(CMD_NFOUND));
 	return (cmd);
 }

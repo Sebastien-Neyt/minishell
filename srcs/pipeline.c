@@ -73,9 +73,12 @@ pid_t	exec_cmd(t_shell *minishell)
 		ft_exit(minishell, NULL);
 	if (exec_builtin(minishell))
 		ft_exit(minishell, NULL);
-	else
+	else if (cmd->path)
+	{
 		execve(cmd->path, cmd->arg, cmd->envp);
-	ft_exit(minishell, FAILED_EXEC);
+		ft_exit(minishell, FAILED_EXEC);
+	}
+	ft_exit(minishell, NULL);
 	return (-1);
 }
 

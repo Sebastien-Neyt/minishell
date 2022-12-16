@@ -1,5 +1,11 @@
 #include "../includes/minishell.h"
 
+/* clone stdin and stdout
+ * set up the io in ft_redirect
+ * build cmd
+ * exec builtin
+ * reset io and cmd struct
+ */
 void	internal_execute(t_shell *minishell)
 {
 	int	std_in;
@@ -17,10 +23,10 @@ void	internal_execute(t_shell *minishell)
 }
 
 /* count the number of pipe in
- * the pipeline to determine the number of cmd blocks
+   the pipeline to determine the number of cmd blocks
  * malloc an array to store the pid's of each forks
+ * if cmd is a builtin 
  * call the function directly if only one block 
- * and if cmd is a builtin
  * else call dedicated function to execute the pipeline
  */
 void	execute_line(t_shell *minishell)

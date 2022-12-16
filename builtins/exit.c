@@ -12,6 +12,18 @@
 
 #include "../includes/minishell.h"
 
+void	free_pipeline(t_shell *minishell)
+{
+	while (minishell->pipeline_start)
+	{
+		minishell->pipeline = minishell->pipeline_start;
+		minishell->pipeline_start = minishell->pipeline_start->next;
+		free(minishell->pipeline);
+	}
+	minishell->pipeline = NULL;
+	minishell->pipeline_start = NULL;
+
+}
 void	ft_exit(t_shell *minishell, char *msg)
 {
 	if (msg)
@@ -29,9 +41,8 @@ void	ft_exit(t_shell *minishell, char *msg)
 	if (minishell->list)
 		free(minishell->list);
 	minishell->list = NULL;
-	if (minishell->pipeline_start)
-		free(minishell->pipeline_start);
-	minishell->pipeline = NULL;
+	free_pipeline(minishell);
+	//free_env ?
 	clear_history();
 	exit(g_exit_code);
 }
