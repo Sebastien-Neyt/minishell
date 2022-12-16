@@ -38,12 +38,14 @@ void	execute_line(t_shell *minishell)
 	if (minishell->nbr_pipe == 0 && is_builtin(minishell))
 		internal_execute(minishell);
 	else
-		exec_pipeline(minishell);
-	while (i <= minishell->nbr_pipe)
 	{
-		waitpid((minishell->pid)[i], &g_exit_code, 0);
-		//printf(YELLOW"[PID][%d]\t"WHITE, minishell->pid[i]);//DEBUG
-		//printf(YELLOW"[RET][%d]\n"WHITE, g_exit_code);//DEBUG
-		i++;
+		exec_pipeline(minishell);
+		while (i <= minishell->nbr_pipe)
+		{
+			waitpid((minishell->pid)[i], &g_exit_code, 0);
+			//printf(YELLOW"[PID][%d]\t"WHITE, minishell->pid[i]);//DEBUG
+			//printf(YELLOW"[RET][%d]\n"WHITE, g_exit_code);//DEBUG
+			i++;
+		}
 	}
 }

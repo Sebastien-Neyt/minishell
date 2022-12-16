@@ -94,6 +94,7 @@ int	ft_redirect(t_shell *minishell);
 
 // exec_utils.c
 int	is_builtin(t_shell *minishell);
+int	is_builtin_internal(char *name);
 int	count_pipe(t_shell *minishell);
 int	is_redirect(e_token);
 

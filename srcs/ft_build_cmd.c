@@ -63,7 +63,9 @@ void	ft_build_cmd(t_shell *minishell)
 	cmd_init(minishell);
 	cmd = &(minishell->cmd);
 	cmd->name = get_name(minishell);
-	if (cmd->name)
+	if (is_builtin_internal(cmd->name))
+		cmd->path = ft_strdup(cmd->name);
+	else if (cmd->name)
 		cmd->path = get_path(minishell);
 	else
 		return ;

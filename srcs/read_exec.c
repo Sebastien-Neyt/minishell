@@ -104,7 +104,7 @@ void	read_exec_loop(t_shell *minishell)
 			not_done = line_not_done(minishell);
 		}
 		execute_line(minishell);
-		if (minishell->line)
+		if (minishell->line && *(minishell->line))
 			add_history(minishell->line);
 	}
 }
