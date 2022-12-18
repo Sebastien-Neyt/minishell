@@ -29,7 +29,7 @@ int	main(int argc, char *argv[], char *envp[])
 	if (argc > 1)
 		ft_exit(NULL, ERR_ARGNBR);
 	//sig_init();
-	read_exec_loop(&minishell);
+	read_exec_loop(&minishell, 1);
 	ft_exit(&minishell, "minishell : unexpected error\n");
 	return (1);
 }

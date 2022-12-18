@@ -1,6 +1,28 @@
 #include "../includes/minishell.h"
 
-void	check_syntax_error(t_shell *minishell)
+int	check_syntax_pipe(int prev_token)
+{
+	if (prev_token == LINE_START
+		|| prev_token == PIPE
+		|| prev_token == SIMPLE_REDIRECT_TO
+		|| prev_token == SIMPLE_REDIRECT_FROM
+		|| prev_token == DOUBLE_REDIRECT_TO
+		|| prev_token == HEREDOC)
+		return (1);
+	return (0);
+}
+
+int	check_syntax_last(int token)
+{
+	if (token == SIMPLE_REDIRECT_TO
+		|| token == SIMPLE_REDIRECT_FROM
+		|| token == DOUBLE_REDIRECT_TO
+		|| token == HEREDOC)
+		return (1);
+	return (0);
+}
+
+int	check_syntax_error(t_shell *minishell)
 {
 	t_list	*pipeline;
 	e_token	prev_token;
@@ -9,11 +31,16 @@ void	check_syntax_error(t_shell *minishell)
 	prev_token = LINE_START;
 	while (pipeline)
 	{
-		if (prev_token == PIPE && pipeline->token == PIPE)
-			ft_exit(minishell, "syntax error");
+		if (pipeline->token == PIPE)
+			if (check_syntax_pipe(prev_token))
+				return (1);
+		if (pipeline->next == NULL)
+			if (check_syntax_last(pipeline->token))
+				return (1);
 		prev_token = pipeline->token;
 		pipeline = pipeline->next;
 	}
+	return (0);
 }
 
 /* return 0 if line has a unexpended heredoc or if ended by a pipe
@@ -24,6 +51,12 @@ int	line_not_done(t_shell *minishell)
 	t_list	*pipeline;
 
 	pipeline = minishell->pipeline;
+	if (check_syntax_error(minishell))
+	{
+		write(\
+2, "minishell : syntax error\n", ft_strlen("minishell : syntax error\n"));
+		return (-1);
+	}
 	while (pipeline && pipeline->next)
 	{
 		if (pipeline->token == HEREDOC_DEL)

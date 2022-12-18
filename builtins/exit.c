@@ -42,7 +42,7 @@ void	ft_exit(t_shell *minishell, char *msg)
 		free(minishell->list);
 	minishell->list = NULL;
 	free_pipeline(minishell);
-	//free_env ?
+	free_env(minishell);
 	clear_history();
 	exit(g_exit_code);
 }

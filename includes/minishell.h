@@ -87,7 +87,7 @@ int	check_for_exp(t_shell *minishell);
 int	check_chars(char *word);
 
 //read_exec.c
-void	read_exec_loop(t_shell *minishell);
+void	read_exec_loop(t_shell *minishell, int not_done);
 
 //redirect.c
 int	ft_redirect(t_shell *minishell);
@@ -109,7 +109,7 @@ int	exec_builtin(t_shell *minishell);
 int	exec_builtin_2(t_shell *minishell);
 
 // check_syntax.c
-void	check_syntax_error(t_shell *minishell);
+int	check_syntax_error(t_shell *minishell);
 int	line_not_done(t_shell *minishell);
 void	move_pipeline(t_shell *minishell);
 

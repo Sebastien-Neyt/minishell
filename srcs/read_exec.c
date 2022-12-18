@@ -25,7 +25,6 @@ void	append_line(t_shell *minishell)
 	if (minishell->line == NULL)
 		ft_exit(minishell, UNXPCTD_EOF);
 	parse_line(minishell);
-	check_syntax_error(minishell);//in prod
 	if (append_str(&(minishell->line_tmp), minishell->line) == 0)
 		ft_exit(minishell, FAILED_MALLOC);
 	free(minishell->line);
@@ -75,16 +74,13 @@ void	get_heredoc(t_shell *minishell, t_list *pipeline, char *input, int ctl)
  * 	reset everything that needs to be reset
  *	readline
  *	parse_line
- *	check syntax of the tokenized line
  *	append_line while line not done (ex: pipe token at the end of line)
+ *	if syntax error (not_done == -1) skip to next iteration of the routine
  *	add to history
  *	repeat
  */
-void	read_exec_loop(t_shell *minishell)
+void	read_exec_loop(t_shell *minishell, int not_done)
 {
-	int	not_done;
-
-	not_done = 0;
 	while (1)
 	{
 		reset_line(minishell);
@@ -93,9 +89,8 @@ void	read_exec_loop(t_shell *minishell)
 			ft_exit(minishell, DEFAULT_MSG);
 		parse_line(minishell);
 		//print_pipeline(minishell);
-		check_syntax_error(minishell);//in prod
 		not_done = line_not_done(minishell);
-		while (not_done)
+		while (not_done != 0 && not_done != -1)
 		{
 			if (not_done == HEREDOC_DEL)
 				get_heredoc(minishell, NULL, NULL, 1);
@@ -103,8 +98,9 @@ void	read_exec_loop(t_shell *minishell)
 				append_line(minishell);
 			not_done = line_not_done(minishell);
 		}
-		execute_line(minishell);
 		if (minishell->line && *(minishell->line))
 			add_history(minishell->line);
+		if (not_done != -1)
+			execute_line(minishell);
 	}
 }
