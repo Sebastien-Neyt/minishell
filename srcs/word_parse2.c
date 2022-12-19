@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:16:34 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/19 17:12:28 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/19 17:36:54 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	word_subparse(char *line, t_shell *minishell, t_token token)
 	char	*op_element;
 
 	new_element = NULL;
-	op_element = NULL;
+	op_element = NULL;l
 	i = 0;
 	offset = 0;
 	if (token == DOUBLE)
@@ -110,10 +110,7 @@ int	word_subparse(char *line, t_shell *minishell, t_token token)
 		{
 			i++;
 			if (!line[i])
-			{
-				new_element = build_word(i + 1, offset, line);
-				add_element(minishell, new_element, op_element, token);
-			}
+				add_element(minishell, build_word(i + 1, offset, line), op_element, token);
 			continue ;
 		}
 		if (i - offset > 0)
@@ -130,6 +127,7 @@ int	word_subparse(char *line, t_shell *minishell, t_token token)
 	}
 	return (0);
 }
+
 /*
 int word_subparse(char *line, t_shell *minishell, e_token token)
 {

@@ -7,6 +7,7 @@ TODO LIST:
 	- norminette
 	- signals
 	- empty string when ""
+	- history is doing weird things
 TESTING_TODO:
 	- checking all malloc, values protections and leaks
 	- just leaks in general: debugger ?
