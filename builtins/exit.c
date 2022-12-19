@@ -12,18 +12,20 @@
 
 #include "../includes/minishell.h"
 
-void	free_pipeline(t_shell *minishell)
+void	free_list(t_list *list)
 {
-	while (minishell->pipeline_start)
+	t_list *tmp;
+	while (list)
 	{
-		minishell->pipeline = minishell->pipeline_start;
-		minishell->pipeline_start = minishell->pipeline_start->next;
-		free(minishell->pipeline);
+		tmp = list;
+		list = list->next;
+		if (tmp->word)
+			free(tmp->word);
+		tmp->word = NULL;
+		free(tmp);
 	}
-	minishell->pipeline = NULL;
-	minishell->pipeline_start = NULL;
-
 }
+
 void	ft_exit(t_shell *minishell, char *msg)
 {
 	if (msg)
@@ -39,9 +41,11 @@ void	ft_exit(t_shell *minishell, char *msg)
 		free(minishell->line_tmp);
 	minishell->line_tmp = NULL;
 	if (minishell->list)
-		free(minishell->list);
+	free_list(minishell->list);
 	minishell->list = NULL;
-	free_pipeline(minishell);
+	free_list(minishell->pipeline_start);
+	minishell->pipeline = NULL;
+	minishell->pipeline_start = NULL;
 	free_env(minishell);
 	clear_history();
 	exit(g_exit_code);
