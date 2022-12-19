@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:53:17 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/19 13:23:54 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/19 14:46:30 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,10 @@ int	ft_export(t_shell *minishell)
 	{
 		index = check_for_equal(minishell->cmd.arg[1]);
 		if (!index)
+		{
+			g_exit_code = 256;
 			return (error_msg("export : not a valid identiefier\n", 1));
+		}
 		set_env(cut_env_name(minishell->cmd.arg[1], index), \
 		cut_env_value(minishell->cmd.arg[1], index), minishell);
 	}

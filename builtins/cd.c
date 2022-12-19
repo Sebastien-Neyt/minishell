@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:52:59 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/19 13:12:52 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/19 15:09:01 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_cd(t_shell *minishell)
 		path = get_env("HOME", minishell);
 	if (chdir(path) == -1)
 	{	
-		g_exit_code = 1;
+		g_exit_code = 256;
 		error_msg("minishell : No such file or directory.\n", 0);
 		return ;
 	}

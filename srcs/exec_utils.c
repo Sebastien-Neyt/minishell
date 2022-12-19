@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 09:12:22 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/19 09:12:35 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/19 16:35:41 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	count_pipe(t_shell *minishell)
 
 /* return 1 if token is a redirect 0 if not
 */
-int	is_redirect(e_token token)
+int	is_redirect(t_token token)
 {
 	if (token == SIMPLE_REDIRECT_TO)
 		return (1);

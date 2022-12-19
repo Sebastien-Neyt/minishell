@@ -40,6 +40,7 @@ SRC_LIST	= check_syntax.c\
 		  pipeline.c\
 		  expanding.c\
 		  expanding2.c\
+		  expanding3.c\
 		  ft_build_cmd.c\
 		  get_path.c\
 		  initializing.c\

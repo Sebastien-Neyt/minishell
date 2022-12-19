@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 09:23:00 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/19 09:25:03 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/19 14:55:28 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	exec_builtin_2(t_shell *minishell)
 	}
 	if (!ft_strcmp("unset", (minishell->cmd).name))
 	{
-		ft_unset(minishell);
+		ft_unset(minishell, 0);
 		return (1);
 	}
 	if (!ft_strcmp("env", (minishell->cmd).name))

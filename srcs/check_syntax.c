@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 09:05:08 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/19 09:05:12 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/19 16:35:15 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	check_syntax_last(int token)
 int	check_syntax_error(t_shell *minishell)
 {
 	t_list	*pipeline;
-	e_token	prev_token;
+	t_token	prev_token;
 
 	pipeline = minishell->pipeline_start;
 	prev_token = LINE_START;

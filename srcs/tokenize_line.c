@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 09:25:29 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/19 09:25:30 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/19 16:36:01 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	determine_token_meta(t_list *pipeline, int *cmd_flag)
 	}
 }
 
-void	det_token_word(t_list *pipeline, e_token *prev_token, int *cmd_flag)
+void	det_token_word(t_list *pipeline, t_token *prev_token, int *cmd_flag)
 {
 	if (*prev_token == HEREDOC)
 		pipeline->token = HEREDOC_DEL;
@@ -66,7 +66,7 @@ void	tokenize_line(t_shell *minishell)
 {
 	int		cmd_flag;
 	t_list	*pipeline;
-	e_token	prev_token;
+	t_token	prev_token;
 
 	cmd_flag = 0;
 	prev_token = LINE_START;

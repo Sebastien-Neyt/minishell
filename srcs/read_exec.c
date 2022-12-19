@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 09:26:24 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/19 13:34:45 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/19 16:07:03 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	parse_line(t_shell *minishell)
 	word_parse(minishell->line, minishell, 0, 0);
 	check_for_exp(minishell);
 	parse_list(minishell);
+	ft_unset_questionmark(minishell);
 	trim_pipeline(minishell);
 	tokenize_line(minishell);
 	//print_pipeline(minishell);//debug

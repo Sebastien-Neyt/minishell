@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:16:34 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/19 11:22:08 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/19 17:12:28 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	parse_list(t_shell *minishell)
 }
 
 //adds them to the pipeline.
-int	add_pipeline(t_shell *minishell, char *word, e_token token)
+int	add_pipeline(t_shell *minishell, char *word, t_token token)
 {
 	t_list	*new_word;
 
@@ -69,7 +69,7 @@ char	*build_operator(int operator)
 	return (ans);
 }
 
-static void	add_element(t_shell *mini, char *ne, char *oe, e_token t)
+static void	add_element(t_shell *mini, char *ne, char *oe, t_token t)
 {
 	if (ne)
 	{
@@ -87,8 +87,7 @@ static void	add_element(t_shell *mini, char *ne, char *oe, e_token t)
 //based on the index and offset we build newe 
 //words again and add them to our NEW pipeline.
 
-
-int	word_subparse(char *line, t_shell *minishell, e_token token)
+int	word_subparse(char *line, t_shell *minishell, t_token token)
 {
 	int		i;
 	int		offset;
@@ -100,7 +99,6 @@ int	word_subparse(char *line, t_shell *minishell, e_token token)
 	op_element = NULL;
 	i = 0;
 	offset = 0;
-	
 	if (token == DOUBLE)
 		return (add_pipeline(minishell, line, token));
 	while (line[i])
@@ -132,8 +130,6 @@ int	word_subparse(char *line, t_shell *minishell, e_token token)
 	}
 	return (0);
 }
-
-
 /*
 int word_subparse(char *line, t_shell *minishell, e_token token)
 {
@@ -212,7 +208,8 @@ int word_subparse(char *line, t_shell *minishell, e_token token)
         if (i - offset > 0)
             new_element = build_word(i, offset, line);
         add_element(minishell, new_element, op_element, token);
-        if (operator == PIPE || operator == SIMPLE_REDIRECT_TO || operator == SIMPLE_REDIRECT_FROM)
+        if (operator == PIPE || operator == SIMPLE_REDIRECT_TO \
+		|| operator == SIMPLE_REDIRECT_FROM)
         {
             i++;
             offset++;

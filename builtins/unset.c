@@ -6,13 +6,13 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:53:12 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/19 13:12:24 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/19 14:56:21 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	free_envparams(t_shell *minishell, char **new_envparams)
+void	free_envparams(t_shell *minishell, char **new_envparams, int x)
 {
 	int	i;
 
@@ -23,20 +23,22 @@ void	free_envparams(t_shell *minishell, char **new_envparams)
 		i++;
 	}
 	free(minishell->envparams);
+	new_envparams[x] = 0;
 	minishell->envparams = new_envparams;
 	g_exit_code = 0;
 }
 
-int	ft_unset(t_shell *minishell)
+int	ft_unset(t_shell *minishell, int i)
 {
 	char	**new_envp;
 	int		loc;
-	int		i;
 	int		x;
 
 	if (!minishell->cmd.arg[1])
+	{
+		g_exit_code = 256;
 		return (printf("unset: not enough arguments\n"));
-	i = 0;
+	}
 	x = 0;
 	loc = find_env(minishell->cmd.arg[1], minishell);
 	if (loc < 0)
@@ -50,7 +52,31 @@ int	ft_unset(t_shell *minishell)
 			i++;
 		new_envp[x++] = env_dup(minishell->envparams[i++]);
 	}
-	new_envp[x] = 0;
-	free_envparams(minishell, new_envp);
+	free_envparams(minishell, new_envp, x);
+	return (0);
+}
+
+int	ft_unset_questionmark(t_shell *minishell)
+{
+	char	**new_envp;
+	int		loc;
+	int		i;
+	int		x;
+
+	i = 0;
+	x = 0;
+	loc = find_env("?", minishell);
+	if (loc < 0)
+		return (0);
+	new_envp = malloc(sizeof(char *) * (env_counter(minishell->envparams)));
+	if (!new_envp)
+		ft_exit(minishell, FAILED_MALLOC);
+	while (i < env_counter(minishell->envparams) - 1)
+	{
+		if (i == loc)
+			i++;
+		new_envp[x++] = env_dup(minishell->envparams[i++]);
+	}
+	free_envparams(minishell, new_envp, x);
 	return (0);
 }

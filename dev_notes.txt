@@ -6,12 +6,7 @@ TODO LIST:
 	- error messages and other macros
 	- norminette
 	- signals
-	- env default values
-	- $? expension
-	- do not forget exit value when exec builtins(All builtins return an exit status of 2 to 		indicate incorrect usage, generally invalid options or missing arguments.)
-	- bash: export: `TEST test=dfv v fd vdf v df v': not a valid identifier
 	- empty string when ""
-
 TESTING_TODO:
 	- checking all malloc, values protections and leaks
 	- just leaks in general: debugger ?
