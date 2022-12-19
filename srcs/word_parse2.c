@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:16:34 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/12 16:30:20 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/19 11:22:08 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,46 +32,8 @@ int	parse_list(t_shell *minishell)
 	return (1);
 }
 
-// this one returns based on the operator we found. looks for pipes / redirects
-int	determine_operator(char *line, int i)
-{
-	if (line[i] == '|')
-		return (PIPE);
-	else if (line[i] == 60 || line[i] == 62)
-	{
-		if (line[i] == 60 && line[i + 1] == 60)
-			return (HEREDOC);
-		if (line[i] == 62 && line[i + 1] == 62)
-			return (DOUBLE_REDIRECT_TO);
-		if (line[i] == 60)
-			return (SIMPLE_REDIRECT_FROM);
-		if (line[i] == 62)
-			return (SIMPLE_REDIRECT_TO);
-	}
-	return (0);
-}
-
-/*
-char *build_new_word(int i, int offset, char *line)
-{
-	char *word;
-	int	y;
-	int x;
-
-	x = offset;
-	y = 0;
-	word = malloc(sizeof(char) * (i - offset + 1));
-	//if (!word)
-	//	error
-	while (y < i - offset)
-	{
-		word[y]
-	}
-}
-*/
-
 //adds them to the pipeline.
-void	add_pipeline(t_shell *minishell, char *word, e_token token)
+int	add_pipeline(t_shell *minishell, char *word, e_token token)
 {
 	t_list	*new_word;
 
@@ -86,6 +48,7 @@ void	add_pipeline(t_shell *minishell, char *word, e_token token)
 		new_word = ft_lstlast(minishell->pipeline);
 		new_word->token = token;
 	}
+	return (0);
 }
 
 //builds operator buildingblocks
@@ -106,21 +69,25 @@ char	*build_operator(int operator)
 	return (ans);
 }
 
-static void add_element(t_shell *minishell, char *new_element, char *op_element, e_token token)
+static void	add_element(t_shell *mini, char *ne, char *oe, e_token t)
 {
-	if (new_element)
+	if (ne)
 	{
-		add_pipeline(minishell, new_element, token);
-		new_element = NULL;
+		add_pipeline(mini, ne, t);
+		ne = NULL;
 	}
-	if (op_element)
+	if (oe)
 	{
-		add_pipeline(minishell, op_element, WORD);
-		op_element = NULL;
+		add_pipeline(mini, oe, WORD);
+		oe = NULL;
 	}
 }
 
-//here we parse each node->word again but now we do it for all operators. based on the index and offset we build newe words again and add them to our NEW pipeline.
+//here we parse each node->word again but now we do it for all operators.i
+//based on the index and offset we build newe 
+//words again and add them to our NEW pipeline.
+
+
 int	word_subparse(char *line, t_shell *minishell, e_token token)
 {
 	int		i;
@@ -133,17 +100,15 @@ int	word_subparse(char *line, t_shell *minishell, e_token token)
 	op_element = NULL;
 	i = 0;
 	offset = 0;
+	
+	if (token == DOUBLE)
+		return (add_pipeline(minishell, line, token));
 	while (line[i])
 	{
-		if (token == DOUBLE)
-		{
-			add_pipeline(minishell, line, token);
-			break ;
-		}
 		operator = determine_operator(line, i);
 		if (operator)
 			op_element = build_operator(operator);
-		if (operator == 0)
+		if (!operator)
 		{
 			i++;
 			if (!line[i])
@@ -153,24 +118,112 @@ int	word_subparse(char *line, t_shell *minishell, e_token token)
 			}
 			continue ;
 		}
-		else if (operator == PIPE || operator == SIMPLE_REDIRECT_TO || operator == SIMPLE_REDIRECT_FROM)
-		{
-			if (i - offset > 0)
+		if (i - offset > 0)
 				new_element = build_word(i, offset, line);
-			add_element(minishell, new_element, op_element, token);
+		add_element(minishell, new_element, op_element, token);
+		if (return_operator(operator) == 1)
+		{
 			i++;
 			offset++;
-			offset = i;
 		}	
-		else if (operator == DOUBLE_REDIRECT_TO || operator == HEREDOC)
-		{
-			if (i - offset > 0)
-				new_element = build_word(i, offset, line);
-			add_element(minishell, new_element, op_element, token);
+		else if (return_operator(operator) == 2)
 			i += 2;
-			offset = i;
-			continue ;
-		}
+		offset = i;
 	}
 	return (0);
 }
+
+
+/*
+int word_subparse(char *line, t_shell *minishell, e_token token)
+{
+    int i = 0;
+    int offset = 0;
+    int operator = 0;
+    char *new_element = NULL;
+    char *op_element = NULL;
+
+    if (token == DOUBLE)
+        return add_pipeline(minishell, line, token);
+
+    while (line[i])
+    {
+        operator = determine_operator(line, i);
+        if (operator)
+            op_element = build_operator(operator);
+        if (!operator)
+        {
+            i++;
+            if (!line[i])
+            {
+                new_element = build_word(i + 1, offset, line);
+                add_element(minishell, new_element, op_element, token);
+            }
+            continue;
+        }
+        if (i - offset > 0)
+            new_element = build_word(i, offset, line);
+        add_element(minishell, new_element, op_element, token);
+        if (return_operator(operator) == 1)
+        {
+            i++;
+            offset++;
+        }
+        else if (return_operator(operator) == 2)
+            i += 2;
+        offset = i;
+    }
+    return 0;
+}
+*/
+
+/*
+int word_subparse(char *line, t_shell *minishell, e_token token)
+{
+    int		i;
+	int		offset;
+	int		operator;
+    char	*new_element;
+	char	*op_element;
+
+    new_element = NULL;
+    op_element = NULL;
+    i = 0;
+    offset = 0;
+    while (line[i])
+    {
+        if (token == DOUBLE)
+        {
+            add_pipeline(minishell, line, token);
+            break;
+        }
+        operator = determine_operator(line, i);
+        op_element = build_operator(operator);
+        if (operator == 0)
+        {
+            i++;
+            if (!line[i])
+            {
+                new_element = build_word(i + 1, offset, line);
+                add_element(minishell, new_element, op_element, token);
+            }
+            continue;
+        }
+        if (i - offset > 0)
+            new_element = build_word(i, offset, line);
+        add_element(minishell, new_element, op_element, token);
+        if (operator == PIPE || operator == SIMPLE_REDIRECT_TO || operator == SIMPLE_REDIRECT_FROM)
+        {
+            i++;
+            offset++;
+            offset = i;
+        }
+        else
+        {
+            i += 2;
+            offset = i;
+        }
+    }
+    return (0);
+}
+*/

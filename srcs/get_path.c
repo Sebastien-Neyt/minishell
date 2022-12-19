@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_path.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/19 09:18:53 by sneyt             #+#    #+#             */
+/*   Updated: 2022/12/19 09:19:15 by sneyt            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 /*
@@ -59,6 +71,7 @@ minishell->envparams[find_env("PATH", minishell)] + 5, ':');
 char	*get_path(t_shell *minishell)
 {
 	char	*cmd;
+
 	if ((minishell->cmd).name == NULL)
 		return (NULL);
 	cmd = ft_strdup(minishell->cmd.name);

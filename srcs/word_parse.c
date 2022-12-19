@@ -6,20 +6,11 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 12:07:39 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/12 10:54:09 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/19 09:32:50 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-//we check for whitespaces
-int	is_whitespace(char c)
-{
-	if (c == ' ' || c == '\t' || c == '\n' || c == '\v'
-		|| c == '\f' || c == '\r')
-		return (1);
-	return (0);
-}
 
 // this one build the word based on the index and our offset.
 // it will copy from offset till index.
@@ -32,6 +23,7 @@ char	*build_word(int i, int offset, char *line)
 	y = 0;
 	x = offset;
 	word = malloc(sizeof(char) * (i - offset + 1));
+	//protect malloc
 	while (y < i - offset)
 	{
 		word[y] = line[x];

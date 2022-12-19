@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:51:00 by sneyt             #+#    #+#             */
-/*   Updated: 2022/11/25 10:38:05 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/19 11:54:30 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ int	ft_env(t_shell *minishell)
 		printf("%s\n", minishell->envparams[i]);
 		i++;
 	}
+	g_exit_code = 0;
 	return (0);
 }

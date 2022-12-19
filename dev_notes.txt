@@ -12,7 +12,6 @@ TODO LIST:
 	- all the functions to reset, free, etc
 	- env default values
 	- $? expension
-	- >| redirect (should be SIMPLE_REDIRECT_TO)
 	- do not forget exit value when exec builtins(All builtins return an exit status of 2 to 		indicate incorrect usage, generally invalid options or missing arguments.)
 	- bash: export: `TEST test=dfv v fd vdf v df v': not a valid identifier
 

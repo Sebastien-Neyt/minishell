@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:52:59 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/13 11:14:51 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/19 13:12:52 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,11 @@ void	ft_cd(t_shell *minishell)
 	else
 		path = get_env("HOME", minishell);
 	if (chdir(path) == -1)
+	{	
+		g_exit_code = 1;
+		error_msg("minishell : No such file or directory.\n", 0);
 		return ;
-		//error because the path does not exist
+	}
 	else
 	{
 		path = getcwd(NULL, 0);
@@ -47,4 +50,5 @@ void	ft_cd(t_shell *minishell)
 		free(oldpwd);
 		free(path);
 	}
+	g_exit_code = 0;
 }

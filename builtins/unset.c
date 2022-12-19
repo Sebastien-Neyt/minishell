@@ -6,47 +6,16 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:53:12 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/13 11:20:33 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/19 13:12:24 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_unset(t_shell *minishell)
+void	free_envparams(t_shell *minishell, char **new_envparams)
 {
-	char	**new_envparams;
-	int		size;
-	int		loc;
-	int		i;
-	int		x;
+	int	i;
 
-	//unsetting multiple envs in 1 go?
-	if (!minishell->cmd.arg[1])
-	{
-		printf("unset: not enough arguments\n");
-		return (0);
-	}
-	i = 0;
-	x = 0;
-	size = env_counter(minishell->envparams);
-	loc = find_env(minishell->cmd.arg[1], minishell);
-	if (loc < 0)
-		return (0);
-	// check if the env exists -> loc will be - 1 if it doesn't
-	//printf("SIZE: %d || LOC: %d\n", size, loc);
-	new_envparams = malloc(sizeof(char *) * (size));
-	if (!new_envparams)
-		return (-1);
-	while (i < size - 1)
-	{
-		if (i == loc)
-			i++;
-		new_envparams[x] = env_dup(minishell->envparams[i]);
-		i++;
-		x++;
-	}
-	new_envparams[x] = 0;
-	//free envparams and link new array
 	i = 0;
 	while (minishell->envparams[i])
 	{
@@ -55,5 +24,33 @@ int	ft_unset(t_shell *minishell)
 	}
 	free(minishell->envparams);
 	minishell->envparams = new_envparams;
+	g_exit_code = 0;
+}
+
+int	ft_unset(t_shell *minishell)
+{
+	char	**new_envp;
+	int		loc;
+	int		i;
+	int		x;
+
+	if (!minishell->cmd.arg[1])
+		return (printf("unset: not enough arguments\n"));
+	i = 0;
+	x = 0;
+	loc = find_env(minishell->cmd.arg[1], minishell);
+	if (loc < 0)
+		return (0);
+	new_envp = malloc(sizeof(char *) * (env_counter(minishell->envparams)));
+	if (!new_envp)
+		ft_exit(minishell, FAILED_MALLOC);
+	while (i < env_counter(minishell->envparams) - 1)
+	{
+		if (i == loc)
+			i++;
+		new_envp[x++] = env_dup(minishell->envparams[i++]);
+	}
+	new_envp[x] = 0;
+	free_envparams(minishell, new_envp);
 	return (0);
 }

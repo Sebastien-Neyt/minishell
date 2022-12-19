@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:45:38 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/13 09:49:24 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/19 09:54:40 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,8 @@ char 	*build_word(int i, int offset, char *line);
 void	add_word(t_shell *minishell, char *word, int flag);
 int		check_quote(int type, char *line, int i);
 int		determine_flag(char c);
+int		determine_operator(char *line, int i);
+int		return_operator(int operator);
 
 // expanding.c
 char *get_var(char *str, int i);
@@ -213,7 +215,7 @@ int	compare_env(char *env_var, char *mini_env);
 void expand_varv2(t_shell *minishell, char *env_var, t_list *node, int macro);
 char *malloc_expand(t_list *node, char *env_var, t_shell *minishell, int macro);
 int	index_jump(char *env_var, char c, int index);
-
+char *env_var_based(char c, char *str, int i);
 
 // word_parse2.c
 int	word_subparse(char *line, t_shell *minishell, e_token token);

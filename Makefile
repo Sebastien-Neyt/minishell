@@ -33,11 +33,13 @@ BUILTIN_DIR	= builtins/
 SRC_LIST	= check_syntax.c\
 		  debug_utils.c\
 		  env_utils.c\
+		  env_utils2.c\
 		  error.c\
 		  exec_utils.c\
 		  execute_cmd.c\
 		  pipeline.c\
 		  expanding.c\
+		  expanding2.c\
 		  ft_build_cmd.c\
 		  get_path.c\
 		  initializing.c\
@@ -52,6 +54,7 @@ SRC_LIST	= check_syntax.c\
 		  utils5.c\
 		  word_parse.c\
 		  word_parse2.c\
+		  word_parse3.c\
 		  redirect.c
 
 BUILTIN_LIST	=	cd.c\

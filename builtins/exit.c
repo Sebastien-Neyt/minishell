@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:53:04 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/13 11:16:31 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/19 13:13:15 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	free_pipeline(t_shell *minishell)
 	}
 	minishell->pipeline = NULL;
 	minishell->pipeline_start = NULL;
-
 }
+
 void	ft_exit(t_shell *minishell, char *msg)
 {
 	if (msg)

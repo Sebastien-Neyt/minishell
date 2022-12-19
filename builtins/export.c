@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:53:17 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/13 12:32:03 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/19 13:23:54 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static char	*cut_env_name(char *str, int index)
 
 	x = 0;
 	ans = malloc(sizeof(char) * index);
-	// Proctection malloc
+	if (!ans)
+		return (NULL);
 	while (x < index)
 	{
 		ans[x] = str[x];
@@ -50,7 +51,8 @@ static char	*cut_env_value(char *str, int index)
 
 	x = 0;
 	ans = malloc(sizeof(char) * (ft_strlen(str) - index));
-	// Protection malloc
+	if (!ans)
+		return (NULL);
 	index++;
 	while (str[index])
 	{
@@ -72,9 +74,10 @@ int	ft_export(t_shell *minishell)
 	{
 		index = check_for_equal(minishell->cmd.arg[1]);
 		if (!index)
-			return (printf("returning 0\n"));
+			return (error_msg("export : not a valid identiefier\n", 1));
 		set_env(cut_env_name(minishell->cmd.arg[1], index), \
 		cut_env_value(minishell->cmd.arg[1], index), minishell);
 	}
-	return (1);
+	g_exit_code = 0;
+	return (0);
 }
