@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 11:03:29 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/13 12:12:42 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/13 13:57:49 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,15 @@ int	env_counter(char **envp)
 
 static void	init_env_empty(t_shell *minishell)
 {
+	char *temp;
 	
-	minishell->envparams = malloc(sizeof(char *) * 3);
-	minishell->envparams[0] = NULL;
-	set_env("PWD", getcwd(NULL, 0), minishell);
+	minishell->envparams = malloc(sizeof(char *) * 4);
+	temp = ft_strjoin("PWD=", getcwd(NULL,0));
+	minishell->envparams[0] = env_dup(temp);
+	minishell->envparams[1] = env_dup("SHLVL=1");
+	minishell->envparams[2] = env_dup("_=usr/bin/env");
+	minishell->envparams[3] = NULL;
+//	set_env("PWD", getcwd(NULL, 0), minishell);
 //	set_env("SHLVL", "1", minishell);
 //	set_env("_", "usr/bin/env", minishell);
 }
