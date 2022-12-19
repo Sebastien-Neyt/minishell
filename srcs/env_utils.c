@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 13:01:40 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/12 09:17:25 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/19 08:59:59 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,15 +90,22 @@ void	copy_envp(t_shell *minishell, char **old_env, char *new_env)
 	int	size;
 
 	size = env_counter(minishell->envparams);
+	printf("size = %d\n", size);
 	i = 0;
 	while (i < size)
 	{
+		//printf("mini: %p\n", minishell->envparams[i]);
 		old_env[i] = env_dup(minishell->envparams[i]);
+		printf("old_env: %s\n", old_env[i]);
 		i++;
 	}
+
 	old_env[i] = new_env;
-	i++;
-	old_env[i] = 0;
+	printf("old_env1: %s\n", old_env[0]);
+	//i++;
+	//old_env[i] = NULL;
+	printf("old_env2: %s\n", old_env[0]);
+	printf("old_env[0] %s\n", old_env[0]);
 }
 
 //if its a new env that does not yet exist. we add it to 
@@ -106,17 +113,23 @@ void	copy_envp(t_shell *minishell, char **old_env, char *new_env)
 int	add_env(char *env, char *value, t_shell *minishell)
 {
 	char	*new_env;
-	char	**old_env;
+	char	**new_envp;
 	int		size;
 
 	new_env = build_env(env, value);
 	if (!new_env)
 		return (0);
 	size = env_counter(minishell->envparams);
-	old_env = malloc(sizeof(char *) * (size + 2));
-	copy_envp(minishell, old_env, new_env);
+//	printf("new env : %s & size = %d\n", new_env, size);
+	new_envp = malloc(sizeof(char *) * (size + 2));
+	printf("before_copy_env: %p\n", new_envp[0]);
+	// protect
+	copy_envp(minishell, new_envp, new_env);
+	printf("after_copy_env: %d\n", ft_strlen(new_envp[0]));
+	new_envp[size + 1] = NULL;
+	printf("after_copy_env: %d\n", ft_strlen(new_envp[0]));
 	free_env(minishell);
-	minishell->envparams = old_env;
+	minishell->envparams = new_envp;
 	return (1);
 }
 
