@@ -52,6 +52,7 @@ t_list	*ft_lstnew(char	*content)
 	if (!ans)
 		return (0);
 	ans->word = content;
+	ans->token = 0;
 	ans->next = 0;
 	return (ans);
 }

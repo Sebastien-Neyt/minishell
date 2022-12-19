@@ -30,7 +30,7 @@ fd[1], pipeline->next->word, ft_strlen(pipeline->next->word));
 	waitpid(pid, &status, 0);
 	close(fd[1]);
 	if (status == -1)
-		ft_exit(minishell, "failed heredoc\n");
+		ft_exit(minishell, "minishell : failed heredoc\n");
 	return (fd[0]);
 }
 
@@ -87,7 +87,10 @@ int	ft_redirect(t_shell *minishell)
 		red_to(pipeline, &fd_out);
 		red_from(pipeline, &fd_in, minishell);
 		if (fd_in == -1 || fd_out == -1)
+		{
+			perror("minishell ");
 			return (0);
+		}
 		pipeline = pipeline->next;
 	}
 	if (fd_in)

@@ -41,8 +41,7 @@ void	ft_exit(t_shell *minishell, char *msg)
 	if (minishell->line_tmp)
 		free(minishell->line_tmp);
 	minishell->line_tmp = NULL;
-	if (minishell->list)
-		free_list(minishell->list);
+	free_list(minishell->list);
 	minishell->list = NULL;
 	free_list(minishell->pipeline_start);
 	minishell->pipeline = NULL;

@@ -5,8 +5,11 @@ $IFS not implemented
 TODO LIST:
 	- error messages and other macros
 	- norminette
-	- signals
+i	- signals
 	- empty string when ""
+	- ft_redirect error message
+	- fix leaks in strtrim maybe substr
+
 TESTING_TODO:
 	- checking all malloc, values protections and leaks
 	- just leaks in general: debugger ?

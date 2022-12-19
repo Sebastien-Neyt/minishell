@@ -79,8 +79,17 @@ char	*get_path(t_shell *minishell)
 		ft_exit(minishell, FAILED_MALLOC);
 	if (access(cmd, X_OK) == 0)
 		return (cmd);
-	cmd = make_path(minishell);
+	if (ft_strlen(cmd))
+		cmd = make_path(minishell);
+	else
+	{
+		free(cmd);
+		cmd = NULL;
+	}
 	if (cmd == NULL)
+	{
+		g_exit_code = 127;
 		write(STDERR_FILENO, CMD_NFOUND, ft_strlen(CMD_NFOUND));
+	}
 	return (cmd);
 }
