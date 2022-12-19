@@ -154,6 +154,7 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 
 //utils5.c
 int	append_str(char **str1, char *str2);
+int	add_nl(char **str1);
 
 // initializing.c
 t_shell	init_shell (char **envp);
@@ -161,7 +162,8 @@ int	env_counter(char **envp);
 int	init_envs(t_shell *minishell, char **envp);
 
 // exit.c
-void ft_exit(t_shell *minishell, char *msg);
+void	ft_exit(t_shell *minishell, char *msg);
+void	free_list(t_list *list);
 
 // unset.c
 int	ft_unset(t_shell *minishell);
