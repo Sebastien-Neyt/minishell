@@ -1,25 +1,20 @@
-
-
 the . [filename] [options] call the source builtin which is not required
 
 $IFS not implemented
 
 TODO LIST:
 	- error messages and other macros
-	- check malloc protection
 	- norminette
 	- signals
-	- all the functions to reset, free, etc
 	- env default values
 	- $? expension
-	- >| redirect (should be SIMPLE_REDIRECT_TO)
 	- do not forget exit value when exec builtins(All builtins return an exit status of 2 to 		indicate incorrect usage, generally invalid options or missing arguments.)
 	- bash: export: `TEST test=dfv v fd vdf v df v': not a valid identifier
+	- empty string when ""
 
 TESTING_TODO:
 	- checking all malloc, values protections and leaks
 	- just leaks in general: debugger ?
-	- syntax error list: make tester script
 	- argument handling of builtins
 
 IMPROVEMENT:

@@ -36,11 +36,13 @@ void	append_line(t_shell *minishell)
 */
 void	get_heredoc2(t_shell *minishell, t_list *pipeline, char *input, int ctl)
 {
+	if (append_str(&(input), "") == 0)
+		ctl = 0;
 	free(pipeline->word);
 	pipeline->word = input;
 	pipeline->token = HEREDOC_CONTENT;
 	if (minishell->line == NULL)
-		perror("warning: here-document delimited by end-of-file\n");
+		write(2, HERE_EOF, strlen(HERE_EOF));
 	else
 		free(minishell->line);
 	minishell->line = minishell->line_tmp;
@@ -53,10 +55,14 @@ void	get_heredoc(t_shell *minishell, t_list *pipeline, char *input, int ctl)
 {
 	pipeline = minishell->pipeline;
 	minishell->line_tmp = minishell->line;
+	minishell->line = NULL;
 	while (pipeline && pipeline->token != HEREDOC_DEL)
 		pipeline = pipeline->next;
 	while (ctl)
 	{
+		if (minishell->line)
+			free(minishell->line);
+		minishell->line = NULL;
 		minishell->line = readline(">");
 		if (minishell->line == NULL)
 			break ;
@@ -88,7 +94,7 @@ void	read_exec_loop(t_shell *minishell, int not_done)
 		if (minishell->line == NULL)
 			ft_exit(minishell, DEFAULT_MSG);
 		parse_line(minishell);
-		//print_pipeline(minishell);
+//		print_pipeline(minishell);//debug
 		not_done = line_not_done(minishell);
 		while (not_done != 0 && not_done != -1)
 		{

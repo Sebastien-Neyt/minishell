@@ -16,7 +16,11 @@ void	internal_execute(t_shell *minishell)
 	//print_cmd(minishell);//DEBUG
 	ft_build_cmd(minishell);
 	if (ft_redirect(minishell))
+	{
+		if (minishell->cmd.name && !(ft_strcmp(minishell->cmd.name, "exit")))
+			write(STDERR_FILENO, "exit\n", ft_strlen("exit\n"));
 		exec_builtin(minishell);
+	}
 	dup2(std_in, STDIN_FILENO);
 	dup2(std_out, STDOUT_FILENO);
 	reset_cmd(minishell);
