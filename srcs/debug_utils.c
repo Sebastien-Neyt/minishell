@@ -23,7 +23,7 @@ void	print_cmd(t_shell *minishell)
 	printf(BLUE"||\t"GREEN"[NAME]\t[%s]\n"WHITE, cmd->name);
 	printf(BLUE"||\t"GREEN"[PATH]\t[%s]\n"WHITE, cmd->path);
 	printf(BLUE"||\t"GREEN"[ FD ]\t[(%d)(%d)]\n"WHITE, cmd->fd_in, cmd->fd_out);
-	while (cmd->arg[i])
+	while (cmd->arg && cmd->arg[i])
 	{
 		printf(BLUE"||\t"GREEN"[ ARG]\t[%s]\n"WHITE, cmd->arg[i]);
 		i++;

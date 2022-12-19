@@ -5,3 +5,4 @@
 #define FAILED_FORK 	"failed fork\n"
 #define UNXPCTD_EOF	"enexpted EOF\n"
 #define ERR_ARGNBR 	"Minishell doesn't take arguments\n"
+#define CMD_NFOUND 	"minishell : command not found\n"

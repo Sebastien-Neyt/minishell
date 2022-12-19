@@ -12,10 +12,37 @@
 
 #include "../includes/minishell.h"
 
+void	free_pipeline(t_shell *minishell)
+{
+	while (minishell->pipeline_start)
+	{
+		minishell->pipeline = minishell->pipeline_start;
+		minishell->pipeline_start = minishell->pipeline_start->next;
+		free(minishell->pipeline);
+	}
+	minishell->pipeline = NULL;
+	minishell->pipeline_start = NULL;
+
+}
 void	ft_exit(t_shell *minishell, char *msg)
 {
 	if (msg)
 		write(STDERR_FILENO, msg, ft_strlen(msg));
-	(void)minishell;
+	reset_cmd(minishell);
+	if (minishell->pid)
+		free(minishell->pid);
+	minishell->pid = NULL;
+	if (minishell->line)
+		free(minishell->line);
+	minishell->line = NULL;
+	if (minishell->line_tmp)
+		free(minishell->line_tmp);
+	minishell->line_tmp = NULL;
+	if (minishell->list)
+		free(minishell->list);
+	minishell->list = NULL;
+	free_pipeline(minishell);
+	free_env(minishell);
+	clear_history();
 	exit(g_exit_code);
 }

@@ -31,4 +31,3 @@ void	free_env(t_shell *minishell)
 	}
 	free(minishell->envparams);
 }
-

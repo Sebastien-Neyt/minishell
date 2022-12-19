@@ -86,17 +86,32 @@ typedef struct s_shell {
 int	check_for_exp(t_shell *minishell);
 int	check_chars(char *word);
 
+//read_exec.c
+void	read_exec_loop(t_shell *minishell, int not_done);
+
+//redirect.c
+int	ft_redirect(t_shell *minishell);
+
 // exec_utils.c
 int	is_builtin(t_shell *minishell);
+int	is_builtin_internal(char *name);
 int	count_pipe(t_shell *minishell);
 int	is_redirect(e_token);
 
 // reset_line.c
 void	reset_line(t_shell *minishell);
+void	cmd_init(t_shell *minishell);
 
+//pipeline.c
+void	exec_pipeline(t_shell *minishell);
+pid_t	exec_cmd(t_shell *minishell);
+int	exec_builtin(t_shell *minishell);
+int	exec_builtin_2(t_shell *minishell);
 
 // check_syntax.c
-int	check_line_done(t_shell *minishell);
+int	check_syntax_error(t_shell *minishell);
+int	line_not_done(t_shell *minishell);
+void	move_pipeline(t_shell *minishell);
 
 // tokenize_line.c
 void	tokenize_line(t_shell *minishell);
@@ -107,7 +122,6 @@ char 	*get_path(t_shell *minishell);
 // ft_build_cmd.c
 void	ft_build_cmd(t_shell *minishell);
 void	reset_cmd(t_shell *minishell);
-void	cmd_init(t_shell *minishell);
 
 // execute_cmd.c
 void	execute_line(t_shell *minishell);
@@ -137,6 +151,9 @@ void trim_pipeline(t_shell *minishell);
 
 //utils3.c
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
+
+//utils5.c
+int	append_str(char **str1, char *str2);
 
 // initializing.c
 t_shell	init_shell (char **envp);

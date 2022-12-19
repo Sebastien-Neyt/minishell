@@ -1,22 +1,12 @@
 #include "../includes/minishell.h"
 
 /* return 1 if name is a builtin 0 if not
- */
-int	is_builtin(t_shell *minishell)
-{
-	t_list *pipeline;
- 	char *name;
+*/
 
- 	pipeline = minishell->pipeline;
-	name = NULL;
- 	while (pipeline && pipeline->token != PIPE)
- 	{
- 		if (pipeline->token == CMD)
- 			name = pipeline->word;
- 		pipeline = pipeline->next;
- 	}
- 	if (name == NULL)
- 		return (1);
+int	is_builtin_internal(char *name)
+{
+	if (name == NULL)
+		return (1);
 	if (!ft_strcmp("cd", name))
 		return (1);
 	if (!ft_strcmp("echo", name))
@@ -34,14 +24,30 @@ int	is_builtin(t_shell *minishell)
 	return (0);
 }
 
+int	is_builtin(t_shell *minishell)
+{
+	t_list	*pipeline;
+	char	*name;
+
+	pipeline = minishell->pipeline;
+	name = NULL;
+	while (pipeline && pipeline->token != PIPE)
+	{
+		if (pipeline->token == CMD)
+			name = pipeline->word;
+		pipeline = pipeline->next;
+	}
+	return (is_builtin_internal(name));
+}
+
 int	count_pipe(t_shell *minishell)
 {
-	int i;
-	t_list *pipeline;
+	int		i;
+	t_list	*pipeline;
 
 	pipeline = minishell->pipeline;
 	i = 0;
-	while(pipeline)
+	while (pipeline)
 	{
 		if (pipeline->token == PIPE)
 			i++;
@@ -51,7 +57,7 @@ int	count_pipe(t_shell *minishell)
 }
 
 /* return 1 if token is a redirect 0 if not
- */
+*/
 int	is_redirect(e_token token)
 {
 	if (token == SIMPLE_REDIRECT_TO)
@@ -64,4 +70,3 @@ int	is_redirect(e_token token)
 		return (1);
 	return (0);
 }
-
