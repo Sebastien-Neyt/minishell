@@ -5,7 +5,7 @@ int	append_str(char **str1, char *str2)
 	char	*tmp;
 
 	if (str2 == NULL)
-		return 1;
+		return (1);
 	if (*str1 == NULL)
 	{
 		tmp = ft_strdup(str2);
@@ -13,15 +13,15 @@ int	append_str(char **str1, char *str2)
 			*str1 = tmp;
 		else
 			return (0);
-		return 1;
+		return (1);
 	}
 	add_nl(str1);
 	tmp = ft_strjoin(*str1, str2);
 	if (tmp == NULL)
-		return 0;
+		return (0);
 	free(*str1);
 	*str1 = tmp;
-	return 1;
+	return (1);
 }
 
 int	add_nl(char **str)
