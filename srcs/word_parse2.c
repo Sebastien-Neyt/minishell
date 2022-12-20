@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:16:34 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/20 12:13:51 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/20 13:00:13 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,18 @@
 int	parse_list(t_shell *minishell)
 {
 	t_list	*tmp;
+	char 	*new;
 
 	tmp = minishell->list;
 	while (tmp)
 	{
 		if (tmp->word)
 		{
-			tmp->word = ft_strtrim(tmp->word, " \t");
+			new = ft_strtrim(tmp->word, " \t");
+			if (!new)
+				ft_exit(minishell, FAILED_MALLOC);
+			free(tmp->word);
+			tmp->word = new;
 			word_subparse(tmp->word, minishell, tmp->token, 0);
 		}
 		tmp = tmp->next;
