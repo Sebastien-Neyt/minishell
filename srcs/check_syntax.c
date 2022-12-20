@@ -63,6 +63,11 @@ int	line_not_done(t_shell *minishell)
 	t_list	*pipeline;
 
 	pipeline = minishell->pipeline;
+	if (g_exit_code == -1)
+	{
+		g_exit_code = 130;
+		return (-1);
+	}
 	if (check_syntax_error(minishell))
 	{
 		write(\

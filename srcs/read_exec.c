@@ -108,25 +108,18 @@ void	read_exec_loop(t_shell *minishell, int not_done)
 		if (minishell->line == NULL)
 			ft_exit(minishell, DEFAULT_MSG);
 		parse_line(minishell);
-	//	print_pipeline(minishell);//debug
 		not_done = line_not_done(minishell);
 		while (not_done != 0 && not_done != -1)
 		{
-			rl_event_hook=event;
+			rl_event_hook = event;
 			signal(SIGINT, sig_in_append);
 			if (not_done == HEREDOC_DEL)
 				get_heredoc(minishell, NULL, NULL, 1);
 			else if (not_done == PIPE)
 				append_line(minishell);
 			not_done = line_not_done(minishell);
-			if (g_exit_code == -1)
-			{
-				not_done = -1;
-				g_exit_code = 130;
-			}
 		}
 		rl_event_hook = NULL;
-		signal(SIGINT, sig_handler);
 		if (minishell->line && *(minishell->line))
 			add_history(minishell->line);
 		signal(SIGINT, sig_nothing);

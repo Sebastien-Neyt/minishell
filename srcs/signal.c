@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int event(void)
+int	event(void)
 {
 	return (0);
 }
@@ -21,7 +21,6 @@ void	sig_in_append(int signal)
 {
 	if (signal == SIGINT)
 	{
-		//rl_readline_state = RL_STATE_EOF;
 		rl_readline_state = RL_STATE_DONE;
 		rl_done = 1;
 		rl_on_new_line();
@@ -29,7 +28,6 @@ void	sig_in_append(int signal)
 		rl_redisplay();
 		g_exit_code = -1;
 	}
-	
 }
 
 void	sig_nothing(int signal)

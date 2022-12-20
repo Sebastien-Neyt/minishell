@@ -3,15 +3,8 @@ the . [filename] [options] call the source builtin which is not required
 $IFS not implemented
 
 TODO LIST:
-	- norminette
-	- signals
-	- ft_redirect error message
-	- fix leaks in strtrim maybe substr
-	- history is doing weird things
-
+	- DOOOONE MOTHERFUCKER!!!!!!!!!!!!!
 TESTING_TODO:
-	- checking all malloc, values protections and leaks
-	- just leaks in general: debugger ?
 	- argument handling of builtins
 
 IMPROVEMENT:
