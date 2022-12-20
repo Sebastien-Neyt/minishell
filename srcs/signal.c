@@ -22,16 +22,16 @@ void	sig_handler(int signal)
 {
 	if (signal == SIGINT)
 	{
-		write(1, "\n", 1);
-		printf("SIGINT >> New prompt on the next line \n");
+		write(2, "\n", 1);
 		g_exit_code = 1;
-	//	rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		rl_on_new_line();
+		rl_redisplay();
 		//reset line
 	}
 	else if (signal == SIGQUIT)
 	{
-		//rl_replace_line("", 0);
+		///rl_replace_line("", 0);
 		//printf("SIGQUIT does nothing \n");
 		//rl_on_new_line();
 	}

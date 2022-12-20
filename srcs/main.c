@@ -20,6 +20,25 @@
  * the program will call exit() from within the loop
  * neither the terminate nor the return should ever be reached
  */
+
+int	change_term(bool echo_ctl_chr)
+{
+	struct termios	term;
+	int				status;
+
+	status = tcgetattr(STDOUT_FILENO, &term);
+	if (status == -1)
+		return (1);
+	if (echo_ctl_chr)
+		term.c_lflag |= ECHOCTL;
+	else
+		term.c_lflag &= ~(ECHOCTL);
+	status = tcsetattr(STDOUT_FILENO, TCSANOW, &term);
+	if (status == -1)
+		return (1);
+	return (0);
+}
+
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_shell	minishell;
@@ -28,7 +47,9 @@ int	main(int argc, char *argv[], char *envp[])
 	(void)argv;
 	if (argc > 1)
 		ft_exit(NULL, ERR_ARGNBR);
-	//sig_init();
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, sig_handler);
+	change_term(false);
 	read_exec_loop(&minishell, 1);
 	ft_exit(&minishell, "minishell : unexpected error\n");
 	return (1);

@@ -24,6 +24,9 @@
 # include <signal.h>
 # include "macros.h"
 
+# include <termios.h>
+# include <stdbool.h>
+
 # define TILDE 1
 # define DOLLAR 0
 
@@ -100,6 +103,8 @@ typedef struct s_shell {
 	int		nbr_pipe;
 	t_cmd	cmd;
 }	t_shell;
+
+//extern void rl_replace_line (const char *, int);
 
 // main.c
 int		check_for_exp(t_shell *minishell);
