@@ -80,7 +80,10 @@ char	*get_path(t_shell *minishell)
 	if (access(cmd, X_OK) == 0)
 		return (cmd);
 	if (ft_strlen(cmd))
+	{
+		free(cmd);
 		cmd = make_path(minishell);
+	}
 	else
 	{
 		free(cmd);

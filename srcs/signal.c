@@ -12,10 +12,23 @@
 
 #include "../includes/minishell.h"
 
+int event(void)
+{
+	return (0);
+}
+
 void	sig_in_append(int signal)
 {
 	if (signal == SIGINT)
+	{
+		//rl_readline_state = RL_STATE_EOF;
+		rl_readline_state = RL_STATE_DONE;
+		rl_done = 1;
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 		g_exit_code = -1;
+	}
 	
 }
 
