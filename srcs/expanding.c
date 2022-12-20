@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 10:14:49 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/19 16:16:58 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/20 16:36:06 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int	check_expansion(char *str, t_shell *minishell, t_list *node)
 		{
 			if (str[i + 1] && str[i + 1] == '?' && is_one_of(str[i + 2]))
 				set_signalenv(minishell);
-			i += ft_strlen(env_var) - 1;
 			expand_varv2(minishell, env_var, node, DOLLAR);
+			i += ft_strlen(env_var) - 1;
 		}
 		if (str[i] == '~' || str[i] == '$')
 			break ;

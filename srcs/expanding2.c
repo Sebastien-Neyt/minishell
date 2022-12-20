@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 09:14:09 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/19 14:30:26 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/20 13:42:40 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	check_in_env(char *env_var, t_shell *minishell)
 	int	i;
 
 	i = 0;
+	if (!env_var)
+		ft_exit(minishell, FAILED_MALLOC);
 	while (minishell->envparams[i])
 	{
 		if (compare_env(env_var, minishell->envparams[i]))

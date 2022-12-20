@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 09:26:24 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/20 11:54:53 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/20 16:27:25 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	read_exec_loop(t_shell *minishell, int not_done)
 		if (minishell->line == NULL)
 			ft_exit(minishell, DEFAULT_MSG);
 		parse_line(minishell);
-//		print_pipeline(minishell);//debug
+	//	print_pipeline(minishell);//debug
 		not_done = line_not_done(minishell);
 		while (not_done != 0 && not_done != -1)
 		{

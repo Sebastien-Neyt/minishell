@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 13:01:40 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/19 14:08:25 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/20 15:15:43 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,14 @@ int	add_env(char *env, char *value, t_shell *minishell)
 		return (0);
 	size = env_counter(minishell->envparams);
 	new_envp = malloc(sizeof(char *) * (size + 2));
-	// protect
+	if (!new_envp)
+		ft_exit(minishell, FAILED_MALLOC);
 	copy_envp(minishell, new_envp, new_env);
 	new_envp[size + 1] = NULL;
 	free_env(minishell);
 	minishell->envparams = new_envp;
+	free(env);
+	free(value);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:16:34 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/20 12:13:51 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/20 16:25:43 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,18 @@
 int	parse_list(t_shell *minishell)
 {
 	t_list	*tmp;
+	char	*new;
 
 	tmp = minishell->list;
 	while (tmp)
 	{
 		if (tmp->word)
 		{
-			tmp->word = ft_strtrim(tmp->word, " \t");
+			new = ft_strtrim(tmp->word, " \t");
+			if (!new)
+				ft_exit(minishell, FAILED_MALLOC);
+			free(tmp->word);
+			tmp->word = new;
 			word_subparse(tmp->word, minishell, tmp->token, 0);
 		}
 		tmp = tmp->next;
@@ -86,6 +91,7 @@ static void	add_element(t_shell *mini, char *ne, char *oe, t_token t)
 //here we parse each node->word again but now we do it for all operators.i
 //based on the index and offset we build newe 
 //words again and add them to our NEW pipeline.
+
 void	word_subparse(char *line, t_shell *mini, t_token token, int offset)
 {
 	int		i;
@@ -94,12 +100,12 @@ void	word_subparse(char *line, t_shell *mini, t_token token, int offset)
 	char	*op;
 
 	new_element = NULL;
-	op = NULL;
 	i = 0;
 	while (line[i] && part_subparse(token, mini, line))
 	{
 		operator = determine_operator(line, i);
-		if (operator)
+		op = NULL;
+		if (operator != 0)
 		{
 			op = build_operator(operator);
 			if (i - offset > 0)
@@ -115,10 +121,9 @@ void	word_subparse(char *line, t_shell *mini, t_token token, int offset)
 }
 
 /*
-int	word_subparse(char *line, t_shell *minishell, t_token token)
+void	word_subparse(char *line, t_shell *minishell, t_token token, int offset)
 {
 	int		i;
-	int		offset;
 	int		operator;
 	char	*new_element;
 	char	*op_element;
@@ -126,9 +131,11 @@ int	word_subparse(char *line, t_shell *minishell, t_token token)
 	new_element = NULL;
 	op_element = NULL;
 	i = 0;
-	offset = 0;
 	if (token == DOUBLE)
-		return (add_pipeline(minishell, line, token));
+	{
+		add_pipeline(minishell, line, token);
+		return ;
+	}
 	while (line[i])
 	{
 		operator = determine_operator(line, i);
@@ -153,22 +160,22 @@ int	word_subparse(char *line, t_shell *minishell, t_token token)
 			i += 2;
 		offset = i;
 	}
-	return (0);
 }
 */
 
 /*
-int word_subparse(char *line, t_shell *minishell, e_token token)
+void word_subparse(char *line, t_shell *minishell, t_token token, int offset)
 {
     int i = 0;
-    int offset = 0;
     int operator = 0;
     char *new_element = NULL;
     char *op_element = NULL;
 
     if (token == DOUBLE)
-        return add_pipeline(minishell, line, token);
-
+	{
+	  	add_pipeline(minishell, line, token);
+		return ;
+	}
     while (line[i])
     {
         operator = determine_operator(line, i);
@@ -196,7 +203,6 @@ int word_subparse(char *line, t_shell *minishell, e_token token)
             i += 2;
         offset = i;
     }
-    return 0;
 }
 */
 
