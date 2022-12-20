@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 09:45:08 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/13 09:46:00 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/20 13:43:51 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_strndup(char *src, int n)
 	char	*copy;
 
 	copy = malloc(sizeof(char) * (n + 1));
-	if (copy == NULL)
+	if (!copy)
 		return (0);
 	ft_strlcpy(copy, (char *)src, n + 1);
 	return (copy);
@@ -91,7 +91,7 @@ char	**ft_split(char *s, char c)
 		return (0);
 	words = count_words(s, c);
 	rt = malloc(sizeof(char *) * (words + 1));
-	if (rt == NULL)
+	if (!rt)
 		return (0);
 	rt[words] = NULL;
 	while (i < words)

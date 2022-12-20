@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 11:28:16 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/19 09:07:40 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/20 16:28:00 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,15 @@ void	print_envs(t_shell *minishell)
 
 void	print_list(t_shell *minishell)
 {
-	while (minishell->list->next)
+	t_list	*list;
+
+	list = minishell->list;
+	while (list->next)
 	{
-		printf("%s\n", minishell->list->word);
-		minishell->list = minishell->list->next;
+		printf("[  %s  ]\n", list->word);
+		list = list->next;
 	}
-	printf("%s\n", minishell->list->word);
+	printf("[  %s  ]\n", list->word);
 }
 
 void	print_pipeline(t_shell *minishell)
