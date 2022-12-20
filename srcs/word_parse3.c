@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 09:30:24 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/20 16:15:54 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/20 16:36:12 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	part_subparse(t_token token, t_shell *minishell, char *line)
 	ret = 1;
 	if (token == DOUBLE)
 	{
-		printf("added from within part_subparse\n");
 		add_pipeline(minishell, line, token);
 		ret = 0;
 	}
