@@ -77,7 +77,7 @@ void	get_heredoc(t_shell *minishell, t_list *pipeline, char *input, int ctl)
 			free(minishell->line);
 		minishell->line = NULL;
 		minishell->line = readline(">");
-		if (minishell->line == NULL)
+		if (minishell->line == NULL || g_exit_code == -1)
 			break ;
 		if (append_str(&(minishell->line_tmp), minishell->line) == 0)
 			ctl = 0;
@@ -111,14 +111,22 @@ void	read_exec_loop(t_shell *minishell, int not_done)
 		not_done = line_not_done(minishell);
 		while (not_done != 0 && not_done != -1)
 		{
+			signal(SIGINT, sig_in_append);
 			if (not_done == HEREDOC_DEL)
 				get_heredoc(minishell, NULL, NULL, 1);
 			else if (not_done == PIPE)
 				append_line(minishell);
 			not_done = line_not_done(minishell);
+			if (g_exit_code == -1)
+			{
+				not_done = -1;
+				g_exit_code = 130;
+			}
 		}
+		signal(SIGINT, sig_handler);
 		if (minishell->line && *(minishell->line))
 			add_history(minishell->line);
+		signal(SIGINT, sig_nothing);
 		if (not_done != -1)
 			execute_line(minishell);
 	}
