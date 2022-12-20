@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 09:30:24 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/19 14:09:14 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/20 12:10:53 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,17 @@ int	return_operator(int operator)
 	else if (operator == DOUBLE_REDIRECT_TO || operator == HEREDOC)
 		return (2);
 	return (0);
+}
+
+int	part_subparse(t_token token, t_shell *minishell, char *line)
+{
+	int	ret;
+
+	ret = 1;
+	if (token == DOUBLE)
+	{
+		add_pipeline(minishell, line, token);
+		ret = 0;
+	}
+	return (ret);
 }

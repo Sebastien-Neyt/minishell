@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:45:38 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/20 11:06:33 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/20 12:54:48 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ typedef struct s_shell {
 	t_cmd	cmd;
 }	t_shell;
 
-void rl_replace_line (const char *text, int clear_undo);
+void	rl_replace_line(const char *text, int clear_undo);
 
 // main.c
 int		check_for_exp(t_shell *minishell);
@@ -246,8 +246,10 @@ int		is_one_of(char c);
 void	set_signalenv(t_shell *minishell);
 
 // word_parse2.c
-int		word_subparse(char *line, t_shell *minishell, t_token token);
+void	word_subparse(char *line, t_shell *mini, t_token token, int off);
 int		parse_list(t_shell *minishell);
+int		part_subparse(t_token token, t_shell *minishell, char *line);
+int		add_pipeline(t_shell *minishell, char *word, t_token token);
 
 // signal.c
 void	sig_handler(int signal);

@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:44:30 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/20 10:59:35 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/20 12:55:03 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
  * the program will call exit() from within the loop
  * neither the terminate nor the return should ever be reached
  */
+
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_shell	minishell;
