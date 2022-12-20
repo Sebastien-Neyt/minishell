@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 09:26:24 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/19 16:07:03 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/20 09:31:08 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ void	read_exec_loop(t_shell *minishell, int not_done)
 {
 	while (1)
 	{
+		signal(SIGQUIT, sig_handler);
+		signal(SIGINT, sig_handler);
 		reset_line(minishell);
 		minishell->line = readline("minishell"RED"<3 "WHITE"");
 		if (minishell->line == NULL)

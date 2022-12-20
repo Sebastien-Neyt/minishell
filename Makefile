@@ -2,9 +2,9 @@ CC	= gcc
 
 CCFLAGS	= -Wall -Wextra -Werror
 
-INCLUDES= -I /usr/local/opt/readline/include
+INCLUDES= -I /Users/${USER}/.brew/opt/readline/includes
 
-LIB	= -l readline -L /usr/local/opt/readline/lib
+LIB	= -l readline -L/Users/${USER}/.brew/opt/readline/lib
 
 NAME	= minishell
 
@@ -56,7 +56,8 @@ SRC_LIST	= check_syntax.c\
 		  word_parse.c\
 		  word_parse2.c\
 		  word_parse3.c\
-		  redirect.c
+		  redirect.c\
+		  signal.c
 
 BUILTIN_LIST	=	cd.c\
 			echo.c\

@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:45:38 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/19 16:34:30 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/20 09:14:32 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
+# include <signal.h>
 # include "macros.h"
 
 # define TILDE 1
@@ -246,4 +247,6 @@ void	set_signalenv(t_shell *minishell);
 int		word_subparse(char *line, t_shell *minishell, t_token token);
 int		parse_list(t_shell *minishell);
 
+// signal.c
+void	sig_handler(int signal);
 #endif

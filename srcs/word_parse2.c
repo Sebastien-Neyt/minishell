@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:16:34 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/19 17:36:54 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/20 08:09:32 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	word_subparse(char *line, t_shell *minishell, t_token token)
 	char	*op_element;
 
 	new_element = NULL;
-	op_element = NULL;l
+	op_element = NULL;
 	i = 0;
 	offset = 0;
 	if (token == DOUBLE)
