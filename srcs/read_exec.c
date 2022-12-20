@@ -102,8 +102,6 @@ void	read_exec_loop(t_shell *minishell, int not_done)
 {
 	while (1)
 	{
-		signal(SIGQUIT, sig_handler);
-		signal(SIGINT, sig_handler);
 		reset_line(minishell);
 		minishell->line = readline("minishell"RED"<3 "WHITE"");
 		if (minishell->line == NULL)
