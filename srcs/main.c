@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:44:30 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/20 09:44:44 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/20 10:59:35 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	main(int argc, char *argv[], char *envp[])
 	if (argc > 1)
 		ft_exit(NULL, ERR_ARGNBR);
 	//sig_init();
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, sig_handler);
 	read_exec_loop(&minishell, 1);
 	ft_exit(&minishell, "minishell : unexpected error\n");
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:45:38 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/20 09:14:32 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/20 11:06:33 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ typedef struct s_shell {
 	int		nbr_pipe;
 	t_cmd	cmd;
 }	t_shell;
+
+void rl_replace_line (const char *text, int clear_undo);
 
 // main.c
 int		check_for_exp(t_shell *minishell);
