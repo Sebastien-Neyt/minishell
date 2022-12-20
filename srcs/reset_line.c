@@ -27,6 +27,8 @@ void	cmd_init(t_shell *minishell)
 
 void	reset_line(t_shell *minishell)
 {
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, sig_handler);
 	reset_cmd(minishell);
 	if (minishell->pid)
 		free(minishell->pid);
