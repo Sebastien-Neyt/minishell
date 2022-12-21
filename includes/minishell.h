@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:45:38 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/20 17:38:51 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/21 09:09:25 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ typedef struct s_shell {
 }	t_shell;
 
 void	rl_replace_line(const char *text, int clear_undo);
-
 // main.c
 int		check_for_exp(t_shell *minishell);
 int		check_chars(char *word);
@@ -156,8 +155,8 @@ void	free_env(t_shell *minishell);
 // utils1.c
 char	*env_dup(char *s1);
 int		ft_strlen(char *str);
-t_list	*ft_lstnew(char *content);
-void	ft_lstadd_back(t_list **lst, t_list *new);
+t_list	*ft_lstnew(char *content, t_shell *minishell);
+int		ft_lstadd_back(t_list **lst, t_list *new);
 t_list	*ft_lstlast(t_list *lst);
 int		ft_strcmp(char *s1, char *s2);
 char	*ft_strdup(char *s1);
@@ -188,10 +187,12 @@ void	ft_exit(t_shell *minishell, char *msg);
 void	free_list(t_list *list);
 
 // unset.c
-int		ft_unset(t_shell *minishell, int i);
+int		ft_unset(t_shell *minishell, int i, int y);
+void	unset_loop(t_shell *minishell);
 
 // export.c
-int		ft_export(t_shell *minishell);
+int		ft_export(t_shell *minishell, int i);
+void	export_loop(t_shell *minishell);
 
 // env.c
 int		ft_env(t_shell *minishell);
@@ -253,7 +254,7 @@ int		part_subparse(t_token token, t_shell *minishell, char *line);
 int		add_pipeline(t_shell *minishell, char *word, t_token token);
 
 // signal.c
-int	event(void);
+int		event(void);
 void	sig_handler(int signal);
 void	sig_nothing(int signal);
 void	sig_in_append(int signal);

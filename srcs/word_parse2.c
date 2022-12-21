@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:16:34 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/20 17:30:57 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/21 10:35:27 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	add_pipeline(t_shell *minishell, char *word, t_token token)
 	}
 	else
 	{
-		ft_lstadd_back(&minishell->pipeline, ft_lstnew(word));
+		ft_lstadd_back(&minishell->pipeline, ft_lstnew(word, minishell));
 		new_word = ft_lstlast(minishell->pipeline);
 		new_word->token = token;
 	}
@@ -121,49 +121,6 @@ void	word_subparse(char *line, t_shell *mini, t_token token, int offset)
 }
 
 /*
-void	word_subparse(char *line, t_shell *minishell, t_token token, int offset)
-{
-	int		i;
-	int		operator;
-	char	*new_element;
-	char	*op_element;
-
-	new_element = NULL;
-	op_element = NULL;
-	i = 0;
-	if (token == DOUBLE)
-	{
-		add_pipeline(minishell, line, token);
-		return ;
-	}
-	while (line[i])
-	{
-		operator = determine_operator(line, i);
-		if (operator)
-			op_element = build_operator(operator);
-		if (!operator)
-		{
-			i++;
-			if (!line[i])
-				add_element(minishell, build_word(i + 1, offset, line), op_element, token);
-			continue ;
-		}
-		if (i - offset > 0)
-				new_element = build_word(i, offset, line);
-		add_element(minishell, new_element, op_element, token);
-		if (return_operator(operator) == 1)
-		{
-			i++;
-			offset++;
-		}	
-		else if (return_operator(operator) == 2)
-			i += 2;
-		offset = i;
-	}
-}
-*/
-
-/*
 void word_subparse(char *line, t_shell *minishell, t_token token, int offset)
 {
     int i = 0;
@@ -203,57 +160,5 @@ void word_subparse(char *line, t_shell *minishell, t_token token, int offset)
             i += 2;
         offset = i;
     }
-}
-*/
-
-/*
-int word_subparse(char *line, t_shell *minishell, e_token token)
-{
-    int		i;
-	int		offset;
-	int		operator;
-    char	*new_element;
-	char	*op_element;
-
-    new_element = NULL;
-    op_element = NULL;
-    i = 0;
-    offset = 0;
-    while (line[i])
-    {
-        if (token == DOUBLE)
-        {
-            add_pipeline(minishell, line, token);
-            break;
-        }
-        operator = determine_operator(line, i);
-        op_element = build_operator(operator);
-        if (operator == 0)
-        {
-            i++;
-            if (!line[i])
-            {
-                new_element = build_word(i + 1, offset, line);
-                add_element(minishell, new_element, op_element, token);
-            }
-            continue;
-        }
-        if (i - offset > 0)
-            new_element = build_word(i, offset, line);
-        add_element(minishell, new_element, op_element, token);
-        if (operator == PIPE || operator == SIMPLE_REDIRECT_TO \
-		|| operator == SIMPLE_REDIRECT_FROM)
-        {
-            i++;
-            offset++;
-            offset = i;
-        }
-        else
-        {
-            i += 2;
-            offset = i;
-        }
-    }
-    return (0);
 }
 */

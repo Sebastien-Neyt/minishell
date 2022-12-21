@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 09:25:23 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/20 08:39:35 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/21 09:08:26 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	reset_line(t_shell *minishell)
 		free(minishell->line_tmp);
 	minishell->line_tmp = NULL;
 	free_list(minishell->list);
-	minishell->list = ft_lstnew(NULL);
+	minishell->list = ft_lstnew(NULL, minishell);
 	free_list(minishell->pipeline_start);
-	minishell->pipeline = ft_lstnew(NULL);
+	minishell->pipeline = ft_lstnew(NULL, minishell);
 	minishell->pipeline_start = minishell->pipeline;
 }

@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 10:14:49 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/20 17:30:55 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/21 09:53:57 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ int	check_expansion(char *str, t_shell *minishell, t_list *node)
 			expand_varv2(minishell, env_var, node, DOLLAR);
 			i += ft_strlen(env_var) - 1;
 		}
+		if (env_var)
+			free(env_var);
 		if (str[i] == '~' || str[i] == '$')
 			break ;
 		i++;
 	}
-	if (env_var)
-		free(env_var);
 	return (0);
 }
 

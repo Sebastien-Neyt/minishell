@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 11:11:57 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/19 16:01:06 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/21 09:20:30 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ char	*env_dup(char *s1)
 }
 
 //creates a new list node.
-t_list	*ft_lstnew(char	*content)
+t_list	*ft_lstnew(char	*content, t_shell *minishell)
 {
 	t_list	*ans;
 
 	ans = malloc(sizeof(t_list));
 	if (!ans)
-		return (0);
+		ft_exit(minishell, FAILED_MALLOC);
 	ans->word = content;
 	ans->token = 0;
 	ans->next = 0;
@@ -68,13 +68,16 @@ t_list	*ft_lstlast(t_list *lst)
 }
 
 //adds our new node as the last node in our list.
-void	ft_lstadd_back(t_list **lst, t_list *new)
+int	ft_lstadd_back(t_list **lst, t_list *new)
 {
 	t_list	*temp;
 
+	if (!new)
+		return (1);
 	temp = ft_lstlast(*lst);
 	if (!temp)
 		*lst = new;
 	else
 		temp->next = new;
+	return (0);
 }

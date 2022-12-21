@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 10:20:29 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/20 17:27:57 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/21 10:36:32 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,23 @@ int	check_for_exp(t_shell *minishell)
 void	trim_pipeline(t_shell *minishell)
 {
 	t_list	*tmp;
+	char	*str;
 
 	tmp = minishell->pipeline;
 	while (tmp)
 	{
 		if (tmp->token == DOUBLE)
-			tmp->word = ft_strtrim(tmp->word, "\"");
+		{
+			str = ft_strtrim(tmp->word, "\"");
+			free(tmp->word);
+			tmp->word = str;
+		}
 		else if (tmp->token == SINGLE)
-			tmp->word = ft_strtrim(tmp->word, "'");
+		{
+			str = ft_strtrim(tmp->word, "'");
+			free(tmp->word);
+			tmp->word = str;
+		}
 		tmp = tmp->next;
 	}
 }

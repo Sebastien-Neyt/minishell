@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 12:07:39 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/20 15:21:57 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/21 09:16:50 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ char	*build_word(int i, int offset, char *line)
 	y = 0;
 	x = offset;
 	word = malloc(sizeof(char) * (i - offset + 1));
-	//protect malloc
+	if (!word)
+		return (NULL);
 	while (y < i - offset)
 	{
 		word[y] = line[x];
@@ -38,6 +39,8 @@ void	add_word(t_shell *minishell, char *word, int flag)
 {
 	t_list	*new_word;
 
+	if (!word)
+		ft_exit(minishell, FAILED_MALLOC);
 	if (!minishell->list->word)
 	{
 		minishell->list->word = word;
@@ -50,7 +53,7 @@ void	add_word(t_shell *minishell, char *word, int flag)
 	}
 	else
 	{
-		ft_lstadd_back(&minishell->list, ft_lstnew(word));
+		ft_lstadd_back(&minishell->list, ft_lstnew(word, minishell));
 		new_word = ft_lstlast(minishell->list);
 		if (flag == 1)
 			new_word->token = SINGLE;

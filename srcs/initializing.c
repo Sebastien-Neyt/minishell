@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 11:03:29 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/19 14:12:30 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/21 09:07:08 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static void	init_env_empty(t_shell *minishell)
 	char	*temp;
 
 	minishell->envparams = malloc(sizeof(char *) * 4);
+	if (!minishell->envparams)
+		ft_exit(minishell, FAILED_MALLOC);
 	temp = ft_strjoin("PWD=", getcwd(NULL, 0));
 	minishell->envparams[0] = env_dup(temp);
 	minishell->envparams[1] = env_dup("SHLVL=1");
@@ -43,7 +45,7 @@ int	init_envs(t_shell *minishell, char **envp)
 	count = env_counter(envp);
 	minishell->envparams = malloc(sizeof(char *) * (count + 1));
 	if (!minishell->envparams)
-		return (1);
+		ft_exit(minishell, FAILED_MALLOC);
 	while (i < count)
 	{
 		minishell->envparams[i] = env_dup(envp[i]);
@@ -64,8 +66,8 @@ t_shell	init_shell(char **envp)
 		init_env_empty(&minishell);
 	else
 		init_envs(&minishell, envp);
-	minishell.list = ft_lstnew(NULL);
-	minishell.pipeline = ft_lstnew(NULL);
+	minishell.list = ft_lstnew(NULL, &minishell);
+	minishell.pipeline = ft_lstnew(NULL, &minishell);
 	minishell.pipeline_start = NULL;
 	cmd_init(&minishell);
 	minishell.pid = NULL;

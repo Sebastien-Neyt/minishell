@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 09:26:24 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/20 16:27:25 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/21 09:23:59 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 void	parse_line(t_shell *minishell)
 {	
 	if (minishell->list->word != NULL)
-		minishell->list = ft_lstnew(NULL);
+		minishell->list = ft_lstnew(NULL, minishell);
 	word_parse(minishell->line, minishell, 0, 0);
 	check_for_exp(minishell);
 	parse_list(minishell);
