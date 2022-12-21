@@ -12,15 +12,37 @@
 
 #include "../includes/minishell.h"
 
+int	event(void)
+{
+	return (0);
+}
+
+void	sig_in_append(int signal)
+{
+	if (signal == SIGINT)
+	{
+		rl_readline_state = RL_STATE_DONE;
+		rl_done = 1;
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		g_exit_code = -1;
+	}
+}
+
+void	sig_nothing(int signal)
+{
+	(void)signal;
+}
+
 void	sig_handler(int signal)
 {
 	if (signal == SIGINT)
 	{
-		rl_replace_line("", 0);
 		write(2, "\n", 1);
 		g_exit_code = 130;
-		//rl_replace_line("", 0);
 		rl_on_new_line();
+		rl_replace_line("", 0);
 		rl_redisplay();
 	}
 }

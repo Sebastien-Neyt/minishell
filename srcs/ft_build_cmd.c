@@ -88,9 +88,7 @@ void	ft_build_cmd(t_shell *minishell)
 void	reset_cmd(t_shell *minishell)
 {
 	t_cmd	*cmd;
-	int		i;
 
-	i = 0;
 	cmd = &(minishell->cmd);
 	if (cmd->path)
 		free(cmd->path);

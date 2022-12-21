@@ -23,6 +23,7 @@
 # include <sys/wait.h>
 # include <signal.h>
 # include "macros.h"
+# include <sys/ioctl.h>
 
 # define TILDE 1
 # define DOLLAR 0
@@ -252,5 +253,8 @@ int		part_subparse(t_token token, t_shell *minishell, char *line);
 int		add_pipeline(t_shell *minishell, char *word, t_token token);
 
 // signal.c
+int	event(void);
 void	sig_handler(int signal);
+void	sig_nothing(int signal);
+void	sig_in_append(int signal);
 #endif
