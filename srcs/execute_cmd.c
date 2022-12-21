@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 09:13:06 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/19 14:55:12 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/21 10:40:25 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	internal_execute(t_shell *minishell)
 
 	std_in = dup(STDIN_FILENO);
 	std_out = dup(STDOUT_FILENO);
-	//print_cmd(minishell);//DEBUG
 	ft_build_cmd(minishell);
 	if (ft_redirect(minishell))
 	{
@@ -65,8 +64,6 @@ void	execute_line(t_shell *minishell)
 		while (i <= minishell->nbr_pipe)
 		{
 			waitpid((minishell->pid)[i], &g_exit_code, 0);
-			//printf(YELLOW"[PID][%d]\t"WHITE, minishell->pid[i]);//DEBUG
-			//printf(YELLOW"[RET][%d]\n"WHITE, g_exit_code);//DEBUG
 			i++;
 		}
 	}

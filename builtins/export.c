@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:53:17 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/21 09:38:25 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/21 11:47:59 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,7 @@ static int	check_for_equal(char *str)
 	while (str[i])
 	{
 		if (str[i] == '=')
-		{
-			if (str[i + 1] == '=')
-				return (0);
 			return (i);
-		}
 		i++;
 	}
 	return (0);

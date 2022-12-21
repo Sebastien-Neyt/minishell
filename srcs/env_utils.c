@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 13:01:40 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/21 08:53:46 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/21 12:52:16 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,22 @@ int	add_env(char *env, char *value, t_shell *minishell)
 	return (1);
 }
 
+int	count_occurences(char *str)
+{
+	int	count;
+	int	i;
+
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		if (str[i] == 39 || str[i] == 34)
+			count++;
+		i++;
+	}
+	return (count);
+}
+
 //this is the global env function that will check if the env already exists
 //or not and then decide if we change if we have to change or add the env
 int	set_env(char *env, char *value, t_shell *minishell)
@@ -73,6 +89,8 @@ int	set_env(char *env, char *value, t_shell *minishell)
 
 	if (!env || !value)
 		ft_exit(minishell, FAILED_MALLOC);
+	env = trim_word(env, minishell, 0, 0);
+	value = trim_word(value, minishell, 0, 0);
 	index = find_env(env, minishell);
 	if (index < 0)
 		add_env(env, value, minishell);

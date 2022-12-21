@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:45:38 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/21 09:09:25 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/21 12:52:03 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,6 +252,9 @@ void	word_subparse(char *line, t_shell *mini, t_token token, int off);
 int		parse_list(t_shell *minishell);
 int		part_subparse(t_token token, t_shell *minishell, char *line);
 int		add_pipeline(t_shell *minishell, char *word, t_token token);
+char	*trim_word(char *word, t_shell *minishell, int flag, int count);
+void	trim_checker(char c, int *flag);
+int		count_occurences(char *str);
 
 // signal.c
 int		event(void);

@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 09:08:56 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/20 17:13:38 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/21 12:52:35 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,43 @@ char	*build_env(char *env, char *value)
 		new_env[i++] = value[x++];
 	new_env[i] = '\0';
 	return (new_env);
+}
+
+void	trim_checker(char c, int *flag)
+{
+	if (*flag == 0)
+	{
+		if (c == 34)
+			*flag = 34;
+		else if (c == 39)
+			*flag = 39;
+	}
+}
+
+char	*trim_word(char *word, t_shell *minishell, int flag, int count)
+{
+	char	*ans;
+	int		x;
+
+	x = 0;
+	ans = malloc(sizeof(char) * (ft_strlen(word) - count_occurences(word) + 1));
+	if (!ans)
+		ft_exit(minishell, FAILED_MALLOC);
+	while (word[count])
+	{
+		trim_checker(word[count], &flag);
+		if (flag == 0)
+			ans[x++] = word[count++];
+		else
+		{
+			if ((flag == 34 && word[count] != 34) \
+				|| (flag == 39 && word[count] != 39))
+				ans[x++] = word[count++];
+			else
+				count++;
+		}
+	}
+	ans[x] = '\0';
+	free(word);
+	return (ans);
 }

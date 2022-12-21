@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 10:20:29 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/21 10:36:32 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/21 11:24:25 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	trim_pipeline(t_shell *minishell)
 		if (tmp->token == DOUBLE)
 		{
 			str = ft_strtrim(tmp->word, "\"");
-			free(tmp->word);
 			tmp->word = str;
 		}
 		else if (tmp->token == SINGLE)

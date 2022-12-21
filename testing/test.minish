@@ -1,3 +1,0 @@
-ls -l | grep test  
-| sc dcs 
-echo this is the end

@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 09:23:00 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/21 09:29:25 by sneyt            ###   ########.fr       */
+/*   Updated: 2022/12/21 10:40:49 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,7 @@ pid_t	exec_cmd(t_shell *minishell)
 		ft_exit(minishell, FAILED_FORK);
 	cmd = &minishell->cmd;
 	if (ft_redirect(minishell) == 0)
-		ft_exit(minishell, NULL);//add error message
-	//print_cmd(minishell);//DEBUG
+		ft_exit(minishell, NULL);
 	if (cmd->name == NULL)
 		ft_exit(minishell, NULL);
 	if (exec_builtin(minishell))
@@ -119,7 +118,6 @@ void	exec_pipeline(t_shell *minishell)
 				ft_exit(minishell, FAILED_PIPE);
 			(minishell->cmd).fd_out = fd[1];
 		}
-		//print_pipeline(minishell);//DEBUG
 		(minishell->pid)[i] = exec_cmd(minishell);
 		if (i < minishell->nbr_pipe)
 			close(fd[1]);
