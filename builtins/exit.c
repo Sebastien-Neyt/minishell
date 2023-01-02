@@ -27,10 +27,31 @@ void	free_list(t_list *list)
 	}
 }
 
+int	exit_internal(t_shell *minishell)
+{
+	if (minishell->cmd.arg[1] && is_num(minishell->cmd.arg[1]) \
+		&& minishell->cmd.arg[2])
+	{
+		write(STDERR_FILENO, EXIT_ERR_ARGC, ft_strlen(EXIT_ERR_ARGC));	
+		g_exit_code = 2;
+		return (1);
+	}
+	else if (minishell->cmd.arg[1] && is_num(minishell->cmd.arg[1]))
+		g_exit_code = ft_atoi(minishell->cmd.arg[1]);
+	else if (minishell->cmd.arg[1] && !is_num(minishell->cmd.arg[1]))
+	{
+		write(STDERR_FILENO, EXIT_ERR_NUM, ft_strlen(EXIT_ERR_NUM));
+		g_exit_code = 1;
+	}
+	return (0);
+}
+
 void	ft_exit(t_shell *minishell, char *msg)
 {
 	if (msg)
 		write(STDERR_FILENO, msg, ft_strlen(msg));
+	if (minishell->cmd.arg && exit_internal(minishell))
+		return ;
 	reset_cmd(minishell);
 	if (minishell->pid)
 		free(minishell->pid);
