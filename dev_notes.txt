@@ -2,7 +2,7 @@
 $IFS not implemented
 
 TODO LIST:
-	- cd ~
+	- cd ~$something
 TESTING_TODO:
 
 IMPROVEMENT:
