@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:52:59 by sneyt             #+#    #+#             */
-/*   Updated: 2023/01/02 16:48:13 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/02 17:03:16 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,21 @@ char	*get_env(char *env, t_shell *minishell)
 	return (ans);
 }
 
+static char	*ft_check_arg(t_shell *minishell)
+{
+	if (minishell->cmd.arg[1])
+		return (ft_strdup(minishell->cmd.arg[1]));
+	else
+		return (get_env("HOME", minishell));
+}
+
 void	ft_cd(t_shell *minishell)
 {
 	char	*path;
 	char	*oldpwd;
 
 	oldpwd = get_env("PWD", minishell);
-	if (minishell->cmd.arg[1])
-		path = ft_strdup(minishell->cmd.arg[1]);
-	else
-		path = get_env("HOME", minishell);
+	path = ft_check_arg(minishell);
 	if (chdir(path) == -1)
 	{	
 		g_exit_code = 1;

@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 10:14:49 by sneyt             #+#    #+#             */
-/*   Updated: 2023/01/02 16:57:17 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/02 16:58:28 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@
 //expand_varv2 that will decide what to do based on the index.
 int	check_expansion(char *str, t_shell *minishell, t_list *node, int i)
 {
-	//int		i;
 	char	*env_var;
 
-	//i = 0;
 	if (!node->word)
 		return (0);
 	while (str[i])

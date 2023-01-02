@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:53:04 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/20 16:01:04 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/02 17:03:44 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	exit_internal(t_shell *minishell)
 	if (minishell->cmd.arg[1] && is_num(minishell->cmd.arg[1]) \
 		&& minishell->cmd.arg[2])
 	{
-		write(STDERR_FILENO, EXIT_ERR_ARGC, ft_strlen(EXIT_ERR_ARGC));	
+		write(STDERR_FILENO, EXIT_ERR_ARGC, ft_strlen(EXIT_ERR_ARGC));
 		g_exit_code = 2;
 		return (1);
 	}
