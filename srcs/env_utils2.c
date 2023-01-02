@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 09:08:56 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/21 12:52:35 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/02 12:29:31 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,5 @@ char	*trim_word(char *word, t_shell *minishell, int flag, int count)
 		}
 	}
 	ans[x] = '\0';
-	//free(word);
 	return (ans);
 }
