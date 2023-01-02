@@ -89,6 +89,8 @@ int	ft_export(t_shell *minishell, int i)
 {
 	int	index;	
 
+	char	*value;
+	char	*env;
 	if (!minishell->cmd.arg[1])
 		ft_env(minishell);
 	else
@@ -99,8 +101,16 @@ int	ft_export(t_shell *minishell, int i)
 			g_exit_code = 256;
 			return (error_msg("export : not a valid identiefier\n", 1));
 		}
-		set_env(cut_env_name(minishell->cmd.arg[i], index), \
-		cut_env_value(minishell->cmd.arg[i], index), minishell);
+		value = cut_env_value(minishell->cmd.arg[i], index);
+		env = cut_env_name(minishell->cmd.arg[i], index);
+		//value = trim_word(my_env_value, minishell, 0, 0);
+		//env = trim_word(my_env_name, minishell, 0, 0);
+		set_env(env, value, minishell);
+		//free(my_env_value);
+		//free(my_env_name);
+		//free(value);
+		//free(env);
+
 	}
 	g_exit_code = 0;
 	return (0);

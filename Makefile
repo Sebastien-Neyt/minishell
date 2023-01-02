@@ -2,11 +2,11 @@ CC	= gcc
 
 CCFLAGS	= -Wall -Wextra -Werror
 
-INCLUDES= -I /Users/${USER}/.brew/opt/readline/include
-#INCLUDES= -I /usr/local/opt/readline/include
+#INCLUDES= -I /Users/${USER}/.brew/opt/readline/include
+INCLUDES= -I /usr/local/opt/readline/include
 
-LIB	= -l readline -L/Users/${USER}/.brew/opt/readline/lib
-#LIB	= -lreadline -L/usr/local/opt/readline/lib
+#LIB	= -l readline -L/Users/${USER}/.brew/opt/readline/lib
+LIB	= -lreadline -L/usr/local/opt/readline/lib
 
 NAME	= minishell
 

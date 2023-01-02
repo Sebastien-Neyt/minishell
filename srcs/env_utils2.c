@@ -105,6 +105,6 @@ char	*trim_word(char *word, t_shell *minishell, int flag, int count)
 		}
 	}
 	ans[x] = '\0';
-	free(word);
+	//free(word);
 	return (ans);
 }

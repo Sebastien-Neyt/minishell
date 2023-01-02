@@ -60,8 +60,11 @@ int	add_env(char *env, char *value, t_shell *minishell)
 	new_envp[size + 1] = NULL;
 	free_env(minishell);
 	minishell->envparams = new_envp;
-	free(env);
-	free(value);
+	if (ft_strcmp(env, "?"))
+	{	
+		free(env);
+		free(value);
+	}
 	return (1);
 }
 
@@ -89,8 +92,8 @@ int	set_env(char *env, char *value, t_shell *minishell)
 
 	if (!env || !value)
 		ft_exit(minishell, FAILED_MALLOC);
-	env = trim_word(env, minishell, 0, 0);
-	value = trim_word(value, minishell, 0, 0);
+	//env = trim_word(env, minishell, 0, 0);
+	//value = trim_word(value, minishell, 0, 0);
 	index = find_env(env, minishell);
 	if (index < 0)
 		add_env(env, value, minishell);
