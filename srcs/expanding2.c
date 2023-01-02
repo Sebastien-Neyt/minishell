@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 09:14:09 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/20 16:56:42 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/02 11:37:38 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	compare_env(char *env_var, char *mini_env)
 
 	i = 0;
 	len = ft_strlen(env_var);
+	if (len == 0)
+		return (1);
 	while (i < len)
 	{
 		if (env_var[i] != mini_env[i])
@@ -66,6 +68,8 @@ int	check_in_env(char *env_var, t_shell *minishell)
 	i = 0;
 	if (!env_var)
 		ft_exit(minishell, FAILED_MALLOC);
+	if (!ft_strcmp(env_var, ""))
+		return (-1);
 	while (minishell->envparams[i])
 	{
 		if (compare_env(env_var, minishell->envparams[i]))

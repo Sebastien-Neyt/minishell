@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 13:01:40 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/21 12:52:16 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/02 12:29:24 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,6 @@ int	set_env(char *env, char *value, t_shell *minishell)
 
 	if (!env || !value)
 		ft_exit(minishell, FAILED_MALLOC);
-	//env = trim_word(env, minishell, 0, 0);
-	//value = trim_word(value, minishell, 0, 0);
 	index = find_env(env, minishell);
 	if (index < 0)
 		add_env(env, value, minishell);

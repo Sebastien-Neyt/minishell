@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:53:17 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/21 11:47:59 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/02 12:29:07 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ static char	*cut_env_value(char *str, int index)
 	if (!ans)
 		return (NULL);
 	index++;
+	if (str[index] == 39 || str[index] == 34)
+		index++;
 	while (str[index])
 	{
 		ans[x] = str[index];
@@ -87,10 +89,10 @@ void	export_loop(t_shell *minishell)
 
 int	ft_export(t_shell *minishell, int i)
 {
-	int	index;	
-
+	int		index;
 	char	*value;
 	char	*env;
+
 	if (!minishell->cmd.arg[1])
 		ft_env(minishell);
 	else
@@ -103,14 +105,7 @@ int	ft_export(t_shell *minishell, int i)
 		}
 		value = cut_env_value(minishell->cmd.arg[i], index);
 		env = cut_env_name(minishell->cmd.arg[i], index);
-		//value = trim_word(my_env_value, minishell, 0, 0);
-		//env = trim_word(my_env_name, minishell, 0, 0);
 		set_env(env, value, minishell);
-		//free(my_env_value);
-		//free(my_env_name);
-		//free(value);
-		//free(env);
-
 	}
 	g_exit_code = 0;
 	return (0);
