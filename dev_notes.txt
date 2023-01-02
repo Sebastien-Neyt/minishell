@@ -2,11 +2,11 @@
 $IFS not implemented
 
 TODO LIST:
-	- double $$ expansion
 	- atoi for ?
-	- export="something" doesn't trim the first quote
-	- expansion creates an empty node
 	- exit return and args
+	- ~~ expansion -> pointer being freed `cd ~`
+	- leak when exporting an already existing env
+
 TESTING_TODO:
 
 IMPROVEMENT:

@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 16:15:54 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/19 16:18:13 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/02 13:56:14 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	is_one_of(char c)
 
 void	set_signalenv(t_shell *minishell)
 {
-	char str[4];
-	int nbr;
+	char	str[4];
+	int		nbr;
 
 	nbr = g_exit_code;
 	str[0] = nbr / 100 + '0';

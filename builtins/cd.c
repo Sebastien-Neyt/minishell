@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:52:59 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/20 13:51:14 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/02 15:04:28 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	ft_cd(t_shell *minishell)
 		path = minishell->cmd.arg[1];
 	else
 		path = get_env("HOME", minishell);
+	printf("PATH: %s\n", path);//debug
 	if (chdir(path) == -1)
 	{	
 		g_exit_code = 1;
@@ -45,10 +46,12 @@ void	ft_cd(t_shell *minishell)
 	else
 	{
 		path = getcwd(NULL, 0);
-		set_env("OLDPWD", oldpwd, minishell);
-		set_env("PWD", path, minishell);
-		free(oldpwd);
-		free(path);
+		set_env(ft_strdup("OLDPWD"), oldpwd, minishell);
+		set_env(ft_strdup("PWD"), path, minishell);
+		//free(oldpwd);
+		//free(path);
 	}
+	free(oldpwd);
+	free(path);
 	g_exit_code = 0;
 }
