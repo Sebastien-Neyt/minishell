@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:53:17 by sneyt             #+#    #+#             */
-/*   Updated: 2023/01/02 15:28:43 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/02 16:55:48 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ int	ft_export(t_shell *minishell, int i)
 			return (error_msg("export : not a valid identiefier\n", 1));
 		}
 		value = cut_env_value(minishell->cmd.arg[i], index);
-		printf("THIS IS THE VALUE THAT IS GETTING LEAKED: %s\n", value);
 		env = cut_env_name(minishell->cmd.arg[i], index);
 		set_env(env, value, minishell);
 	}

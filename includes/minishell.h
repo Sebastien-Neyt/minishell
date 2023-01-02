@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:45:38 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/21 12:52:03 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/02 16:53:44 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,7 +237,7 @@ int		return_operator(int operator);
 
 // expanding.c
 char	*get_var(char *str, int i);
-int		check_expansion(char *str, t_shell *minishell, t_list *node);
+int		check_expansion(char *str, t_shell *minishell, t_list *node, int i);
 int		check_in_env(char *env_var, t_shell *minishell);
 int		compare_env(char *env_var, char *mini_env);
 void	expand_varv2(t_shell *minishell, \
