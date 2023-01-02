@@ -57,7 +57,7 @@ int	ft_unset(t_shell *minishell, int i, int y)
 
 	if (!minishell->cmd.arg[1])
 	{
-		g_exit_code = 256;
+		g_exit_code = 1;
 		return (printf("unset: not enough arguments\n"));
 	}
 	x = 0;

@@ -38,7 +38,7 @@ void	ft_cd(t_shell *minishell)
 		path = get_env("HOME", minishell);
 	if (chdir(path) == -1)
 	{	
-		g_exit_code = 256;
+		g_exit_code = 1;
 		error_msg("minishell : No such file or directory.\n", 0);
 		return ;
 	}

@@ -98,7 +98,7 @@ int	ft_export(t_shell *minishell, int i)
 		index = check_for_equal(minishell->cmd.arg[i]);
 		if (!index)
 		{
-			g_exit_code = 256;
+			g_exit_code = 1;
 			return (error_msg("export : not a valid identiefier\n", 1));
 		}
 		value = cut_env_value(minishell->cmd.arg[i], index);

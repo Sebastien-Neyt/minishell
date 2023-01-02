@@ -34,6 +34,7 @@ void	internal_execute(t_shell *minishell)
 	}
 	dup2(std_in, STDIN_FILENO);
 	dup2(std_out, STDOUT_FILENO);
+	g_exit_code = WEXITSTATUS(g_exit_code);
 	reset_cmd(minishell);
 }
 
@@ -64,6 +65,7 @@ void	execute_line(t_shell *minishell)
 		while (i <= minishell->nbr_pipe)
 		{
 			waitpid((minishell->pid)[i], &g_exit_code, 0);
+			g_exit_code = WEXITSTATUS(g_exit_code);
 			i++;
 		}
 	}

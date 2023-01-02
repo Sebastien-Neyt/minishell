@@ -60,8 +60,8 @@ int	add_env(char *env, char *value, t_shell *minishell)
 	new_envp[size + 1] = NULL;
 	free_env(minishell);
 	minishell->envparams = new_envp;
-	if (ft_strcmp(env, "?"))
-	{	
+	if (ft_strcmp("?", env))
+	{
 		free(env);
 		free(value);
 	}

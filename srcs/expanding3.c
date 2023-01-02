@@ -21,10 +21,25 @@ int	is_one_of(char c)
 
 void	set_signalenv(t_shell *minishell)
 {
-	char	str[2];
+	char str[4];
+	int nbr;
 
-	str[0] = WEXITSTATUS(g_exit_code);
-	str[0] += '0';
-	str[1] = '\0';
+	nbr = g_exit_code;
+	str[0] = nbr / 100 + '0';
+	str[1] = (nbr / 10) % 10 + '0';
+	str[2] = nbr % 10 + '0';
+	str[3] = '\0';
+	if (str[0] == '0')
+	{
+		str[0] = str[1];
+		if (str[1] == '0')
+		{
+			str[1] = '\0';
+			str[0] = str[2];
+		}
+		else
+			str[1] = str[2];
+		str[2] = '\0';
+	}
 	set_env("?", str, minishell);
 }
