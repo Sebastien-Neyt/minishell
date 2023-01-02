@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 13:01:40 by sneyt             #+#    #+#             */
-/*   Updated: 2023/01/02 12:29:24 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/02 13:41:59 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	change_env(t_shell *minishell, int index, char *value, char *env)
 		return (0);
 	free(minishell->envparams[index]);
 	minishell->envparams[index] = new_env;
+	free(value);
+	free(env);
 	return (1);
 }
 
