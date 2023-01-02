@@ -17,6 +17,8 @@
 # define FAILED_EXEC 	"failed exec\n"
 # define FAILED_PIPE 	"failed pipe\n"
 # define FAILED_FORK 	"failed fork\n"
+# define EXIT_ERR_ARGC 	"minishell : exit: too many arguments\n"
+# define EXIT_ERR_NUM 	"minishell : exit: numeric argument required\n"
 # define UNXPCTD_EOF	"enexpted EOF\n"
 # define ERR_ARGNBR 	"Minishell doesn't take arguments\n"
 # define CMD_NFOUND 	"minishell : command not found\n"

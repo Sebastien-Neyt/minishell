@@ -15,6 +15,7 @@
 
 //# include "../libft/libft.h"
 # include <stdio.h>
+# include <limits.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
@@ -176,6 +177,8 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 //utils5.c
 int		append_str(char **str1, char *str2);
 int		add_nl(char **str1);
+int		ft_atoi(char *str);
+int		is_num(char *str);
 
 // initializing.c
 t_shell	init_shell(char **envp);

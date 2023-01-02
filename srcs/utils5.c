@@ -50,3 +50,46 @@ int	add_nl(char **str)
 	}
 	return (1);
 }
+
+int	ft_atoi(char *str)
+{
+	int					sign;
+	unsigned long long	nb;
+
+	sign = 1;
+	nb = 0;
+	while ((*str >= 9 && *str <= 13) || *str == 32)
+		str++;
+	if (*str == '-' || *str == '+')
+	{
+		if (*str == '-')
+			sign *= -1;
+		str++;
+	}
+	while (*str >= 48 && *str <= 57)
+	{
+		nb = nb * 10 + *str - 48;
+		if (nb > LONG_MAX && sign == 1)
+			return (-1);
+		if (nb > ((unsigned long)LONG_MAX + 1) && sign == -1)
+			return (0);
+		str++;
+	}
+	return ((int)(nb * sign));
+}
+
+int	ft_isdigit(char c)
+{
+	return ((c >= '0' && c <= '9'));
+}
+
+int is_num(char *str)
+{
+	while (str && *str)
+	{
+		if (!ft_isdigit(*str))
+			return (0);
+		str++;
+	}
+	return (1);
+}
