@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 09:25:36 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/19 13:38:36 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/02 16:49:54 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	ft_isdigit(char c)
 	return ((c >= '0' && c <= '9'));
 }
 
-int is_num(char *str)
+int	is_num(char *str)
 {
 	while (str && *str)
 	{

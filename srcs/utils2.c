@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 10:20:29 by sneyt             #+#    #+#             */
-/*   Updated: 2023/01/02 13:56:25 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/02 16:19:24 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ int	check_chars(char *word)
 	i = 0;
 	while (word && word[i])
 	{
-		if (((word[i] == '$' || word[i] == '~')) \
+		if (word[i] == '~' && (word[i + 1] != '/' && word[i + 1] != '\0'))
+			return (0);
+		else if (((word[i] == '$' || word[i] == '~')) \
 			&& ((!is_one_of(word[i + 1]) && word[i + 1] != '$')))
 			return (1);
 		else if (word[i] == '~' && word[i + 1] == '\0')

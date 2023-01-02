@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 10:14:49 by sneyt             #+#    #+#             */
-/*   Updated: 2023/01/02 14:43:07 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/02 16:50:12 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int	check_expansion(char *str, t_shell *minishell, t_list *node)
 	while (str[i])
 	{
 		env_var = env_var_based(str[i], str, i);
-		printf("str[i] : %c -- str[i + 1] : %c\n", str[i], str[i+1]); // debug
 		if (str[i] == '~')
-			expand_varv2(minishell, env_var, node, TILDE);
+			if (str[i + 1] == '/' || str[i + 1] == '\0')
+				expand_varv2(minishell, env_var, node, TILDE);
 		if (str[i] == '$' && str[i + 1] != 0)
 		{
 			if (str[i + 1] && str[i + 1] == '?' && is_one_of(str[i + 2]))

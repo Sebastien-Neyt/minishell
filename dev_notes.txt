@@ -2,11 +2,7 @@
 $IFS not implemented
 
 TODO LIST:
-	- atoi for ?
-	- exit return and args
-	- ~~ expansion -> pointer being freed `cd ~`
-	- leak when exporting an already existing env
-
+	- cd ~
 TESTING_TODO:
 
 IMPROVEMENT:

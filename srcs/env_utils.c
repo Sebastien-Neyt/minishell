@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 13:01:40 by sneyt             #+#    #+#             */
-/*   Updated: 2023/01/02 15:22:27 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/02 16:50:27 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ int	change_env(t_shell *minishell, int index, char *value, char *env)
 		return (0);
 	free(minishell->envparams[index]);
 	minishell->envparams[index] = new_env;
-	//printf("value : %s -- env : %s -- index: %d\n", value, env, index);//debug
-	//free(value); // only want to free this one 
+	free(value);
 	free(env);
 	return (1);
 }
@@ -101,6 +100,5 @@ int	set_env(char *env, char *value, t_shell *minishell)
 	else
 		if (!change_env(minishell, index, value, env))
 			return (error_msg("failed changing env", 0));
-	//free(value); //debug
 	return (1);
 }
