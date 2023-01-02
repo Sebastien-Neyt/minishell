@@ -1,0 +1,12 @@
+
+$IFS not implemented
+
+TODO LIST:
+	- double $$ expansion
+	- atoi for ?
+	- export="something" doesn't trim the first quote
+	- expansion creates an empty node
+	- exit return and args
+TESTING_TODO:
+
+IMPROVEMENT:
