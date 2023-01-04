@@ -46,6 +46,8 @@ int	check_syntax_error(t_shell *minishell)
 		if (pipeline->token == PIPE)
 			if (check_syntax_pipe(prev_token))
 				return (1);
+		if (is_redirect(pipeline->token) && is_redirect(prev_token))
+				return (1);
 		if (pipeline->next == NULL)
 			if (check_syntax_last(pipeline->token))
 				return (1);
