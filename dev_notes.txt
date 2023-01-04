@@ -8,9 +8,7 @@ TODO LIST:
 	- `cd $HOME/Documents?`
 	- `echo hello >>> test` should not do anything -> check the order of the tokens.
 	- `echo hello > > test` should not do anything -> check the order of the tokens. 
-	- ctrl-c should give 1 exit code? not 130
 	- `exit -10` sets exit code to 1 and bash to 246
-	- `export` & `env` have different outputs?
 
 
 

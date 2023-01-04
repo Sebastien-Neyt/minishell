@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:45:38 by sneyt             #+#    #+#             */
-/*   Updated: 2023/01/02 16:53:44 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/04 09:35:04 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ int		ft_export(t_shell *minishell, int i);
 void	export_loop(t_shell *minishell);
 
 // env.c
-int		ft_env(t_shell *minishell);
+int		ft_env(t_shell *minishell, int x);
 
 // echo.c
 int		ft_echo(t_shell *minishell);
