@@ -22,11 +22,11 @@ void	parse_line(t_shell *minishell)
 //	print_list(minishell);//debug
 	check_for_exp(minishell);
 	parse_list(minishell);
-//	print_pipeline(minishell);//debug
+	//print_pipeline(minishell);//debug
 	ft_unset_questionmark(minishell);
 	trim_pipeline(minishell);
 	tokenize_line(minishell);
-	print_pipeline(minishell);//debug
+	//print_pipeline(minishell);//debug
 }
 
 /* read another line
@@ -39,6 +39,8 @@ void	append_line(t_shell *minishell)
 	minishell->line = readline(">");
 	if (minishell->line == NULL)
 		ft_exit(minishell, UNXPCTD_EOF);
+	free_list(minishell->list);
+	minishell->list = ft_lstnew(NULL, minishell);
 	parse_line(minishell);
 	if (append_str(&(minishell->line_tmp), minishell->line) == 0)
 		ft_exit(minishell, FAILED_MALLOC);

@@ -63,12 +63,12 @@ void	print_pipeline(t_shell *minishell)
 	pipeline = minishell->pipeline;
 	while (pipeline->next)
 	{
-		printf(YELLOW"WORD=[%s] ||||| "CYAN"TOKEN=[%u]\n"WHITE, \
-			pipeline->word, pipeline->token);
+		printf(YELLOW"ADDR=[%p] ||||| WORD=[%s] ||||| "CYAN"TOKEN=[%u]\n"WHITE, \
+			pipeline->word, pipeline->word, pipeline->token);
 		pipeline = pipeline->next;
 	}
-	printf(YELLOW"WORD=[%s] ||||| "CYAN"TOKEN=[%u]\n"WHITE, \
-			pipeline->word, pipeline->token);
+	printf(YELLOW"ADDR=[%p] ||||| WORD=[%s] ||||| "CYAN"TOKEN=[%u]\n"WHITE, \
+		pipeline->word, pipeline->word, pipeline->token);
 }
 
 /*
