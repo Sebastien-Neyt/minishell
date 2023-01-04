@@ -48,10 +48,10 @@ int	exit_internal(t_shell *minishell)
 
 void	ft_exit(t_shell *minishell, char *msg)
 {
+	if (!ft_strcmp(msg, "") && minishell->cmd.arg && exit_internal(minishell))
+		return ;
 	if (msg)
 		write(STDERR_FILENO, msg, ft_strlen(msg));
-	if (minishell->cmd.arg && exit_internal(minishell))
-		return ;
 	reset_cmd(minishell);
 	if (minishell->pid)
 		free(minishell->pid);
