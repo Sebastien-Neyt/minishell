@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:53:17 by sneyt             #+#    #+#             */
-/*   Updated: 2023/01/02 16:55:48 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/04 09:34:44 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	ft_export(t_shell *minishell, int i)
 	char	*env;
 
 	if (!minishell->cmd.arg[1])
-		ft_env(minishell);
+		ft_env(minishell, 1);
 	else
 	{
 		index = check_for_equal(minishell->cmd.arg[i]);

@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 09:14:09 by sneyt             #+#    #+#             */
-/*   Updated: 2023/01/02 11:37:38 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/04 10:14:04 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*get_var(char *str, int i)
 	y = 0;
 	x = i + 1;
 	while (!is_whitespace(str[x]) && str[x] != '\0'
-		&& str[x] != '$' && str[x] != 34 && str[x] != 39)
+		&& str[x] != '$' && str[x] != 34 && str[x] != 39 && str[x] != '/')
 		x++;
 	var = malloc(sizeof(char) * (x - i + 1));
 	if (!var)
