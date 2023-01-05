@@ -2,17 +2,7 @@
 $IFS not implemented
 
 TODO LIST:
-	- cd ~$something
-	- `echo hello |` and then an `ls` on the next line gives a error message & leaks!!
-	- `echo hello > test1 4` -> creates the file test1 with the line "hello 4" in it
-	- `cd $HOME/Documents?`
-	- `echo hello >>> test` should not do anything -> check the order of the tokens.
-	- `echo hello > > test` should not do anything -> check the order of the tokens. 
-	- `exit -10` sets exit code to 1 and bash to 246
-
-	-	set all exit codes in builtins
-	-	protect all builtins for the envs
-	-	`echo ~/Desktop$HOME/$USER`
+	- echo $$fdsf$USER
 
 TESTING_TODO:
 
