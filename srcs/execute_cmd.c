@@ -53,7 +53,7 @@ void	execute_line(t_shell *minishell)
 		return ;
 	minishell->nbr_pipe = count_pipe(minishell);
 	minishell->pipeline_start = minishell->pipeline;
-	minishell->pid = malloc((minishell->nbr_pipe) * sizeof(pid_t));
+	minishell->pid = malloc((minishell->nbr_pipe + 1) * sizeof(pid_t));
 	if (minishell->pid == NULL)
 		ft_exit(minishell, FAILED_MALLOC);
 	if (minishell->nbr_pipe == 0 && is_builtin(minishell))
