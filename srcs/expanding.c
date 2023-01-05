@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 10:14:49 by sneyt             #+#    #+#             */
-/*   Updated: 2023/01/05 09:08:10 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/05 10:50:44 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ char	*malloc_expand(t_list *node, char *env, t_shell *minishell, int macro)
 	else if (index >= 0 && macro == TILDE)
 		expanded_word = malloc(sizeof(char) * ((ft_strlen(node->word)) \
 		+ (ft_strlen(minishell->envparams[index]) - ft_strlen(env) - 1)));
+	else if (index < 0 && macro == TILDE)
+		expanded_word = malloc(sizeof(char) * ((ft_strlen(node->word) - 1)));
 	else if (index < 0)
 		expanded_word = malloc(sizeof(char) * ((ft_strlen(node->word) \
 		- ft_strlen(env))));
@@ -82,6 +84,8 @@ int	index_jump(char *env_var, char c, int index)
 	{
 		if (c == '$')
 			ans = ft_strlen(env_var) + 1;
+		else if (c == '~')
+			ans = 1;
 		else
 			ans = 0;
 	}

@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 09:05:08 by sneyt             #+#    #+#             */
-/*   Updated: 2023/01/04 10:29:31 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/05 10:51:02 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	check_syntax_error(t_shell *minishell)
 			if (check_syntax_pipe(prev_token))
 				return (1);
 		if (is_redirect(pipeline->token) && is_redirect(prev_token))
-				return (1);
+			return (1);
 		if (pipeline->next == NULL)
 			if (check_syntax_last(pipeline->token))
 				return (1);

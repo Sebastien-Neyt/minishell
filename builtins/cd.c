@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:52:59 by sneyt             #+#    #+#             */
-/*   Updated: 2023/01/05 09:27:01 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/05 10:53:49 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	small_checker(char *path, char *oldpwd)
 	return (0);
 }
 
-void	ft_cd(t_shell *minishell, char *path, char *oldpwd)
+void	ft_cd(t_shell *minishell, char *oldpwd, char *path)
 {
 	if (chdir(path) == -1)
 	{	
@@ -59,6 +59,7 @@ void	ft_cd(t_shell *minishell, char *path, char *oldpwd)
 		if (oldpwd)
 			free(oldpwd);
 		error_msg("minishell : No such file or directory.\n", 0);
+		g_exit_code = 1;
 		return ;
 	}
 	else
@@ -67,7 +68,10 @@ void	ft_cd(t_shell *minishell, char *path, char *oldpwd)
 			free(path);
 		path = getcwd(NULL, 0);
 		if (small_checker(path, oldpwd))
+		{
+			g_exit_code = 1;
 			return ;
+		}
 		set_env(ft_strdup("OLDPWD"), oldpwd, minishell);
 		set_env(ft_strdup("PWD"), path, minishell);
 	}
