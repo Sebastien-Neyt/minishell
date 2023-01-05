@@ -1,6 +1,6 @@
 CC	= gcc
 
-CCFLAGS	= -Wall -Wextra -Werror
+CCFLAGS	= -Wall -Wextra -Werror -g
 
 INCLUDES= -I /Users/${USER}/.brew/opt/readline/include
 #INCLUDES= -I /usr/local/opt/readline/include

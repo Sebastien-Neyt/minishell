@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 09:23:00 by sneyt             #+#    #+#             */
-/*   Updated: 2023/01/04 09:35:23 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/05 09:21:55 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	exec_builtin(t_shell *minishell)
 		ft_exit(minishell, NULL);
 	if (!ft_strcmp("cd", (minishell->cmd).name))
 	{
-		ft_cd(minishell);
+		ft_cd(minishell, get_env("PWD", minishell), ft_check_arg(minishell));
 		return (1);
 	}
 	if (!ft_strcmp("echo", (minishell->cmd).name))

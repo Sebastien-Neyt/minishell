@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 10:14:49 by sneyt             #+#    #+#             */
-/*   Updated: 2023/01/02 16:58:28 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/05 09:08:10 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,29 @@
 
 //we look for ~ and $. We get the index of the env_var. we then call 
 //expand_varv2 that will decide what to do based on the index.
-int	check_expansion(char *str, t_shell *minishell, t_list *node, int i)
+int	check_expansion(t_shell *minishell, t_list *node, int i)
 {
 	char	*env_var;
 
 	if (!node->word)
 		return (0);
-	while (str[i])
+	while (node->word[i])
 	{
-		env_var = env_var_based(str[i], str, i);
-		if (str[i] == '~')
-			if (str[i + 1] == '/' || str[i + 1] == '\0')
+		env_var = env_var_based(node->word[i], node->word, i);
+		if (node->word[i] == '~')
+			if (node->word[i + 1] == '/' || node->word[i + 1] == '\0')
 				expand_varv2(minishell, env_var, node, TILDE);
-		if (str[i] == '$' && str[i + 1] != 0)
+		if (node->word[i] == '$' && node->word[i + 1] != 0)
 		{
-			if (str[i + 1] && str[i + 1] == '?' && is_one_of(str[i + 2]))
+			if (node->word[i + 1] && node->word[i + 1] == '?'
+				&& is_one_of(node->word[i + 2]))
 				set_signalenv(minishell);
 			expand_varv2(minishell, env_var, node, DOLLAR);
-			i += ft_strlen(env_var) - 1;
+			i += ft_strlen(env_var) + 1;
 		}
 		if (env_var)
 			free(env_var);
-		if (str[i] == '~' || str[i] == '$')
+		if (node->word[i] == '~' || node->word[i] == '$')
 			break ;
 		i++;
 	}
@@ -53,10 +54,10 @@ char	*malloc_expand(t_list *node, char *env, t_shell *minishell, int macro)
 	if (index >= 0 && macro == DOLLAR)
 		expanded_word = malloc(sizeof(char) * ((ft_strlen(node->word) \
 		- ft_strlen(env) - 1) + (ft_strlen(minishell->envparams[index]) \
-		- ft_strlen(env))));
+		- ft_strlen(env) - 1) + 1));
 	else if (index >= 0 && macro == TILDE)
-		expanded_word = malloc(sizeof(char) * ((ft_strlen(node->word) - 2) \
-		+ (ft_strlen(minishell->envparams[index]) - ft_strlen(env))));
+		expanded_word = malloc(sizeof(char) * ((ft_strlen(node->word)) \
+		+ (ft_strlen(minishell->envparams[index]) - ft_strlen(env) - 1)));
 	else if (index < 0)
 		expanded_word = malloc(sizeof(char) * ((ft_strlen(node->word) \
 		- ft_strlen(env))));
@@ -93,6 +94,7 @@ static void	part_expandv2(char *expanded_word, int x, int i, t_list *node)
 		expanded_word[x++] = node->word[i++];
 	expanded_word[x] = '\0';
 	free(node->word);
+	node->word = NULL;
 	node->word = expanded_word;
 }
 

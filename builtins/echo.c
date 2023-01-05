@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:46:33 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/21 09:59:45 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/05 09:32:48 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_echo(t_shell *minishell)
 	int	new_line;
 
 	if (!minishell->cmd.arg[1])
-		return (1);
+		return (write(1, "\n", 1));
 	new_line = 1;
 	i = 1;
 	if (check_newline_flag(minishell->cmd.arg[i]))

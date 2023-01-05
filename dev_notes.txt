@@ -10,8 +10,9 @@ TODO LIST:
 	- `echo hello > > test` should not do anything -> check the order of the tokens. 
 	- `exit -10` sets exit code to 1 and bash to 246
 
-
-
+	-	set all exit codes in builtins
+	-	protect all builtins for the envs
+	-	`echo ~/Desktop$HOME/$USER`
 
 TESTING_TODO:
 

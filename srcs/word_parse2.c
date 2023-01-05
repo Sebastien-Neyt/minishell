@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:16:34 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/21 10:35:27 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/05 09:10:24 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,46 +119,3 @@ void	word_subparse(char *line, t_shell *mini, t_token token, int offset)
 				add_element(mini, build_word(i + 1, offset, line), op, token);
 	}
 }
-
-/*
-void word_subparse(char *line, t_shell *minishell, t_token token, int offset)
-{
-    int i = 0;
-    int operator = 0;
-    char *new_element = NULL;
-    char *op_element = NULL;
-
-    if (token == DOUBLE)
-	{
-	  	add_pipeline(minishell, line, token);
-		return ;
-	}
-    while (line[i])
-    {
-        operator = determine_operator(line, i);
-        if (operator)
-            op_element = build_operator(operator);
-        if (!operator)
-        {
-            i++;
-            if (!line[i])
-            {
-                new_element = build_word(i + 1, offset, line);
-                add_element(minishell, new_element, op_element, token);
-            }
-            continue;
-        }
-        if (i - offset > 0)
-            new_element = build_word(i, offset, line);
-        add_element(minishell, new_element, op_element, token);
-        if (return_operator(operator) == 1)
-        {
-            i++;
-            offset++;
-        }
-        else if (return_operator(operator) == 2)
-            i += 2;
-        offset = i;
-    }
-}
-*/

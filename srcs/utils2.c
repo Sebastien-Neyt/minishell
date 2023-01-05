@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 10:20:29 by sneyt             #+#    #+#             */
-/*   Updated: 2023/01/02 16:52:49 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/05 09:09:57 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	check_for_exp(t_shell *minishell)
 				tmp = tmp->next;
 				continue ;
 			}
-			check_expansion(tmp->word, minishell, tmp, 0);
+			check_expansion(minishell, tmp, 0);
 		}
 		tmp = tmp->next;
 	}
