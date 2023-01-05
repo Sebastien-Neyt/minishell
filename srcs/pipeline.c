@@ -39,7 +39,10 @@ int	exec_builtin(t_shell *minishell)
 	if ((minishell->cmd).name == NULL)
 		return (1);
 	if (!ft_strcmp("exit", (minishell->cmd).name))
-		ft_exit(minishell, NULL);
+	{
+		ft_exit(minishell, EXEC);
+		return (1);
+	}
 	if (!ft_strcmp("cd", (minishell->cmd).name))
 	{
 		ft_cd(minishell, get_env("PWD", minishell), ft_check_arg(minishell));
