@@ -24,9 +24,6 @@ void	parse_line(t_shell *minishell)
 	ft_unset_questionmark(minishell);
 	trim_pipeline(minishell);
 	tokenize_line(minishell);
-	ft_unset_questionmark(minishell);
-	trim_pipeline(minishell);
-	tokenize_line(minishell);
 }
 
 /* read another line

@@ -68,7 +68,7 @@ void	trim_pipeline(t_shell *minishell)
 		else if (tmp->token == SINGLE)
 		{
 			str = ft_strtrim(tmp->word, "'");
-			free(tmp->word);
+		//	free(tmp->word);
 			tmp->word = str;
 		}
 		tmp = tmp->next;

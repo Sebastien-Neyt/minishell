@@ -75,10 +75,12 @@ void	tokenize_line(t_shell *minishell)
 	{
 		if (pipeline->word)
 			determine_token_meta(pipeline, &cmd_flag);
-		if (pipeline && (pipeline->token == SINGLE
+/*		if (pipeline && (pipeline->token == SINGLE
 				|| pipeline->token == DOUBLE))
 			pipeline->token = WORD;
-		if (pipeline && pipeline->token == WORD)
+*/		if (pipeline && (pipeline->token == WORD
+				|| pipeline->token == SINGLE
+				|| pipeline->token == DOUBLE))
 			det_token_word(pipeline, &prev_token, &cmd_flag);
 		prev_token = pipeline->token;
 		pipeline = pipeline->next;

@@ -56,7 +56,7 @@ int	part_subparse(t_token token, t_shell *minishell, char *line)
 	int	ret;
 
 	ret = 1;
-	if (token == DOUBLE)
+	if (token == DOUBLE || token == SINGLE)
 	{
 		add_pipeline(minishell, line, token);
 		ret = 0;
