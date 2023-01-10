@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 10:14:49 by sneyt             #+#    #+#             */
-/*   Updated: 2023/01/05 11:21:38 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/10 12:40:32 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	check_expansion(t_shell *minishell, t_list *node, int i)
 				set_signalenv(minishell);
 			expand_varv2(minishell, env_var, node, DOLLAR);
 			i += ft_strlen(env_var) + 1;
+			ft_unset_questionmark(minishell);
 		}
 		if (env_var)
 			free(env_var);
