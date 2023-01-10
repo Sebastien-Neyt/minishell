@@ -31,9 +31,15 @@ void	internal_execute(t_shell *minishell)
 		if (minishell->cmd.name && !(ft_strcmp(minishell->cmd.name, "exit")))
 			write(STDERR_FILENO, "exit\n", ft_strlen("exit\n"));
 		exec_builtin(minishell);
+		close(minishell->cmd.fd_in);
+		close(minishell->cmd.fd_out);
 	}
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
 	dup2(std_in, STDIN_FILENO);
 	dup2(std_out, STDOUT_FILENO);
+	close(std_in);
+	close(std_out);
 	reset_cmd(minishell);
 }
 
