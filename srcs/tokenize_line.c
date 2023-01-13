@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 09:25:29 by sneyt             #+#    #+#             */
-/*   Updated: 2022/12/19 16:36:01 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/13 11:14:30 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,7 @@ void	tokenize_line(t_shell *minishell)
 	{
 		if (pipeline->word)
 			determine_token_meta(pipeline, &cmd_flag);
-/*		if (pipeline && (pipeline->token == SINGLE
-				|| pipeline->token == DOUBLE))
-			pipeline->token = WORD;
-*/		if (pipeline && (pipeline->token == WORD
+		if (pipeline && (pipeline->token == WORD
 				|| pipeline->token == SINGLE
 				|| pipeline->token == DOUBLE))
 			det_token_word(pipeline, &prev_token, &cmd_flag);

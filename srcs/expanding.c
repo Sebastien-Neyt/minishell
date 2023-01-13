@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 10:14:49 by sneyt             #+#    #+#             */
-/*   Updated: 2023/01/10 12:40:32 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/13 11:18:01 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 //we look for ~ and $. We get the index of the env_var. we then call 
 //expand_varv2 that will decide what to do based on the index.
-int	check_expansion(t_shell *minishell, t_list *node, int i)
+int	check_expansion(t_shell *minishell, t_list *node, int i, char *env_var)
 {
-	char	*env_var;
-
 	if (!node->word)
 		return (0);
 	while (node->word[i])

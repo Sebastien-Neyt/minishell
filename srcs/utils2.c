@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 10:20:29 by sneyt             #+#    #+#             */
-/*   Updated: 2023/01/05 11:19:47 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/13 11:17:22 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	check_for_exp(t_shell *minishell)
 				tmp = tmp->next;
 				continue ;
 			}
-			check_expansion(minishell, tmp, 0);
+			check_expansion(minishell, tmp, 0, NULL);
 		}
 		tmp = tmp->next;
 	}
@@ -68,7 +68,6 @@ void	trim_pipeline(t_shell *minishell)
 		else if (tmp->token == SINGLE)
 		{
 			str = ft_strtrim(tmp->word, "'");
-		//	free(tmp->word);
 			tmp->word = str;
 		}
 		tmp = tmp->next;

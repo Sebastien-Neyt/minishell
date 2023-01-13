@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:53:12 by sneyt             #+#    #+#             */
-/*   Updated: 2023/01/05 10:56:12 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/13 11:10:21 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	free_envparams(t_shell *minishell, char **new_envparams, int x)
 	free(minishell->envparams);
 	new_envparams[x] = 0;
 	minishell->envparams = new_envparams;
-	g_exit_code = 0;
 }
 
 void	unset_loop(t_shell *minishell)
@@ -38,24 +37,28 @@ void	unset_loop(t_shell *minishell)
 	while (minishell->cmd.arg[count])
 		count++;
 	if (count == 1)
-		ft_unset(minishell, 0, 0);
+		ft_unset(minishell, 0, 0, 0);
 	else
 	{	
 		while (x < count)
 		{
-			ft_unset(minishell, 0, x);
+			if (!ft_strcmp(minishell->cmd.arg[x], "") \
+				|| !ft_strcmp(minishell->cmd.arg[x], "="))
+				ft_unset(minishell, 0, 0, 1);
+			else
+				ft_unset(minishell, 0, x, 0);
 			x++;
 		}
 	}
 }
 
-int	ft_unset(t_shell *minishell, int i, int y)
+int	ft_unset(t_shell *minishell, int i, int y, int flag)
 {
 	char	**new_envp;
 	int		loc;
 	int		x;
 
-	if (!minishell->cmd.arg[1])
+	if (!minishell->cmd.arg[1] || flag)
 	{
 		g_exit_code = 1;
 		return (printf("unset: not enough arguments\n"));
@@ -74,6 +77,7 @@ int	ft_unset(t_shell *minishell, int i, int y)
 		new_envp[x++] = env_dup(minishell->envparams[i++]);
 	}
 	free_envparams(minishell, new_envp, x);
+	g_exit_code = 0;
 	return (0);
 }
 

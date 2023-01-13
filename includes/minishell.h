@@ -6,7 +6,7 @@
 /*   By: sneyt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:45:38 by sneyt             #+#    #+#             */
-/*   Updated: 2023/01/05 09:22:41 by sneyt            ###   ########.fr       */
+/*   Updated: 2023/01/13 11:16:29 by sneyt            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ void	ft_exit(t_shell *minishell, char *msg);
 void	free_list(t_list *list);
 
 // unset.c
-int		ft_unset(t_shell *minishell, int i, int y);
+int		ft_unset(t_shell *minishell, int i, int y, int flag);
 void	unset_loop(t_shell *minishell);
 
 // export.c
@@ -239,7 +239,7 @@ int		return_operator(int operator);
 
 // expanding.c
 char	*get_var(char *str, int i);
-int		check_expansion(t_shell *minishell, t_list *node, int i);
+int		check_expansion(t_shell *minishell, t_list *node, int i, char *env_var);
 int		check_in_env(char *env_var, t_shell *minishell);
 int		compare_env(char *env_var, char *mini_env);
 void	expand_varv2(t_shell *minishell, \

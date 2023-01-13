@@ -3,7 +3,7 @@ $IFS not implemented
 
 TODO LIST:
 	- echo $$fdsf$USER
-
+	- echo $fffffffffffffffffffffffffff$PATH will give the previous expansion sometimes
 TESTING_TODO:
 
 IMPROVEMENT:
